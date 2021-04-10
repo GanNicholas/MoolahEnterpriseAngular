@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
-    private compamnyService: CompanyService) {
+    private companyService: CompanyService) {
     this.loginError = false;
     this.items = new Array();
   }
@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
 
         if (company != null) {
           this.sessionService.setIsLogin(true);
-          this.sessionService.setCurrentStaff(staff);
+          this.sessionService.setCompany(company);
           this.loginError = false;
 
           this.childEvent.emit();
