@@ -21,7 +21,7 @@ export class SessionService {
 	}
 
 
-	setCompany(company: CompanyEntity): void {
+	setCompany(company: CompanyEntity ): void {
 		sessionStorage.company = JSON.stringify(company);
 	}
 
@@ -34,7 +34,7 @@ export class SessionService {
 		}
 	}
 
-	setIsLogin(isLogin: boolean): void {
+	setIsLogin(isLogin: boolean | undefined): void {
 		sessionStorage.isLogin = isLogin;
 	}
 
@@ -50,7 +50,7 @@ export class SessionService {
 		return sessionStorage.password;
 	}
 
-	setPassword(password: string) {
+	setPassword(password: string | undefined) {
 		sessionStorage.password = password;
 	}
 
