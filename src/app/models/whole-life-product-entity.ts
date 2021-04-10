@@ -8,6 +8,7 @@ import { PremiumEntity } from "./premium-entity";
 import { ProductEntity } from "./product-entity";
 import { RiderEntity } from "./rider-entity";
 
+
 export class WholeLifeProductEntity extends ProductEntity {
     productEnum: WholeLifeProductEnum | undefined;
 
