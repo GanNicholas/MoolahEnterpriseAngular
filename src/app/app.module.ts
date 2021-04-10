@@ -7,10 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CreateCompanyComponent } from './create-company/create-company.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CreateCompanyComponent
   ],
   imports: [
     BrowserModule,
