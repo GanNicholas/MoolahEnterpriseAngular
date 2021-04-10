@@ -9,18 +9,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateCompanyComponent } from './company/create-company/create-company.component';
 
+import { IndexComponent } from './index/index/index.component';
+import {MenubarModule} from 'primeng/menubar';
+import { HeaderComponent } from './header/header/header.component';
+import { FooterComponent } from './footer/footer/footer.component';
+import {InputTextModule} from 'primeng/inputtext';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    CreateCompanyComponent
+    CreateCompanyComponent,
+    IndexComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    MenubarModule,
+    InputTextModule
+
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
