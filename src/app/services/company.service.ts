@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CreateCompanyEntityReq } from '../models/create-company-entity-req';
 import { CompanyEntity } from '../models/company-entity';
 import { PointOfContactEntity } from '../models/point-of-contact-entity';
+import { SessionService} from '../services/session.service';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -20,7 +21,7 @@ export class CompanyService {
 
   baseUrl: string = "/api/Company";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private sessionService : SessionService) { }
 
   createNewCompany(newCompany: CreateCompanyEntityReq): Observable<number> {
     return this.httpClient.put<number>(this.baseUrl, newCompany, httpOptions).pipe(
@@ -30,7 +31,7 @@ export class CompanyService {
 
 
   login(companyEmail: string, password: string): Observable<CompanyEntity> {
-    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/retrieveAllRecordsById?email=" + companyEmail + "&password=" + password).pipe(
+    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/login?email=" + companyEmail + "&password=" + password).pipe(
       catchError(this.handleError)
     );
   }
@@ -42,6 +43,17 @@ export class CompanyService {
     );
   }
 
+  retrieveCompany() : Observable<CompanyEntity>{
+    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deactivateCompany() : Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + "" + this.sessionService.getEmail + " " + this.sessionService.getPassword).pipe(
+      catchError(this.handleError)
+    );
+  }
 
 
   private handleError(error: HttpErrorResponse) {
