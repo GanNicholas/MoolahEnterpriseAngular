@@ -11,15 +11,14 @@ import { RiderEntity } from "./rider-entity";
 export class TermLifeProductEntity extends ProductEntity {
     productEnum: TermLifeProductEnum | undefined;
 
-    constructor(productEnum?: TermLifeProductEnum, productId?: number, productImage?: Uint8Array, productDateCreated?: Date,
+    constructor(productEnum?: TermLifeProductEnum, productImage?: Uint8Array, productDateCreated?: Date,
         productName?: string, coverageTerm?: number, assuredSum?: number, description?: string,
         isDeleted?: boolean, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
         isAvailableToSmoker?: boolean, productCategoryPricing?: CategoryPricingEntity, clickThroughInfo?: ClickThroughEntity,
-        company?: CompanyEntity, listOfAdditionalFeatures?: FeatureEntity[], listOfRiders?: RiderEntity[], listOfPremium?: PremiumEntity[],
-        listOfSmokerPremium?: PremiumEntity[]) {
+        company?: CompanyEntity) {
 
-        super(productId, productImage, productDateCreated, productName, coverageTerm, assuredSum, description, isDeleted, premiumTerm, averageInterestRate, policyCurrency, isAvailableToSmoker, productCategoryPricing, clickThroughInfo,
-            company, listOfAdditionalFeatures, listOfRiders, listOfPremium, listOfSmokerPremium);
+        super(productImage, productDateCreated, productName, coverageTerm, assuredSum, description, isDeleted, premiumTerm, averageInterestRate, policyCurrency, isAvailableToSmoker, productCategoryPricing, clickThroughInfo,
+            company, );
         this.productEnum = productEnum;
         
     }
