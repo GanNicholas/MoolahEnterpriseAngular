@@ -35,8 +35,11 @@ export class CompanyService {
     );
   }
 
-  updateCompany(companyEntity: CompanyEntity): Observable<CompanyEntity> {
-    
+  updateCompany(updateCompany: CompanyEntity): Observable<CompanyEntity> {
+    return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyInformation?email=" + updateCompany.companyEmail +"&password=" +updateCompany.password,
+     updateCompany, httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
 

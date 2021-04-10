@@ -7,7 +7,7 @@ import { PremiumEntity } from "./premium-entity";
 import { RiderEntity } from "./rider-entity";
 
 export class ProductEntity {
-    productId: number | undefined;
+    productId: number | undefined | null;
     productImage: Uint8Array | undefined | null;
     productDateCreated: Date | undefined;
     productName: string | undefined;
@@ -27,13 +27,12 @@ export class ProductEntity {
     listOfPremium: PremiumEntity[] | undefined;
     listOfSmokerPremium: PremiumEntity[] | undefined;
 
-    constructor(productId?: number, productImage?: Uint8Array, productDateCreated?: Date,
+    constructor(productImage?: Uint8Array, productDateCreated?: Date,
         productName?: string, coverageTerm?: number, assuredSum?: number, description?: string,
         isDeleted?: boolean, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
         isAvailableToSmoker?: boolean, productCategoryPricing?: CategoryPricingEntity, clickThroughInfo?: ClickThroughEntity,
-        company?: CompanyEntity, listOfAdditionalFeatures?: FeatureEntity[], listOfRiders?: RiderEntity[], listOfPremium?: PremiumEntity[],
-        listOfSmokerPremium?: PremiumEntity[]) {
-            this.productId = productId;
+        company?: CompanyEntity) {
+            this.productId = null;
             this.productImage = productImage ;
             this.productDateCreated = productDateCreated;
             this.productName = productName;
@@ -48,10 +47,10 @@ export class ProductEntity {
             this.productCategoryPricing = productCategoryPricing;
             this.clickThroughInfo = clickThroughInfo;
             this.company = company;
-            this.listOfAdditionalFeatures = listOfAdditionalFeatures;
-            this.listOfRiders = listOfRiders;
-            this.listOfPremium = listOfPremium;
-            this.listOfSmokerPremium = listOfSmokerPremium;
+            this.listOfAdditionalFeatures = new Array();
+            this.listOfRiders = new Array();
+            this.listOfPremium = new Array();
+            this.listOfSmokerPremium = new Array();
 
     }
 
