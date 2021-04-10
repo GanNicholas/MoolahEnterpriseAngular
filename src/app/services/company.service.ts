@@ -30,7 +30,7 @@ export class CompanyService {
   }
 
 
-  login(companyEmail: string, password: string): Observable<CompanyEntity> {
+  login(companyEmail: string | undefined, password: string | undefined): Observable<CompanyEntity> {
     return this.httpClient.get<CompanyEntity>(this.baseUrl + "/login?email=" + companyEmail + "&password=" + password).pipe(
       catchError(this.handleError)
     );
