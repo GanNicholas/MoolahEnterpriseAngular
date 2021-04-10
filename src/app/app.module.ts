@@ -10,13 +10,18 @@ import { AppComponent } from './app.component';
 import { CreateCompanyComponent } from './company/create-company/create-company.component';
 import { IndexComponent } from './index/index/index.component';
 import {MenubarModule} from 'primeng/menubar';
+import { HeaderComponent } from './header/header/header.component';
+import { FooterComponent } from './footer/footer/footer.component';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateCompanyComponent,
-    IndexComponent
+    IndexComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +30,7 @@ import {MenubarModule} from 'primeng/menubar';
     HttpClientModule,
     TableModule,
     MenubarModule,
+    InputTextModule
     
   ],
 
