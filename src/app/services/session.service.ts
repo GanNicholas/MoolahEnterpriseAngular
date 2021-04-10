@@ -34,7 +34,7 @@ export class SessionService {
 		}
 	}
 
-	setIsLogin(isLogin: boolean | undefined): void {
+	setIsLogin(isLogin: boolean): void {
 		sessionStorage.isLogin = isLogin;
 	}
 
@@ -42,7 +42,7 @@ export class SessionService {
 		return sessionStorage.email;
 	}
 
-	setEmail(email: string) {
+	setEmail(email: string | undefined) {
 		sessionStorage.email = email;
 	}
 
