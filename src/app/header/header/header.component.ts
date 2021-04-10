@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../../services/session.service';
 import { CompanyService } from 'src/app/services/company.service';
 
-import{CompanyEntity} from '../../models/company-entity';
+import { CompanyEntity } from '../../models/company-entity';
 
 @Component({
   selector: 'app-header',
@@ -54,45 +54,41 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
-  staffLogin(): void
-	{
-		this.sessionService.setEmail(this.email);
-		this.sessionService.setPassword(this.password);
-					
-		this.companyService.login(this.email, this.password).subscribe(
-			response => {										
-				let company: CompanyEntity = response;
-				
-				if(company != null)
-				{
-					this.sessionService.setIsLogin(true);
-					this.sessionService.setCurrentStaff(staff);					
-					this.loginError = false;
-					
-					this.childEvent.emit();
-					
-					this.router.navigate(["/index"]);
-				}
-				else
-				{
-					this.loginError = true;
-				}
-			},
-			error => {
-				this.loginError = true;
-				this.errorMessage = error
-			}
-		);
-	}
+  staffLogin(): void {
+    this.sessionService.setEmail(this.email);
+    this.sessionService.setPassword(this.password);
+
+    this.companyService.login(this.email, this.password).subscribe(
+      response => {
+        let company: CompanyEntity = response;
+
+        if (company != null) {
+          this.sessionService.setIsLogin(true);
+          this.sessionService.setCurrentStaff(staff);
+          this.loginError = false;
+
+          this.childEvent.emit();
+
+          this.router.navigate(["/index"]);
+        }
+        else {
+          this.loginError = true;
+        }
+      },
+      error => {
+        this.loginError = true;
+        this.errorMessage = error
+      }
+    );
+  }
 
 
-  companyLogout(): void
-	{
-		this.sessionService.setIsLogin(false);
-		this.sessionService.setCompany(null);
-		
-		this.router.navigate(["/index"]);
-	}
+  companyLogout(): void {
+    this.sessionService.setIsLogin(false);
+    this.sessionService.setCompany(null);
+
+    this.router.navigate(["/index"]);
+  }
 
   getMenuItems(): MenuItem[] {
     return this.items;
