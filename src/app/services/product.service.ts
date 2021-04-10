@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductEntity } from '../models/product-entity';
-
+import { SessionService } from '../services/session.service';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -17,7 +17,7 @@ export class ProductService {
 
   baseUrl: string = "/api/Product";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private sessionService: SessionService) {
 
   }
 
@@ -28,9 +28,21 @@ export class ProductService {
   }
 
   retrieveCompanyProducts(): Observable<ProductEntity[]> {
-    return this.httpClient.get(ProductEntity[])(this.baseUrl + "/retrieveAllProductsById?email=" + this.sessionService.companyEmail + "&password=" + this.sessionService.password).pipe()(
+    return this.httpClient.get<ProductEntity[]>(this.baseUrl + "/retrieveAllProductsById?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
       catchError(this.handleError)
-    )
+    );
+  }
+
+  updateCompanyProducts(listOfProduct : ProductEntity[]): Observable<ProductEntity[]>{
+    return this.httpClient.post<ProductEntity[]>(this.baseUrl + "", listOfProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteProduct(productId : number) : Observable<any>{
+    return this.httpClient.delete<any>(this.baseUrl + "" + productId + "" + this.sessionService.getEmail + " " + this.sessionService.getPassword).pipe(
+      catchError(this.handleError)
+    );
   }
 
 
