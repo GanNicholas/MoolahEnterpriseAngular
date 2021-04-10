@@ -8,6 +8,7 @@ import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateCompanyComponent } from './company/create-company/create-company.component';
+
 import { IndexComponent } from './index/index/index.component';
 import {MenubarModule} from 'primeng/menubar';
 import { HeaderComponent } from './header/header/header.component';
