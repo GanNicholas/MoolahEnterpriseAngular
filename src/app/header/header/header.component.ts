@@ -54,7 +54,8 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
-  staffLogin(): void {
+  companyLogin(): void {
+    console.log('Hello I did it!');
     this.sessionService.setEmail(this.email);
     this.sessionService.setPassword(this.password);
 
