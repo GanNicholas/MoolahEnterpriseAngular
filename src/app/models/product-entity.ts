@@ -7,29 +7,29 @@ import { PremiumEntity } from "./premium-entity";
 import { RiderEntity } from "./rider-entity";
 
 export class ProductEntity {
-    productId: number | undefined | null;
-    productImage: Uint8Array | undefined | null;
-    productDateCreated: Date | undefined;
+    productId: number | null;
+    productImage: Uint8Array | null;
+    productDateCreated: Date;
     productName: string | undefined;
     coverageTerm: number | undefined;
     assuredSum: number | undefined;
     description: string | undefined;
-    isDeleted: boolean | undefined;
+    isDeleted: boolean;
     premiumTerm: number | undefined;
     averageInterestRate: number | undefined;
     policyCurrency: PolicyCurrencyEnum | undefined;
     isAvailableToSmoker: boolean | undefined;
-    productCategoryPricing: CategoryPricingEntity | undefined;
+    productCategoryPricing: CategoryPricingEntity | null;
     clickThroughInfo: ClickThroughEntity | undefined;
-    company: CompanyEntity | undefined;
-    listOfAdditionalFeatures: FeatureEntity[] | undefined;
-    listOfRiders: RiderEntity[] | undefined;
-    listOfPremium: PremiumEntity[] | undefined;
-    listOfSmokerPremium: PremiumEntity[] | undefined;
+    company: CompanyEntity | null | undefined;
+    listOfAdditionalFeatures: FeatureEntity[];
+    listOfRiders: RiderEntity[];
+    listOfPremium: PremiumEntity[];
+    listOfSmokerPremium: PremiumEntity[];
 
     constructor(productName?: string, coverageTerm?: number, assuredSum?: number, description?: string, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
-        isAvailableToSmoker?: boolean, productCategoryPricing?: CategoryPricingEntity, clickThroughInfo?: ClickThroughEntity,
-        company?: CompanyEntity) {
+        isAvailableToSmoker?: boolean, clickThroughInfo?: ClickThroughEntity,
+        company?: CompanyEntity| null) {
         this.productId = null;
         this.productImage = null;
         this.productDateCreated = new Date();
@@ -42,7 +42,7 @@ export class ProductEntity {
         this.averageInterestRate = averageInterestRate;
         this.policyCurrency = policyCurrency;
         this.isAvailableToSmoker = isAvailableToSmoker;
-        this.productCategoryPricing = productCategoryPricing;
+        this.productCategoryPricing = null;
         this.clickThroughInfo = clickThroughInfo;
         this.company = company;
         this.listOfAdditionalFeatures = new Array();
