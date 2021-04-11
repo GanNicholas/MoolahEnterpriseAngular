@@ -1,3 +1,5 @@
+import { FooterComponent } from './../../footer/footer/footer.component';
+import { HeaderComponent } from './../../header/header/header.component';
 import { CreateCompanyEntityReq } from './../../models/create-company-entity-req';
 import { CompanyEntity } from './../../models/company-entity';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PointOfContactEntity } from 'src/app/models/point-of-contact-entity';
 import {InputTextModule} from 'primeng/inputtext';
-
 @Component({
   selector: 'app-create-company',
   templateUrl: './create-company.component.html',
@@ -42,6 +43,7 @@ export class CreateCompanyComponent implements OnInit {
       this.companyService.createNewCompany(this.createCompanyEntityReq).subscribe(
         response => {
           let newCompanyId: number = response;
+          console.log('********** newCompanyId: ' + newCompanyId);
           this.resultSuccess = true;
           this.resultError = false;
           this.message = "Company " + newCompanyId + " created successfully";

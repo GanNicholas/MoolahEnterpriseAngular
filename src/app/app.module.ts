@@ -17,13 +17,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details/view-my-company-details.component';
 @NgModule({
   declarations: [
     AppComponent,
     CreateCompanyComponent,
     IndexComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ViewMyCompanyDetailsComponent
   ],
   imports: [
     BrowserModule,

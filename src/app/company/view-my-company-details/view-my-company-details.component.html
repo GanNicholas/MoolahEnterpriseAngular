@@ -1,23 +1,18 @@
 <app-header></app-header>
 
-<h2 style="text-align: center" class="pageHeader">Create New Company</h2>
 <br />
-
-<div *ngIf="resultSuccess == true" style="color: blue">
-  {{ message }}
-</div>
-
-<div *ngIf="resultError == true" style="color: red">
-  {{ message }}
-</div>
+<br />
+<h1 class="pageHeader">View my Profile</h1>
+<br />
+<br />
 
 <h2 class="secondaryHeader">Company Information</h2>
 <form
-  #createCompanyForm="ngForm"
-  (ngSubmit)="create(createCompanyForm)"
+  #updateCompanyForm="ngForm"
+  (ngSubmit)="update(updateCompanyForm)"
   style="height: 10%"
 >
-  <div style="margin: center;">
+  <div style="margin: center">
     <table width="60%" style="border-spacing: 0 23px">
       <tr>
         <td width="20%" style="font-weight: bold" class="bodyText">
@@ -30,9 +25,10 @@
             name="companyName"
             #companyName="ngModel"
             type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.companyName"
+            [(ngModel)]="company.companyName"
             required="true"
             class="bodyText, inputWidth"
+            [disabled]="true"
           />
         </td>
         <td>
@@ -63,9 +59,10 @@
             name="companyEmail"
             #companyEmail="ngModel"
             type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.companyEmail"
+            [(ngModel)]="company.companyEmail"
             required="true"
             class="bodyText, inputWidth"
+            [disabled]="true"
           />
         </td>
         <td>
@@ -98,9 +95,10 @@
             name="businessRegNumber"
             #businessRegNumber="ngModel"
             type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.businessRegNumber"
+            [(ngModel)]="company.businessRegNumber"
             required="true"
             class="bodyText, inputWidth"
+            [disabled]="true"
           />
         </td>
         <td>
@@ -137,10 +135,11 @@
             #companyContactNumber="ngModel"
             type="text"
             [(ngModel)]="
-              createCompanyEntityReq.companyEntity.companyContactNumber
+              company.companyContactNumber
             "
             required="true"
             class="bodyText, inputWidth"
+            [disabled]="true"
           />
         </td>
         <td>
@@ -173,10 +172,11 @@
             name="password"
             #password="ngModel"
             type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.password"
+            [(ngModel)]="company.password"
             required="true"
             [toggleMask]="true"
             class="bodyText, inputWidth"
+            [disabled]="true"
           ></p-password>
         </td>
         <td>
@@ -195,135 +195,5 @@
       </tr>
     </table>
   </div>
-  <br />
-  <h2 class="secondaryHeader">Point Of Contact</h2>
-  <p-button
-    label="Add Point of Contact"
-    type="button"
-    (click)="handleClickAdd()"
-  ></p-button>
-
-  <p-table
-    id="tablePointOfContact"
-    [value]="createCompanyEntityReq.listOfPointOfContacts"
-    class=".ui-datatable"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th class="p-datatable-thead" style="width: 7%; text-align: center">
-          S/N
-        </th>
-        <th style="text-align: center" colspan="2">Point Of Contact Name</th>
-        <th style="text-align: center" colspan="2">
-          Point Of Contact Mobile Number
-        </th>
-        <th style="text-align: center" colspan="2">Point Of Contact Email</th>
-        <th style="width: 7%; text-align: center">Action</th>
-      </tr>
-    </ng-template>
-
-    <ng-template pTemplate="body" let-poc let-rowIndex="rowIndex">
-      <tr>
-        <td style="text-align: center">{{ rowIndex + 1 }}</td>
-
-        <td>
-          <input
-            pInputText
-            id="pocName"
-            name="pocName"
-            #pocName="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocName"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocName.invalid && (pocName.dirty || pocName.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div *ngIf="pocName.errors != null && pocName.errors.required">
-              POC Name is required.
-            </div>
-          </div>
-        </td>
-
-        <td>
-          <input
-            pInputText
-            id="pocMobileNumber"
-            name="pocMobileNumber"
-            #pocMobileNumber="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocMobileNumber"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocMobileNumber.invalid &&
-              (pocMobileNumber.dirty || pocMobileNumber.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="
-                pocMobileNumber.errors != null &&
-                pocMobileNumber.errors.required
-              "
-            >
-              POC Mobile Number is required.
-            </div>
-          </div>
-        </td>
-
-        <td>
-          <input
-            pInputText
-            id="pocEmail"
-            name="pocEmail"
-            #pocEmail="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocEmail"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocEmail.invalid &&
-              (pocEmail.dirty || pocEmail.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div *ngIf="pocEmail.errors != null && pocEmail.errors.required">
-              POC Email is required.
-            </div>
-          </div>
-        </td>
-
-        <td>
-          <p-button
-            label="Delete"
-            type="button"
-            (click)="handleClickRemove(rowIndex)"
-          ></p-button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-  <br />
-  <div style="text-align: center">
-    <p-button (click)="clear()">Clear</p-button>
-    &nbsp;
-    <input pInputText type="submit" value="Create" />
-  </div>
+  <app-footer></app-footer>
 </form>
-<br/>
-<br/>
-<br/>
-<br/>
-<app-footer></app-footer>
