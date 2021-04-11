@@ -34,13 +34,19 @@ export class ProductService {
   }
 
   updateCompanyProducts(listOfProduct : ProductEntity[]): Observable<ProductEntity[]>{
-    return this.httpClient.post<ProductEntity[]>(this.baseUrl + "", listOfProduct, httpOptions).pipe(
+    return this.httpClient.post<ProductEntity[]>(this.baseUrl + "?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword, listOfProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteProduct(productId : number) : Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl + "" + productId + "" + this.sessionService.getEmail + " " + this.sessionService.getPassword).pipe(
+    return this.httpClient.delete<any>(this.baseUrl + "" + productId + "" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  retrieveSpecificProduct(productId : number) : Observable<ProductEntity>{
+    return this.httpClient.get<ProductEntity>(this.baseUrl + "retrieveProductEntityById?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword + "&productId=" + productId).pipe(
       catchError(this.handleError)
     );
   }

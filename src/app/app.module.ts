@@ -14,6 +14,7 @@ import {MenubarModule} from 'primeng/menubar';
 import { HeaderComponent } from './header/header/header.component';
 import { FooterComponent } from './footer/footer/footer.component';
 import {InputTextModule} from 'primeng/inputtext';
+import { CreateProductComponent } from './product/create-product/create-product.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {InputTextModule} from 'primeng/inputtext';
     CreateCompanyComponent,
     IndexComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule,

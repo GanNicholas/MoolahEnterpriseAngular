@@ -15,7 +15,7 @@ export class SessionService {
 	}
 
 
-	setCompany(company: CompanyEntity | null): void {
+	setCompany(company: CompanyEntity): void {
 		sessionStorage.company = JSON.stringify(company);
 	}
 
