@@ -7,6 +7,8 @@ import { SessionService } from '../../services/session.service';
 import { CompanyService } from 'src/app/services/company.service';
 
 import { CompanyEntity } from '../../models/company-entity';
+import {SplitButtonModule} from 'primeng/splitbutton';
+
 
 @Component({
   selector: 'app-header',
@@ -24,6 +26,8 @@ export class HeaderComponent implements OnInit {
   errorMessage: string | undefined;
 
   items: MenuItem[];
+  accounts: MenuItem[];
+
 
 
   constructor(private router: Router,
@@ -32,26 +36,69 @@ export class HeaderComponent implements OnInit {
     private companyService: CompanyService) {
     this.loginError = false;
     this.items = new Array();
+    this.accounts = new Array();
   }
 
 
 
 
   ngOnInit(): void {
-    this.items = [
-      {
-        label: 'Home',
-        icon: 'pi pi-home',
-      },
-      {
-        label: 'About Us',
-        icon: 'pi pi-info-circle',
-      },
-      {
-        label: 'Create Company Account',
-        icon: 'pi pi-user',
-      }
+    if (this.sessionService.getIsLogin() == false) {
+      this.items = [
+        {
+          label: 'Home',
+          icon: 'pi pi-home',
+          routerLink: '/index/index'
+        },
+        {
+          label: 'About Us',
+          icon: 'pi pi-info-circle',
+        },
+        {
+          label: 'Create Company Account',
+          icon: 'pi pi-user',
+          routerLink: '/company/createCompany'
+        }
+      ];
+    } else {
+      this.items = [
+        {
+          label: 'Home',
+          icon: 'pi pi-home',
+          routerLink: '/index/index'
+        },
+        {
+          label: 'About Us',
+          icon: 'pi pi-info-circle',
+        },
+        {
+          label: 'View My Products',
+          icon: 'pi pi-book',
+        },
+        {
+          label: 'Create New Product',
+          icon: 'pi pi-plus',
+          routerLink: '/product/createProduct'
+        }
+  
+      ];
+
+      this.accounts = [
+        {label: 'View My Profile',
+        icon: 'pi pi-user-edit',
+        
+        },
+        {
+          label: 'Logout',
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.companyLogout();
+        }}
+        
     ];
+
+    }
+
   }
 
   companyLogin(): void {
@@ -71,6 +118,41 @@ export class HeaderComponent implements OnInit {
           this.childEvent.emit();
 
           this.router.navigate(["/index"]);
+          this.items = [
+            {
+              label: 'Home',
+              icon: 'pi pi-home',
+              routerLink: '/index/index'
+            },
+            {
+              label: 'About Us',
+              icon: 'pi pi-info-circle',
+            },
+            {
+              label: 'View My Products',
+              icon: 'pi pi-book',
+            },
+            {
+              label: 'Create New Product',
+              icon: 'pi pi-plus',
+              routerLink: '/product/createProduct'
+            }
+
+          ];
+
+          this.accounts = [
+            {label: 'View My Profile',
+            icon: 'pi pi-user-edit',
+            
+            },
+            {
+              label: 'Logout',
+              icon: 'pi pi-sign-out',
+              command: () => {
+                this.companyLogout();
+            }},
+            
+        ];
         }
         else {
           this.loginError = true;

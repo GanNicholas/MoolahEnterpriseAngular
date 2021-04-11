@@ -11,9 +11,10 @@
 			<label for="password">Password </label>
 			<input type="password" [(ngModel)]="password" size="16" required maxlength="32" />
 			&nbsp;
-			<input type="button" (click)="companyLogin()" value="Login" />	
+			<p-button label="Login" type="button" (click)="companyLogin()"></p-button>
+	
             &nbsp;
-			<a routerLink="">Forget Password</a>
+			<p-button label="Forget Password" type="button" ></p-button>
 		</div>
 		
 		<div *ngIf="loginError == true" style="text-align: right; color: red;">
@@ -22,8 +23,8 @@
 		
 		<div *ngIf="sessionService.getIsLogin() == true">
 			You are login as {{sessionService.getCompany().companyEmail}} 
+			<p-splitButton label="My Account" icon="pi pi-user" [model]="accounts"></p-splitButton>
 			
-			<input type="button" (click)="companyLogout()" value="Logout" />
 		</div>
 	</aside>
 </p-menubar>

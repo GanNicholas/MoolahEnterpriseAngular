@@ -18,6 +18,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccessRightErrorComponent } from './access-right-error/access-right-error/access-right-error.component';
+import {SplitButtonModule} from 'primeng/splitbutton';
+
+
 
 
 @NgModule({
@@ -27,7 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     IndexComponent,
     HeaderComponent,
     FooterComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    AccessRightErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PasswordModule,
     ButtonModule,
     BrowserAnimationsModule,
+    SplitButtonModule,
   ],
 
   providers: [],
