@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <h2 style="text-align: center" class="pageHeader">Create New Product</h2>
 <br />
 
@@ -12,9 +14,9 @@
 <h2 class="secondaryHeader" style="text-align: center;">Product Information</h2>
 <form #createProductForm="ngForm" (ngSubmit)="createProduct(createProductForm)" style="height: 10%">
 
-    <table width="60%" style="border-spacing: 0 23px; margin-left: 35%; ">
+    <table style="border-spacing: 0 23px; margin-left: 35%; width: 60% ">
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">
+            <td style="font-weight: bold; width: 20%" class="bodyText">
                 Product Name
             </td>
             <td>
@@ -34,7 +36,7 @@
         </tr>
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">
+            <td style="font-weight: bold; width: 20%" class="bodyText">
                 Product Description
             </td>
             <td>
@@ -54,7 +56,7 @@
         </tr>
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">
+            <td style="font-weight: bold; width: 20%" class="bodyText">
                 Product Coverage Term
             </td>
             <td>
@@ -74,7 +76,7 @@
         </tr>
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">
+            <td style="font-weight: bold; width: 20%" class="bodyText">
                 Product Assured Sum
             </td>
             <td>
@@ -97,7 +99,7 @@
         </tr>
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">
+            <td style="font-weight: bold; width: 20%" class="bodyText">
                 Product Premium Term
             </td>
             <td>
@@ -122,7 +124,7 @@
         </tr>
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">Average Interest Rate</td>
+            <td style="font-weight: bold; width: 20%" class="bodyText">Average Interest Rate</td>
             <td>
                 <input id="avgInterestRate" name="avgInterestRate" #avgInterestRate="ngModel" type="text"
                     [(ngModel)]="product.averageInterestRate" required="true" class="bodyText, inputWidth" />
@@ -141,30 +143,38 @@
 
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">Policy Currency Value</td>
+            <td style="font-weight: bold; width: 20%" class="bodyText">Policy Currency Value</td>
             <td>
-                <select id="policyCurrency" name="policyCurrency" ng-model="product.policyCurrency" required="true" r>
-                    <option value="PolicyCurrencyEnum.SGD"> SGD </option>
-                    <option value="PolicyCurrencyEnum.USD"> USD </option>
-                    <option value="PolicyCurrencyEnum.NZD"> NZD </option>
-                    <option value="PolicyCurrencyEnum.EUR"> EUR </option>
-                    <option value="PolicyCurrencyEnum.GBP"> GBP </option>
-                    <option value="PolicyCurrencyEnum.MYR"> MYR </option>
-                    <option value="PolicyCurrencyEnum.HKD"> HKD </option>
-                    <option value="PolicyCurrencyEnum.RMB"> RMB </option>
+                <select id="policyCurrencyList" name="policyCurrencyList" [(ngModel)]="product.policyCurrency"
+                    (change)="selectChangeHandlerCurrency($event)" required="true" #policyCurrencyList="ngModel">
+                    <option value="SGD"> SGD </option>
+                    <option value="USD"> USD </option>
+                    <option value="NZD"> NZD </option>
+                    <option value="EUR"> EUR </option>
+                    <option value="GBP"> GBP </option>
+                    <option value="MYR"> MYR </option>
+                    <option value="HKD"> HKD </option>
+                    <option value="RMB"> RMB </option>
                 </select>
+                <span class="errorText" *ngIf="policyCurrencyList.touched && policyCurrencyList.invalid">
+                    Policy Currency is required
+                </span>
             </td>
 
         </tr>
 
 
         <tr>
-            <td width="20%" style="font-weight: bold" class="bodyText">Policy Currency Value</td>
+            <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
             <td>
-                <select id="smokerBoolean" name="smokerBoolean" ng-model="product.isAvailableToSmoker" required="true">
+                <select id="smokerBoolean" name="smokerBoolean" [(ngModel)]="product.isAvailableToSmoker"
+                    (change)="selectChangeHandlerSmoker($event)" required="true" #smokerBoolean="ngModel">
                     <option value="true"> Yes </option>
                     <option value="false"> No </option>
                 </select>
+                <span class="errorText" *ngIf="smokerBoolean.touched && smokerBoolean.invalid">
+                    Please select if product can be for smoker
+                </span>
             </td>
 
         </tr>
@@ -172,12 +182,15 @@
     </table>
 
     <br /><br />
-    <div stlye="text-align: center;">
+
+    <div style="text-align: center;">
         <h2 class="secondaryHeader">Additional Features</h2>
+        <br />
         <p-button label="Add Feature" type="button" (click)="handleClickAddFeature()">
         </p-button>
-    </div>
+        <br />
 
+    </div>
 
     <p-table id="tableFeature" [value]="product.listOfAdditionalFeatures" style="text-align: center">
         <ng-template pTemplate="header">
@@ -195,7 +208,7 @@
 
                 <td>
                     <input pInputText id="featureName" name="featureName" #featureName="ngModel" type="text"
-                        [(ngModel)]="prod.featureName" required="true" />
+                        [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
                     <div *ngIf="
@@ -209,7 +222,8 @@
 
                 <td>
                     <input pInputText id="featureDescription" name="featureDescription" #featureDescription="ngModel"
-                        type="text" [(ngModel)]="prod.featureDescription" required="true" />
+                        type="text" [(ngModel)]="prod.featureDescription" required="true"
+                        class="bodyText, inputWidth" />
                 </td>
                 <td>
                     <div *ngIf="
@@ -232,9 +246,12 @@
         </ng-template>
     </p-table>
 
-    <br />
-    <h2 class="secondaryHeader">Riders For Product</h2>
-    <p-button label="Add Rider" type="button" (click)="handleClickAddRider()"></p-button>
+    <div style="text-align: center;">
+        <br />
+        <h2 class="secondaryHeader">Riders For Product</h2>
+        <br />
+        <p-button label="Add Rider" type="button" (click)="handleClickAddRider()"></p-button>
+    </div>
 
     <p-table id="tableRider" [value]="product.listOfRiders" style="text-align: center">
         <ng-template pTemplate="header">
@@ -253,7 +270,7 @@
 
                 <td>
                     <input pInputText id="riderName" name="riderName" #riderName="ngModel" type="text"
-                        [(ngModel)]="rider.riderName" required="true" />
+                        [(ngModel)]="rider.riderName" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
                     <div *ngIf="
@@ -267,7 +284,8 @@
 
                 <td>
                     <input pInputText id="riderPremiumValue" name="riderPremiumValue" #riderPremiumValue="ngModel"
-                        type="text" [(ngModel)]="rider.riderPremiumValue" required="true" />
+                        type="text" [(ngModel)]="rider.riderPremiumValue" required="true"
+                        class="bodyText, inputWidth" />
                 </td>
                 <td>
                     <div *ngIf="
@@ -285,7 +303,7 @@
 
                 <td>
                     <input pInputText id="riderDescription" name="riderDescription" #riderDescription="ngModel"
-                        type="text" [(ngModel)]="rider.riderDescription" required="true" />
+                        type="text" [(ngModel)]="rider.riderDescription" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
                     <div *ngIf="
@@ -308,6 +326,167 @@
         </ng-template>
     </p-table>
 
+    <div style="text-align: center;">
+        <br />
+        <h2 class="secondaryHeader">Premium For Product</h2>
+        <br />
+        <p-button label="Add Premium" type="button" (click)="handleClickAddPremium()"></p-button>
+    </div>
+    <p-table id="tablePremium" [value]="product.listOfPremium" style="text-align: center">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>S/N</th>
+                <th colspan="2">Min Age Group</th>
+                <th colspan="2">Max Age Group</th>
+                <th colspan="2">Premium Value</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-premium let-rowIndex="rowIndex">
+            <tr>
+                <td>{{ rowIndex + 1 }}</td>
+
+                <td>
+                    <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="text"
+                        [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                </td>
+                <td>
+                    <div *ngIf="
+                    minAge.invalid && (minAge.dirty || minAge.touched || submitted)
+              " class="errorText">
+                        <div *ngIf="minAge.errors != null && minAge.errors.required">
+                            Min Age is required.
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="text"
+                        [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                </td>
+                <td>
+                    <div *ngIf="
+                    maxAge.invalid &&
+                (maxAge.dirty || maxAge.touched || submitted)
+              " class="errorText">
+                        <div *ngIf="
+                        maxAge.errors != null &&
+                        maxAge.errors.required
+                ">
+                            Max Age is required.
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="text"
+                        [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
+                </td>
+                <td>
+                    <div *ngIf="
+                    premiumValue.invalid &&
+                (premiumValue.dirty || premiumValue.touched || submitted)
+              " class="errorText">
+                        <div *ngIf="
+                        premiumValue.errors != null &&
+                        premiumValue.errors.required
+                ">
+                            Premium Value is required.
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <p-button label="Delete" type="button" (click)="handleClickRemovePremium(rowIndex)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+    <br />
+    <div *ngIf="product.isAvailableToSmoker == true">
+
+        <div style="text-align: center;">
+            <h2 class="secondaryHeader">Smoker Premium For Product</h2>
+            <br />
+            <p-button label="Add Premium" type="button" (click)="handleClickAddSmokerPremium()"></p-button>
+            <br />
+        </div>
+
+        <p-table id="tablePremium" [value]="product.listOfPremium" style="text-align: center">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>S/N</th>
+                    <th colspan="2">Min Age Group</th>
+                    <th colspan="2">Max Age Group</th>
+                    <th colspan="2">Premium Value</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-premium let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ rowIndex + 1 }}</td>
+
+                    <td>
+                        <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="text"
+                            [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
+                    minAge.invalid && (minAge.dirty || minAge.touched || submitted)
+              " class="errorText">
+                            <div *ngIf="minAge.errors != null && minAge.errors.required">
+                                Min Age is required.
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="text"
+                            [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
+                    maxAge.invalid &&
+                (maxAge.dirty || maxAge.touched || submitted)
+              " class="errorText">
+                            <div *ngIf="
+                        maxAge.errors != null &&
+                        maxAge.errors.required
+                ">
+                                Max Age is required.
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="text"
+                            [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
+                    premiumValue.invalid &&
+                (premiumValue.dirty || premiumValue.touched || submitted)
+              " class="errorText">
+                            <div *ngIf="
+                        premiumValue.errors != null &&
+                        premiumValue.errors.required
+                ">
+                                Premium Value is required.
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <p-button label="Delete" type="button" (click)="handleClickRemoveSmokerPremium(rowIndex)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
     <br />
     <div style="text-align: center">
@@ -318,3 +497,10 @@
 
 
 </form>
+
+<br />
+<br />
+<br />
+<br />
+
+<app-footer></app-footer>

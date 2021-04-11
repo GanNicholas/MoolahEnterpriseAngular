@@ -1,4 +1,3 @@
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +19,9 @@ import { WholeLifeProductEntity } from 'src/app/models/whole-life-product-entity
 import { CompanyService } from 'src/app/services/company.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SessionService } from 'src/app/services/session.service';
-
+import { HeaderComponent } from '../../header/header/header.component';
+import { FooterComponent } from '../../footer/footer/footer.component';
+import { PremiumEntity } from 'src/app/models/premium-entity';
 
 @Component({
   selector: 'app-create-product',
@@ -45,7 +46,7 @@ export class CreateProductComponent implements OnInit {
     private inputTextModule: InputTextModule,
     private browserAnimationsModule: BrowserAnimationsModule,
     private companyService: CompanyService) {
-    this.product = new ProductEntity();
+    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array());
     if (this.sessionService.getIsLogin() == true) {
       this.product.company = this.sessionService.getCompany();
     } else {
@@ -71,7 +72,7 @@ export class CreateProductComponent implements OnInit {
     this.submitted = true;
     if (createProductForm.valid) {
       if (this.wholeLifeEnum != undefined) {
-        let wholeLifeProd = new WholeLifeProductEntity(this.wholeLifeEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
+        let wholeLifeProd = new WholeLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.wholeLifeEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
           this.product.averageInterestRate, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
 
         this.productService.createProduct(wholeLifeProd).subscribe(
@@ -100,7 +101,7 @@ export class CreateProductComponent implements OnInit {
 
       } else if (this.termLifeEnum != undefined) {
 
-        let termLifeProd = new TermLifeProductEntity(this.termLifeEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
+        let termLifeProd = new TermLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.termLifeEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
           this.product.averageInterestRate, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
 
         this.productService.createProduct(termLifeProd).subscribe(
@@ -128,7 +129,7 @@ export class CreateProductComponent implements OnInit {
         );
 
       } else if (this.endowmentEnum != undefined) {
-        let endowmentProd = new EndowmentEntity(this.endowmentEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
+        let endowmentProd = new EndowmentEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.endowmentEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
           this.product.averageInterestRate, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
 
         this.productService.createProduct(endowmentProd).subscribe(
@@ -187,12 +188,39 @@ export class CreateProductComponent implements OnInit {
 
   }
 
+  selectChangeHandlerSmoker(event: any) {
+    //update the ui
+    if (event.target.value == "true") {
+      this.product.isAvailableToSmoker = true;
+    } else {
+      this.product.isAvailableToSmoker = false;
+    }
+
+    console.log("Smoker boolean: " + this.product.isAvailableToSmoker + " type: " + typeof (this.product.isAvailableToSmoker));
+  }
+
+  selectChangeHandlerCurrency(event: any) {
+    //update the ui
+    let stringText: string = event.target.value;
+    let currency: PolicyCurrencyEnum = (<any>PolicyCurrencyEnum)[stringText];
+    this.product.policyCurrency = currency;
+    console.log("Currency: " + this.product.policyCurrency + " type: " + typeof (this.product.policyCurrency));
+  }
+
   handleClickAddFeature(): void {
     this.product?.listOfAdditionalFeatures?.push(new FeatureEntity());
   }
 
   handleClickAddRider(): void {
     this.product?.listOfRiders?.push(new RiderEntity());
+  }
+
+  handleClickAddPremium(): void {
+    this.product?.listOfPremium?.push(new PremiumEntity());
+  }
+
+  handleClickAddSmokerPremium(): void {
+    this.product?.listOfSmokerPremium?.push(new PremiumEntity());
   }
 
   handleClickRemoveFeature(index: number): void {
@@ -203,8 +231,16 @@ export class CreateProductComponent implements OnInit {
     this.product?.listOfRiders?.splice(index, 1);
   }
 
+  handleClickRemovePremium(index: number): void {
+    this.product?.listOfPremium?.splice(index, 1);
+  }
+
+  handleClickRemoveSmokerPremium(index: number): void {
+    this.product?.listOfSmokerPremium?.splice(index, 1);
+  }
+
   clear(): void {
-    this.product = new ProductEntity();
+    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array());
   }
 
 }
