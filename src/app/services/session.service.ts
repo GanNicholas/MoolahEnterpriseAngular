@@ -10,8 +10,16 @@ export class SessionService {
 
 	constructor() { }
 
-	getCompany(): CompanyEntity {
-		return JSON.parse(sessionStorage.company);
+	getCompany(): CompanyEntity | null {
+		try {
+			return JSON.parse(sessionStorage.company);
+
+		}
+		catch
+		{
+			return null;
+		}
+
 	}
 
 

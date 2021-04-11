@@ -44,13 +44,13 @@ export class CompanyService {
   }
 
   retrieveCompany() : Observable<CompanyEntity>{
-    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
+    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail).pipe(
       catchError(this.handleError)
     );
   }
 
   deactivateCompany() : Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + "" + this.sessionService.getEmail + " " + this.sessionService.getPassword).pipe(
+    return this.httpClient.get<any>(this.baseUrl + "/deactivateAccount?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
       catchError(this.handleError)
     );
   }
