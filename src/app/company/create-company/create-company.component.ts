@@ -1,13 +1,14 @@
 import { CreateCompanyEntityReq } from './../../models/create-company-entity-req';
 import { CompanyEntity } from './../../models/company-entity';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
 import { NgForm } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PointOfContactEntity } from 'src/app/models/point-of-contact-entity';
-
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
   selector: 'app-create-company',
@@ -23,14 +24,18 @@ export class CreateCompanyComponent implements OnInit {
   createCompanyEntityReq: CreateCompanyEntityReq;
 
   constructor(private router: Router,
-    private companyService: CompanyService) {
-    this.createCompanyEntityReq = new CreateCompanyEntityReq();
+    private browserAnimationsModule: BrowserAnimationsModule,
+    private companyService: CompanyService,
+    private passwordModule: PasswordModule,
+    private buttonModule: ButtonModule,
+    private inputTextModule: InputTextModule) {
+    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity, new Array());
   }
 
   ngOnInit(): void {
   }
 
-  create(createCompanyForm: NgForm) {
+  create( createCompanyForm: NgForm) {
 
     this.submitted = true;
     if (createCompanyForm.valid) {
@@ -58,5 +63,9 @@ export class CreateCompanyComponent implements OnInit {
 
   handleClickRemove(index: number) {
     this.createCompanyEntityReq?.listOfPointOfContacts?.splice(index, 1);
+  }
+
+  clear() {
+    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity, new Array());
   }
 }
