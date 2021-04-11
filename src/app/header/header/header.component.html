@@ -1,6 +1,30 @@
 <header class="header">
 <p-menubar [model]="items">
+
+
+<aside id="loginbox" class="loginbox">		
+	
+		<div *ngIf="sessionService.getIsLogin() == false">
+			<label for="username">Username </label>
+			<input type="text" [(ngModel)]="email" size="16" required maxlength="32" />
+			&nbsp;
+			<label for="password">Password </label>
+			<input type="password" [(ngModel)]="password" size="16" required maxlength="32" />
+			&nbsp;
+			<input type="button" (click)="companyLogin()" value="Login" />	
+            &nbsp;
+			<a routerLink="">Forget Password</a>
+		</div>
+		
+		<div *ngIf="loginError == true" style="text-align: right; color: red;">
+			{{errorMessage}}
+		</div>
+		
+		<div *ngIf="sessionService.getIsLogin() == true">
+			You are login as {{sessionService.getCompany().companyEmail}} 
+			
+			<input type="button" (click)="companyLogout()" value="Logout" />
+		</div>
+	</aside>
 </p-menubar>
-
-
 </header>

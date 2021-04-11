@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+.footer {
+	display: block;
+    position: fixed;
+    bottom: 2px;
+    width: 100%;
+	padding: 5px 5px 5px 5px;
+	clear: both;
+	background-color: whitesmoke;
+}
