@@ -1,10 +1,10 @@
 export enum PolicyCurrencyEnum {
-    SGD,
-    USD,
-    NZD,
-    EUR,
-    GBP,
-    MYR,
-    HKD,
-    RMB
+    SGD = "SGD",
+    USD = "USD",
+    NZD = "NZD",
+    EUR = "EUR",
+    GBP = "GBP",
+    MYR = "MYR",
+    HKD = "HKD",
+    RMB = "RMB"
 }

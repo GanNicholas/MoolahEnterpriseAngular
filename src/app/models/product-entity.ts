@@ -22,14 +22,14 @@ export class ProductEntity {
     productCategoryPricing: CategoryPricingEntity | null;
     clickThroughInfo: ClickThroughEntity | undefined;
     company: CompanyEntity | null | undefined;
-    listOfAdditionalFeatures: FeatureEntity[];
-    listOfRiders: RiderEntity[];
-    listOfPremium: PremiumEntity[];
-    listOfSmokerPremium: PremiumEntity[];
+    listOfAdditionalFeatures: FeatureEntity[] = new Array();
+    listOfRiders: RiderEntity[] = new Array();
+    listOfPremium: PremiumEntity[] = new Array();
+    listOfSmokerPremium: PremiumEntity[] = new Array();
 
-    constructor(productName?: string, coverageTerm?: number, assuredSum?: number, description?: string, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
+    constructor(listOfAdditionalFeatures: FeatureEntity[], listOfRiders: RiderEntity[], listOfPremium: PremiumEntity[], listOfSmokerPremium: PremiumEntity[], productName?: string, coverageTerm?: number, assuredSum?: number, description?: string, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
         isAvailableToSmoker?: boolean, clickThroughInfo?: ClickThroughEntity,
-        company?: CompanyEntity| null) {
+        company?: CompanyEntity | null) {
         this.productId = null;
         this.productImage = null;
         this.productDateCreated = new Date();
@@ -45,10 +45,10 @@ export class ProductEntity {
         this.productCategoryPricing = null;
         this.clickThroughInfo = clickThroughInfo;
         this.company = company;
-        this.listOfAdditionalFeatures = new Array();
-        this.listOfRiders = new Array();
-        this.listOfPremium = new Array();
-        this.listOfSmokerPremium = new Array();
+        this.listOfAdditionalFeatures = listOfAdditionalFeatures;
+        this.listOfRiders = listOfRiders;
+        this.listOfPremium = listOfPremium;
+        this.listOfSmokerPremium = listOfSmokerPremium;
 
     }
 
