@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateCompanyComponent } from '../app/company/create-company/create-company.component'
+import { CreateCompanyComponent } from './company/create-company/create-company.component';
 import { IndexComponent } from './index/index/index.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 

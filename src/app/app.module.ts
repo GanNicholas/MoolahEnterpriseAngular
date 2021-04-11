@@ -10,11 +10,14 @@ import { AppComponent } from './app.component';
 import { CreateCompanyComponent } from './company/create-company/create-company.component';
 
 import { IndexComponent } from './index/index/index.component';
-import {MenubarModule} from 'primeng/menubar';
+import { MenubarModule } from 'primeng/menubar';
 import { HeaderComponent } from './header/header/header.component';
 import { FooterComponent } from './footer/footer/footer.component';
-import {InputTextModule} from 'primeng/inputtext';
 import { CreateProductComponent } from './product/create-product/create-product.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -33,8 +36,10 @@ import { CreateProductComponent } from './product/create-product/create-product.
     HttpClientModule,
     TableModule,
     MenubarModule,
-    InputTextModule
-    
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    BrowserAnimationsModule,
   ],
 
   providers: [],
