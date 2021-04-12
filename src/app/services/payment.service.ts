@@ -1,3 +1,4 @@
+import { MonthlyPaymentEntity } from './../models/monthly-payment-entity';
 import { Injectable } from '@angular/core';
 
 import { SessionService } from '../services/session.service';
@@ -41,6 +42,12 @@ export class PaymentService {
     );
   }
 
+
+  retrieveAllUnpaidMonthlyPayment(): Observable<MonthlyPaymentEntity[]> {
+    return this.httpClient.get<MonthlyPaymentEntity[]>(this.baseUrl + "retrieveAllUnpaidMonthlyPayment?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
