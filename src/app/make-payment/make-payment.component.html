@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<h2 style="text-align: center" class="secondaryHeader">Make Payment</h2>
+
+<form (ngSubmit)="purchaseMoolahCredit()">
+  <div>
+    <table style="margin: 0 auto" cellspacing="20px">
+      <tr>
+        <td>Name of Card Holder&nbsp;</td>
+        <td>
+          <input
+            pInputText
+            id="creditCardName"
+            name="creditCardName"
+            type="text"
+            [(ngModel)]="creditCardName"
+            required="true"
+            requiredMessage="Name of Card Holder is required"
+            class="bodyText, inputWidth, p-field"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Card Number&nbsp;</td>
+        <td>
+          <input
+            pInputText
+            id="creditCardNumber"
+            name="creditCardNumber"
+            type="text"
+            [(ngModel)]="creditCardNumber"
+            required="true"
+            requiredMessage="Card Number is required"
+            class="bodyText, inputWidth, p-field"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Card CVV&nbsp;</td>
+        <td>
+          <input
+            pInputText
+            id="creditCardCvv"
+            name="creditCardCvv"
+            type="text"
+            [(ngModel)]="creditCardCvv"
+            required="true"
+            requiredMessage="CVV is required"
+            class="bodyText, inputWidth, p-field"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Expiry Date&nbsp;</td>
+        <td>
+          <div class="p-field p-col-12 p-md-4">
+            <p-calendar
+              [(ngModel)]="creditCardExp"
+              view="month"
+              dateFormat="mm/yy"
+              [yearNavigator]="true"
+              yearRange="2021:2040"
+              [readonlyInput]="true"
+              inputId="monthpicker"
+            ></p-calendar>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="text-align: center">
+    <input pInputText type="submit" value="Make Payment" />
+  </div>
+</form>
+
+<app-footer></app-footer>

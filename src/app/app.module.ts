@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 
 import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,13 +19,16 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details/view-my-company-details.component';
-import {ToastModule} from 'primeng/toast';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {DialogModule} from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 import { AccessRightErrorComponent } from './access-right-error/access-right-error/access-right-error.component';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 import { ViewCurrentPayableComponent } from './view-current-payable/view-current-payable.component';
+import { BadgeModule } from 'primeng/badge';
+import { MakePaymentComponent } from './make-payment/make-payment.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { ViewCurrentPayableComponent } from './view-current-payable/view-current
     AccessRightErrorComponent,
     ViewProductDetailsComponent,
     ViewCurrentPayableComponent,
+    MakePaymentComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +60,8 @@ import { ViewCurrentPayableComponent } from './view-current-payable/view-current
     ConfirmDialogModule,
     DialogModule,
     SplitButtonModule,
+    BadgeModule,
+    CalendarModule
   ],
 
   providers: [],
