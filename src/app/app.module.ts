@@ -25,6 +25,7 @@ import {DialogModule} from 'primeng/dialog';
 import { AccessRightErrorComponent } from './access-right-error/access-right-error/access-right-error.component';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
+import { ViewCurrentPayableComponent } from './view-current-payable/view-current-payable.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ViewProductDetailsComponent } from './product/view-product-details/view
     CreateProductComponent,
     AccessRightErrorComponent,
     ViewProductDetailsComponent,
+    ViewCurrentPayableComponent,
   ],
   imports: [
     BrowserModule,

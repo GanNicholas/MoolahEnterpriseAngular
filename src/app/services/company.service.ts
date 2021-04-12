@@ -40,12 +40,7 @@ export class CompanyService {
     if (updateCompany === null || updateCompany === undefined) {
       return new Observable();
     } else {
-      // return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyInformation?email=" + updateCompany.companyEmail + "&password=" + updateCompany.password,
-      //   updateCompany, httpOptions).pipe(
-      //     catchError(this.handleError)
-      //   );
-
-      return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyInformation",
+      return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyInformation?email=" + updateCompany.companyEmail + "&password=" + updateCompany.password,
         updateCompany, httpOptions).pipe(
           catchError(this.handleError)
         );
@@ -84,7 +79,7 @@ export class CompanyService {
     if (updateCompany == null || oldPassword === null || newPassword === null || repeatNewPassword === null) {
       return new Observable();
     } else {
-      return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyPassword" + "?oldPassword=" + oldPassword + "&newPassword=" + newPassword + "&repeatNewPassword=" + repeatNewPassword,
+      return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyPassword" + "?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword + "&oldPassword=" + oldPassword + "&newPassword=" + newPassword + "&repeatNewPassword=" + repeatNewPassword,
         updateCompany, httpOptions).pipe(
           catchError(this.handleError)
         );
