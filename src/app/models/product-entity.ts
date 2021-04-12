@@ -7,29 +7,29 @@ import { PremiumEntity } from "./premium-entity";
 import { RiderEntity } from "./rider-entity";
 
 export class ProductEntity {
-    productId: number | undefined | null;
-    productImage: Uint8Array | undefined | null;
-    productDateCreated: Date | undefined;
+    productId: number | null;
+    productImage: Uint8Array | null;
+    productDateCreated: Date;
     productName: string | undefined;
-    coverageTerm: number | undefined;
-    assuredSum: number | undefined;
+    coverageTerm: number = 0;
+    assuredSum: number = 0;
     description: string | undefined;
-    isDeleted: boolean | undefined;
-    premiumTerm: number | undefined;
-    averageInterestRate: number | undefined;
+    isDeleted: boolean;
+    premiumTerm: number = 0;
+    averageInterestRate: number = 0;
     policyCurrency: PolicyCurrencyEnum | undefined;
     isAvailableToSmoker: boolean | undefined;
-    productCategoryPricing: CategoryPricingEntity | undefined;
+    productCategoryPricing: CategoryPricingEntity | null;
     clickThroughInfo: ClickThroughEntity | undefined;
-    company: CompanyEntity | undefined;
-    listOfAdditionalFeatures: FeatureEntity[] | undefined;
-    listOfRiders: RiderEntity[] | undefined;
-    listOfPremium: PremiumEntity[] | undefined;
-    listOfSmokerPremium: PremiumEntity[] | undefined;
+    company: CompanyEntity | null | undefined;
+    listOfAdditionalFeatures: FeatureEntity[] = new Array();
+    listOfRiders: RiderEntity[] = new Array();
+    listOfPremium: PremiumEntity[] = new Array();
+    listOfSmokerPremium: PremiumEntity[] = new Array();
 
-    constructor(productName?: string, coverageTerm?: number, assuredSum?: number, description?: string, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
-        isAvailableToSmoker?: boolean, productCategoryPricing?: CategoryPricingEntity, clickThroughInfo?: ClickThroughEntity,
-        company?: CompanyEntity) {
+    constructor(listOfAdditionalFeatures: FeatureEntity[], listOfRiders: RiderEntity[], listOfPremium: PremiumEntity[], listOfSmokerPremium: PremiumEntity[], assuredSum: number, premiumTerm: number, averageInterestRate: number, coverageTerm: number, productName?: string, description?: string, policyCurrency?: PolicyCurrencyEnum,
+        isAvailableToSmoker?: boolean, clickThroughInfo?: ClickThroughEntity,
+        company?: CompanyEntity | null) {
         this.productId = null;
         this.productImage = null;
         this.productDateCreated = new Date();
@@ -42,13 +42,13 @@ export class ProductEntity {
         this.averageInterestRate = averageInterestRate;
         this.policyCurrency = policyCurrency;
         this.isAvailableToSmoker = isAvailableToSmoker;
-        this.productCategoryPricing = productCategoryPricing;
+        this.productCategoryPricing = null;
         this.clickThroughInfo = clickThroughInfo;
         this.company = company;
-        this.listOfAdditionalFeatures = new Array();
-        this.listOfRiders = new Array();
-        this.listOfPremium = new Array();
-        this.listOfSmokerPremium = new Array();
+        this.listOfAdditionalFeatures = listOfAdditionalFeatures;
+        this.listOfRiders = listOfRiders;
+        this.listOfPremium = listOfPremium;
+        this.listOfSmokerPremium = listOfSmokerPremium;
 
     }
 

@@ -1,3 +1,4 @@
+import { CreateProductComponent } from './product/create-product/create-product.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -21,9 +22,9 @@ import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details
 import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DialogModule} from 'primeng/dialog';
-
-
-
+import { AccessRightErrorComponent } from './access-right-error/access-right-error/access-right-error.component';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,9 @@ import {DialogModule} from 'primeng/dialog';
     HeaderComponent,
     FooterComponent,
     ViewMyCompanyDetailsComponent,
+    CreateProductComponent,
+    AccessRightErrorComponent,
+    ViewProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,7 @@ import {DialogModule} from 'primeng/dialog';
     FileUploadModule,
     ConfirmDialogModule,
     DialogModule,
+    SplitButtonModule,
   ],
 
   providers: [],
