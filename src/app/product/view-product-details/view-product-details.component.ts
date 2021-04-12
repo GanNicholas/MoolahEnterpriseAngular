@@ -8,17 +8,38 @@ import { ProductEntity } from 'src/app/models/product-entity';
 import { SessionService } from 'src/app/services/session.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-view-product-details',
   templateUrl: './view-product-details.component.html',
-  styleUrls: ['./view-product-details.component.css']
+  styleUrls: ['./view-product-details.component.css'],
+  providers: [MessageService]
 })
 export class ViewProductDetailsComponent implements OnInit {
+  resultSuccess: boolean = false;
+  resultError: boolean = false;
+  submitted: boolean = true;
+  message: string | undefined;
+
   productId: string | null;
   productToView: ProductEntity;
   retrieveProductError: boolean;
+
+
+  toggleProductName: boolean = true;
+  toggleProductDescription: boolean = true;
+  toggleCoverageTerm: boolean = true;
+  toggleAssuredSum: boolean = true;
+  togglePremiumTerm: boolean = true;
+  toggleAverageInterestRate: boolean = true;
+  togglePolicyCurrency: boolean = true;
+  toggleIsAvailableToSmoker: boolean = true;
+  toggleAdditionalFeatures: boolean = true;
+  toggleRider: boolean = true;
+  togglePremium: boolean = true;
+  toggleSmokerPremium: boolean = true;
 
 
 
@@ -29,10 +50,14 @@ export class ViewProductDetailsComponent implements OnInit {
     private browserAnimationsModule: BrowserAnimationsModule,
     private companyService: CompanyService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,) {
+    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService) {
 
+    if (sessionService.getIsLogin() == false) {
+      this.router.navigate(["/index"]);
+    }
     this.productId = null;
-    this.productToView = new ProductEntity(new Array(), new Array(), new Array(), new Array(),0,0,0,0);
+    this.productToView = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
 
     this.retrieveProductError = false;
 
@@ -53,8 +78,69 @@ export class ViewProductDetailsComponent implements OnInit {
         }
       );
     }
-
-
   }
+
+  updateProduct(updateProductForm: NgForm) {
+    if(updateProductForm.valid){
+      this.productService.updateCompanyProduct(this.productToView).subscribe(
+        response =>{
+
+        },
+        error => {
+          this.message = "An error has occurred while updating your product: " + error;
+          this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+
+        }
+      )
+    }
+  }
+
+  saveProductName() {
+    this.toggleProductName = false;
+  }
+
+  saveCoverageTerm() {
+    this.toggleCoverageTerm = false;
+  }
+
+  saveAssuredSum() {
+    this.toggleAssuredSum = false;
+  }
+
+  savePremiumTerm() {
+    this.togglePremiumTerm = false;
+  }
+
+  saveAverageInterestRate() {
+    this.toggleAverageInterestRate = false;
+  }
+
+  savePolicyCurrency() {
+    this.togglePolicyCurrency = false;
+  }
+
+  saveIsAvailableToSmoker() {
+    this.toggleIsAvailableToSmoker = false;
+  }
+
+  saveAdditionalFeatures() {
+    this.toggleAdditionalFeatures = false;
+  }
+
+  saveRider() {
+    this.toggleRider = false;
+  }
+
+  savePremium() {
+    this.togglePremium = false;
+  }
+
+  saveSmokerPremium() {
+    this.toggleSmokerPremium = false;
+  }
+
+
+
+
 
 }

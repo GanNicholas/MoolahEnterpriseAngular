@@ -1,7 +1,35 @@
+<app-header></app-header>
 
- <app-header></app-header>
+<p-toast></p-toast>
 
- <h2 style="text-align: center" class="pageHeader">View Product Details</h2>
- <br />
- 
- <span *ngIf="retrieveProductError == true" style="color:red;">Product ID {{productId}} does not exist!</span>
+<h2 style="text-align: center" class="pageHeader">View Product Details</h2>
+<br />
+
+<span *ngIf="retrieveProductError == true" style="color:red;">Product ID {{productId}} does not exist!</span>
+
+<form #updateProductForm="ngForm" (ngSubmit)="updateProduct(updateProductForm)" style="height: 10%">
+    <div style="margin-left: 30%; text-align: center">
+        <table width="60%" style="border-spacing: 0 23px">
+            <tr>
+                <td style="font-weight: bold; width: 20%" class="bodyText">
+                    Product Name
+                </td>
+                <input pInputText id="productName" name="productName" #productName="ngModel" type="text"
+                    [(ngModel)]="productToView.productName" required="true" class="bodyText, inputWidth"
+                    [disabled]="toggleProductName"
+                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                <p-button *ngIf="toggleProductName" type="button" (click)="saveProductName()">Edit</p-button>
+                <td>
+                    <div *ngIf="
+                    productName.invalid &&
+                    (productName.dirty || productName.touched || submitted)
+                  " class="errorText">
+                        <div *ngIf="productName.errors != null && productName.errors.required">
+                            Product Name is required.
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
