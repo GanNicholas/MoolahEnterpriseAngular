@@ -24,7 +24,8 @@ export class CompanyService {
   constructor(private httpClient: HttpClient, private sessionService: SessionService) { }
 
   createNewCompany(newCompany: CreateCompanyEntityReq): Observable<number> {
-    console.log(this.baseUrl);
+
+    console.log(JSON.stringify(newCompany))
     return this.httpClient.put<number>(this.baseUrl, newCompany, httpOptions).pipe(
       catchError(this.handleError)
     );
@@ -76,7 +77,7 @@ export class CompanyService {
     return throwError(errorMessage);
   }
 
-  updateCompanyPassword(updateCompany:CompanyEntity, oldPassword: string, newPassword: string, repeatNewPassword: string): Observable<CompanyEntity> {
+  updateCompanyPassword(updateCompany: CompanyEntity, oldPassword: string, newPassword: string, repeatNewPassword: string): Observable<CompanyEntity> {
     if (updateCompany == null || oldPassword === null || newPassword === null || repeatNewPassword === null) {
       return new Observable();
     } else {

@@ -35,7 +35,7 @@ export class CreateCompanyComponent implements OnInit {
     private inputTextModule: InputTextModule,
     private fileUploadModule: FileUploadModule,
     private messageService: MessageService) {
-    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity, new Array());
+    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity(), new Array());
   }
 
   ngOnInit(): void {
