@@ -24,6 +24,7 @@ export class CompanyService {
   constructor(private httpClient: HttpClient, private sessionService: SessionService) { }
 
   createNewCompany(newCompany: CreateCompanyEntityReq): Observable<number> {
+    console.log(this.baseUrl);
     return this.httpClient.put<number>(this.baseUrl, newCompany, httpOptions).pipe(
       catchError(this.handleError)
     );

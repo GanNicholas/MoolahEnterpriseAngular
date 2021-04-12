@@ -1,5 +1,7 @@
 <app-header></app-header>
 
+<p-toast></p-toast>
+
 <h2 style="text-align: center" class="pageHeader">View Product Details</h2>
 <br />
 
@@ -13,9 +15,21 @@
                     Product Name
                 </td>
                 <input pInputText id="productName" name="productName" #productName="ngModel" type="text"
-                    [(ngModel)]="product.productName" required="true" class="bodyText, inputWidth"
+                    [(ngModel)]="productToView.productName" required="true" class="bodyText, inputWidth"
                     [disabled]="toggleProductName"
                     ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
                 <p-button *ngIf="toggleProductName" type="button" (click)="saveProductName()">Edit</p-button>
+                <td>
+                    <div *ngIf="
+                    productName.invalid &&
+                    (productName.dirty || productName.touched || submitted)
+                  " class="errorText">
+                        <div *ngIf="productName.errors != null && productName.errors.required">
+                            Product Name is required.
+                        </div>
+                    </div>
+                </td>
             </tr>
+        </table>
+    </div>
 </form>

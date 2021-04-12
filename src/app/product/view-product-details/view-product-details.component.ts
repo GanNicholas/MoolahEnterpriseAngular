@@ -8,6 +8,7 @@ import { ProductEntity } from 'src/app/models/product-entity';
 import { SessionService } from 'src/app/services/session.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class ViewProductDetailsComponent implements OnInit {
   toggleSmokerPremium: boolean = true;
 
 
+
   constructor(private sessionService: SessionService,
     private productService: ProductService,
     private buttonModule: ButtonModule,
@@ -47,7 +49,8 @@ export class ViewProductDetailsComponent implements OnInit {
     private browserAnimationsModule: BrowserAnimationsModule,
     private companyService: CompanyService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService) {
 
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
@@ -77,15 +80,66 @@ export class ViewProductDetailsComponent implements OnInit {
   }
 
   updateProduct(updateProductForm: NgForm) {
+    if(updateProductForm.valid){
+      this.productService.updateCompanyProduct(this.productToView).subscribe(
+        response =>{
 
+        },
+        error => {
+          this.message = "An error has occurred while updating your product: " + error;
+          this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+
+        }
+      )
+    }
   }
 
   saveProductName() {
     this.toggleProductName = false;
   }
 
+  saveCoverageTerm() {
+    this.toggleCoverageTerm = false;
+  }
 
-  
+  saveAssuredSum() {
+    this.toggleAssuredSum = false;
+  }
+
+  savePremiumTerm() {
+    this.togglePremiumTerm = false;
+  }
+
+  saveAverageInterestRate() {
+    this.toggleAverageInterestRate = false;
+  }
+
+  savePolicyCurrency() {
+    this.togglePolicyCurrency = false;
+  }
+
+  saveIsAvailableToSmoker() {
+    this.toggleIsAvailableToSmoker = false;
+  }
+
+  saveAdditionalFeatures() {
+    this.toggleAdditionalFeatures = false;
+  }
+
+  saveRider() {
+    this.toggleRider = false;
+  }
+
+  savePremium() {
+    this.togglePremium = false;
+  }
+
+  saveSmokerPremium() {
+    this.toggleSmokerPremium = false;
+  }
+
+
+
 
 
 }

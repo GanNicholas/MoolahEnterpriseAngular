@@ -22,6 +22,7 @@ export class ProductService {
   }
 
   createProduct(newProduct: ProductEntity): Observable<number> {
+    console.log(this.baseUrl);
     return this.httpClient.put<number>(this.baseUrl +" ?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
@@ -33,8 +34,8 @@ export class ProductService {
     );
   }
 
-  updateCompanyProducts(listOfProduct : ProductEntity[]): Observable<ProductEntity[]>{
-    return this.httpClient.post<ProductEntity[]>(this.baseUrl + "?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword, listOfProduct, httpOptions).pipe(
+  updateCompanyProduct(updateProduct : ProductEntity): Observable<ProductEntity>{
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -46,7 +47,8 @@ export class ProductService {
   }
 
   retrieveSpecificProduct(productId : number) : Observable<ProductEntity>{
-    return this.httpClient.get<ProductEntity>(this.baseUrl + "retrieveProductEntityById?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword + "&productId=" + productId).pipe(
+    console.log(this.baseUrl);
+    return this.httpClient.get<ProductEntity>(this.baseUrl + "/retrieveProductEntityById?productId=" + productId).pipe(
       catchError(this.handleError)
     );
   }

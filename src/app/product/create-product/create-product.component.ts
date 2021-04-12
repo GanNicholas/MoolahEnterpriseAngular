@@ -22,6 +22,7 @@ import { HeaderComponent } from '../../header/header/header.component';
 import { FooterComponent } from '../../footer/footer/footer.component';
 import { PremiumEntity } from 'src/app/models/premium-entity';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-product',
@@ -49,7 +50,8 @@ export class CreateProductComponent implements OnInit {
     private inputTextModule: InputTextModule,
     private browserAnimationsModule: BrowserAnimationsModule,
     private companyService: CompanyService,
-    private router: Router) {
+    private router: Router,
+    private messageService: MessageService) {
     this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), -1, -1, -1, -1);
     if (this.sessionService.getIsLogin() == true) {
       this.product.company = this.sessionService.getCompany();
@@ -88,6 +90,7 @@ export class CreateProductComponent implements OnInit {
             this.resultSuccess = true;
             this.resultError = false;
             this.message = "Product " + productId + " created successfully";
+            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
@@ -95,7 +98,8 @@ export class CreateProductComponent implements OnInit {
                 this.sessionService.setCompany(company);
               },
               error => {
-                console.log("Error retrieving company : " + error);
+                this.message = "Error updating company: " + error;
+                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
               }
             );
           },
@@ -103,6 +107,7 @@ export class CreateProductComponent implements OnInit {
             this.resultError = true;
             this.resultSuccess = false;
             this.message = "An error occured while created product: " + error;
+            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
           }
         );
 
@@ -119,6 +124,7 @@ export class CreateProductComponent implements OnInit {
             this.resultSuccess = true;
             this.resultError = false;
             this.message = "Product " + productId + " created successfully";
+            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
@@ -126,7 +132,8 @@ export class CreateProductComponent implements OnInit {
                 this.sessionService.setCompany(company);
               },
               error => {
-                console.log("Error retrieving company : " + error);
+                this.message = "Error updating company: " + error;
+                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
               }
             );
           },
@@ -134,6 +141,7 @@ export class CreateProductComponent implements OnInit {
             this.resultError = true;
             this.resultSuccess = false;
             this.message = "An error occured while created product: " + error;
+            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
           }
         );
 
@@ -149,6 +157,8 @@ export class CreateProductComponent implements OnInit {
             this.resultSuccess = true;
             this.resultError = false;
             this.message = "Product " + productId + " created successfully";
+            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
@@ -156,7 +166,8 @@ export class CreateProductComponent implements OnInit {
                 this.sessionService.setCompany(company);
               },
               error => {
-                console.log("Error retrieving company : " + error);
+                this.message = "Error updating company: " + error;
+                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
               }
             );
           },
@@ -164,36 +175,16 @@ export class CreateProductComponent implements OnInit {
             this.resultError = true;
             this.resultSuccess = false;
             this.message = "An error occured while created product: " + error;
+            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
           }
         );
 
 
-
+      } else {
+        this.message = "An error occured while created product! Invalid product type!";
+        this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
       }
 
-      this.productService.createProduct(this.product).subscribe(
-        response => {
-          let productId: number = response;
-          this.resultSuccess = true;
-          this.resultError = false;
-          this.message = "Product " + productId + " created successfully";
-
-          this.companyService.retrieveCompany().subscribe(
-            responseInner => {
-              let company: CompanyEntity = responseInner;
-              this.sessionService.setCompany(company);
-            },
-            error => {
-              console.log("Error retrieving company : " + error);
-            }
-          );
-        },
-        error => {
-          this.resultError = true;
-          this.resultSuccess = false;
-          this.message = "An error occured while created product: " + error;
-        }
-      );
     }
 
 
