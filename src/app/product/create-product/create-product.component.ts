@@ -27,7 +27,8 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.css']
+  styleUrls: ['./create-product.component.css'],
+  providers: [MessageService]
 })
 export class CreateProductComponent implements OnInit {
   product: ProductEntity;

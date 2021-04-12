@@ -14,7 +14,8 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-view-product-details',
   templateUrl: './view-product-details.component.html',
-  styleUrls: ['./view-product-details.component.css']
+  styleUrls: ['./view-product-details.component.css'],
+  providers: [MessageService]
 })
 export class ViewProductDetailsComponent implements OnInit {
   resultSuccess: boolean = false;
