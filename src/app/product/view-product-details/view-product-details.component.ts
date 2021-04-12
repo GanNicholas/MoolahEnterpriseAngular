@@ -16,10 +16,28 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./view-product-details.component.css']
 })
 export class ViewProductDetailsComponent implements OnInit {
+  resultSuccess: boolean = false;
+  resultError: boolean = false;
+  submitted: boolean = true;
+  message: string | undefined;
+
   productId: string | null;
   productToView: ProductEntity;
   retrieveProductError: boolean;
 
+
+  toggleProductName: boolean = true;
+  toggleProductDescription: boolean = true;
+  toggleCoverageTerm: boolean = true;
+  toggleAssuredSum: boolean = true;
+  togglePremiumTerm: boolean = true;
+  toggleAverageInterestRate: boolean = true;
+  togglePolicyCurrency: boolean = true;
+  toggleIsAvailableToSmoker: boolean = true;
+  toggleAdditionalFeatures: boolean = true;
+  toggleRider: boolean = true;
+  togglePremium: boolean = true;
+  toggleSmokerPremium: boolean = true;
 
 
   constructor(private sessionService: SessionService,
@@ -29,10 +47,13 @@ export class ViewProductDetailsComponent implements OnInit {
     private browserAnimationsModule: BrowserAnimationsModule,
     private companyService: CompanyService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,) {
+    private activatedRoute: ActivatedRoute) {
 
+    if (sessionService.getIsLogin() == false) {
+      this.router.navigate(["/index"]);
+    }
     this.productId = null;
-    this.productToView = new ProductEntity(new Array(), new Array(), new Array(), new Array(),0,0,0,0);
+    this.productToView = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
 
     this.retrieveProductError = false;
 
@@ -53,8 +74,18 @@ export class ViewProductDetailsComponent implements OnInit {
         }
       );
     }
+  }
 
+  updateProduct(updateProductForm: NgForm) {
 
   }
+
+  saveProductName() {
+    this.toggleProductName = false;
+  }
+
+
+  
+
 
 }

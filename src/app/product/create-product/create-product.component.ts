@@ -21,6 +21,7 @@ import { SessionService } from 'src/app/services/session.service';
 import { HeaderComponent } from '../../header/header/header.component';
 import { FooterComponent } from '../../footer/footer/footer.component';
 import { PremiumEntity } from 'src/app/models/premium-entity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -47,12 +48,13 @@ export class CreateProductComponent implements OnInit {
     private buttonModule: ButtonModule,
     private inputTextModule: InputTextModule,
     private browserAnimationsModule: BrowserAnimationsModule,
-    private companyService: CompanyService) {
-    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
+    private companyService: CompanyService,
+    private router: Router) {
+    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), -1, -1, -1, -1);
     if (this.sessionService.getIsLogin() == true) {
       this.product.company = this.sessionService.getCompany();
     } else {
-      this.product.company = null;
+      this.router.navigate(["/index"]);
     }
 
     this.product.productId = null;
@@ -270,7 +272,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   clear(): void {
-    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
+    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), -1, -1, -1, -1);
   }
 
   chooseEnum(event: any): void {
