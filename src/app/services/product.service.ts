@@ -22,7 +22,7 @@ export class ProductService {
   }
 
   createProduct(newProduct: ProductEntity): Observable<number> {
-    return this.httpClient.put<number>(this.baseUrl, newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl +" ?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }

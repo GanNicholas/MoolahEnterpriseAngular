@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { ClickThroughEntity } from 'src/app/models/click-through-entity';
 import { CompanyEntity } from 'src/app/models/company-entity';
 import { EndowmentEntity } from 'src/app/models/endowment-entity';
@@ -38,15 +37,18 @@ export class CreateProductComponent implements OnInit {
   termLifeEnum: TermLifeProductEnum | undefined;
   endowmentEnum: EndowmentProductEnum | undefined;
   policyCurrency: string[] | undefined;
+  productType: string;
+  isTermLife: boolean = false;
+  isWholeLife: boolean = false;
+  isEndowment: boolean = false;
 
   constructor(private sessionService: SessionService,
     private productService: ProductService,
-    private passwordModule: PasswordModule,
     private buttonModule: ButtonModule,
     private inputTextModule: InputTextModule,
     private browserAnimationsModule: BrowserAnimationsModule,
     private companyService: CompanyService) {
-    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array());
+    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
     if (this.sessionService.getIsLogin() == true) {
       this.product.company = this.sessionService.getCompany();
     } else {
@@ -63,6 +65,7 @@ export class CreateProductComponent implements OnInit {
     this.product.productCategoryPricing = null;
     this.product.clickThroughInfo = new ClickThroughEntity();
     this.product.productCategoryPricing = null;
+    this.productType = "";
   }
 
   ngOnInit(): void {
@@ -72,8 +75,10 @@ export class CreateProductComponent implements OnInit {
     this.submitted = true;
     if (createProductForm.valid) {
       if (this.wholeLifeEnum != undefined) {
-        let wholeLifeProd = new WholeLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.wholeLifeEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
-          this.product.averageInterestRate, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
+        let wholeLifeProd = new WholeLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.product.coverageTerm, this.product.assuredSum, this.product.premiumTerm, this.product.averageInterestRate, this.product.productName, this.product.description,
+          this.product.policyCurrency, this.wholeLifeEnum, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
+
+        console.log(wholeLifeProd);
 
         this.productService.createProduct(wholeLifeProd).subscribe(
           response => {
@@ -101,8 +106,10 @@ export class CreateProductComponent implements OnInit {
 
       } else if (this.termLifeEnum != undefined) {
 
-        let termLifeProd = new TermLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.termLifeEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
-          this.product.averageInterestRate, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
+        let termLifeProd = new TermLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.product.coverageTerm, this.product.assuredSum, this.product.premiumTerm, this.product.averageInterestRate, this.termLifeEnum, this.product.productName, this.product.description,
+          this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
+
+        console.log(termLifeProd);
 
         this.productService.createProduct(termLifeProd).subscribe(
           response => {
@@ -129,8 +136,10 @@ export class CreateProductComponent implements OnInit {
         );
 
       } else if (this.endowmentEnum != undefined) {
-        let endowmentProd = new EndowmentEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.endowmentEnum, this.product.productName, this.product.coverageTerm, this.product.assuredSum, this.product.description, this.product.premiumTerm,
-          this.product.averageInterestRate, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
+        let endowmentProd = new EndowmentEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.product.coverageTerm, this.product.assuredSum, this.product.premiumTerm, this.product.averageInterestRate, this.endowmentEnum,
+          this.product.productName, this.product.description, this.product.policyCurrency, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
+
+        console.log(endowmentProd);
 
         this.productService.createProduct(endowmentProd).subscribe(
           response => {
@@ -207,6 +216,27 @@ export class CreateProductComponent implements OnInit {
     console.log("Currency: " + this.product.policyCurrency + " type: " + typeof (this.product.policyCurrency));
   }
 
+  selectTermLifeEnum(event: any) {
+    let stringText: string = event.target.value;
+    let termLife: TermLifeProductEnum = (<any>TermLifeProductEnum)[stringText];
+    this.termLifeEnum = termLife;
+    console.log("TermLife: " + this.termLifeEnum + " type: " + typeof (this.termLifeEnum));
+  }
+
+  selectWholeLifeEnum(event: any) {
+    let stringText: string = event.target.value;
+    let wholeLife: WholeLifeProductEnum = (<any>WholeLifeProductEnum)[stringText];
+    this.wholeLifeEnum = wholeLife;
+    console.log("WholeLife: " + this.wholeLifeEnum + " type: " + typeof (this.wholeLifeEnum));
+  }
+
+  selectEndowmentEnum(event: any) {
+    let stringText: string = event.target.value;
+    let endowment: EndowmentProductEnum = (<any>EndowmentProductEnum)[stringText];
+    this.endowmentEnum = endowment;
+    console.log("WholeLife: " + this.endowmentEnum + " type: " + typeof (this.endowmentEnum));
+  }
+
   handleClickAddFeature(): void {
     this.product?.listOfAdditionalFeatures?.push(new FeatureEntity());
   }
@@ -240,7 +270,24 @@ export class CreateProductComponent implements OnInit {
   }
 
   clear(): void {
-    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array());
+    this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
+  }
+
+  chooseEnum(event: any): void {
+    if (event.target.value == "termlife") {
+      this.isTermLife = true;
+      this.isWholeLife = false;
+      this.isEndowment = false;
+    } else if (event.target.value == "wholelife") {
+      this.isWholeLife = true;
+      this.isTermLife = false;
+      this.isEndowment = false;
+    } else if (event.target.value == "endowment") {
+      this.isEndowment = true;
+      this.isTermLife = false;
+      this.isWholeLife = false;
+
+    }
   }
 
 }

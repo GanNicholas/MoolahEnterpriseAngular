@@ -11,12 +11,12 @@ export class ProductEntity {
     productImage: Uint8Array | null;
     productDateCreated: Date;
     productName: string | undefined;
-    coverageTerm: number | undefined;
-    assuredSum: number | undefined;
+    coverageTerm: number = 0;
+    assuredSum: number = 0;
     description: string | undefined;
     isDeleted: boolean;
-    premiumTerm: number | undefined;
-    averageInterestRate: number | undefined;
+    premiumTerm: number = 0;
+    averageInterestRate: number = 0;
     policyCurrency: PolicyCurrencyEnum | undefined;
     isAvailableToSmoker: boolean | undefined;
     productCategoryPricing: CategoryPricingEntity | null;
@@ -27,7 +27,7 @@ export class ProductEntity {
     listOfPremium: PremiumEntity[] = new Array();
     listOfSmokerPremium: PremiumEntity[] = new Array();
 
-    constructor(listOfAdditionalFeatures: FeatureEntity[], listOfRiders: RiderEntity[], listOfPremium: PremiumEntity[], listOfSmokerPremium: PremiumEntity[], productName?: string, coverageTerm?: number, assuredSum?: number, description?: string, premiumTerm?: number, averageInterestRate?: number, policyCurrency?: PolicyCurrencyEnum,
+    constructor(listOfAdditionalFeatures: FeatureEntity[], listOfRiders: RiderEntity[], listOfPremium: PremiumEntity[], listOfSmokerPremium: PremiumEntity[], assuredSum: number, premiumTerm: number, averageInterestRate: number, coverageTerm: number, productName?: string, description?: string, policyCurrency?: PolicyCurrencyEnum,
         isAvailableToSmoker?: boolean, clickThroughInfo?: ClickThroughEntity,
         company?: CompanyEntity | null) {
         this.productId = null;

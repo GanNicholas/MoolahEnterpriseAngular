@@ -20,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccessRightErrorComponent } from './access-right-error/access-right-error/access-right-error.component';
 import {SplitButtonModule} from 'primeng/splitbutton';
+import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 
 
 
@@ -32,7 +33,8 @@ import {SplitButtonModule} from 'primeng/splitbutton';
     HeaderComponent,
     FooterComponent,
     CreateProductComponent,
-    AccessRightErrorComponent
+    AccessRightErrorComponent,
+    ViewProductDetailsComponent
   ],
   imports: [
     BrowserModule,

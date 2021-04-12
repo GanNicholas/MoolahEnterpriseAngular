@@ -179,6 +179,69 @@
 
         </tr>
 
+        <tr>
+            <td style="font-weight: bold; width: 20%" class="bodyText">Product Type</td>
+            <td>
+                <select id="productTypeEnum" name="productTypeEnum" [(ngModel)]="productType"
+                    (change)="chooseEnum($event)" required="true" #productTypeEnum="ngModel">
+                    <option value="termlife"> Term Life </option>
+                    <option value="wholelife"> Whole Life </option>
+                    <option value="endowment"> Endowment </option>
+                </select>
+                <span class="errorText" *ngIf="productTypeEnum.touched && productTypeEnum.invalid">
+                    Please select a product type!
+                </span>
+            </td>
+
+        </tr>
+
+        <tr *ngIf="isTermLife == true">
+            <td style="font-weight: bold; width: 20%" class="bodyText">Type of Term Life</td>
+            <td>
+                <select id="termLife" name="termLife" [(ngModel)]="termLifeEnum"
+                    (change)="selectTermLifeEnum($event)" required="true" #termLife="ngModel">
+                    <option value="ACCIDENT"> Accident </option>
+                    <option value="HOSPITAL"> Hospital </option>
+                    <option value="CRITICALILLNESS"> Critical Illness </option>
+                </select>
+                <span class="errorText" *ngIf="termLife.touched && termLife.invalid">
+                    Please select a type for Term Life!
+                </span>
+            </td>
+
+        </tr>
+
+        <tr *ngIf="isWholeLife == true">
+            <td style="font-weight: bold; width: 20%" class="bodyText">Type of Whole Life</td>
+            <td>
+                <select id="wholeLife" name="wholeLife" [(ngModel)]="wholeLifeEnum"
+                    (change)="selectWholeLifeEnum($event)" required="true" #wholeLife="ngModel">
+                    <option value="ACCIDENT"> Accident </option>
+                    <option value="HOSPITAL"> Hospital </option>
+                    <option value="CRITICALILLNESS"> Critical Illness </option>
+                    <option value="LIFEINSURANCE"> Life Insurance </option>
+                </select>
+                <span class="errorText" *ngIf="wholeLife.touched && wholeLife.invalid">
+                    Please select a type for Whole Life!
+                </span>
+            </td>
+
+        </tr>
+
+        <tr *ngIf="isEndowment == true">
+            <td style="font-weight: bold; width: 20%" class="bodyText">Type of Endowment</td>
+            <td>
+                <select id="endowment" name="endowment" [(ngModel)]="endowmentEnum"
+                    (change)="selectEndowmentEnum($event)" required="true" #endowment="ngModel">
+                    <option value="ENDOWMENT"> Endowment </option>
+                </select>
+                <span class="errorText" *ngIf="endowment.touched && endowment.invalid">
+                    Please select a type for Endowment!
+                </span>
+            </td>
+
+        </tr>
+
     </table>
 
     <br /><br />
@@ -415,7 +478,7 @@
             <br />
         </div>
 
-        <p-table id="tablePremium" [value]="product.listOfPremium" style="text-align: center">
+        <p-table id="tableSmokerPremium" [value]="product.listOfSmokerPremium" style="text-align: center">
             <ng-template pTemplate="header">
                 <tr>
                     <th>S/N</th>
@@ -426,36 +489,36 @@
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="body" let-premium let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-smokepremium let-rowIndex="rowIndex">
                 <tr>
                     <td>{{ rowIndex + 1 }}</td>
 
                     <td>
-                        <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="text"
-                            [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="sminAge" name="sminAge" #sminAge="ngModel" type="text"
+                            [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
-                    minAge.invalid && (minAge.dirty || minAge.touched || submitted)
+                        sminAge.invalid && (sminAge.dirty || sminAge.touched || submitted)
               " class="errorText">
-                            <div *ngIf="minAge.errors != null && minAge.errors.required">
+                            <div *ngIf="sminAge.errors != null && sminAge.errors.required">
                                 Min Age is required.
                             </div>
                         </div>
                     </td>
 
                     <td>
-                        <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="text"
-                            [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="smaxAge" name="smaxAge" #smaxAge="ngModel" type="text"
+                            [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
-                    maxAge.invalid &&
-                (maxAge.dirty || maxAge.touched || submitted)
+                        smaxAge.invalid &&
+                (smaxAge.dirty || smaxAge.touched || submitted)
               " class="errorText">
                             <div *ngIf="
-                        maxAge.errors != null &&
-                        maxAge.errors.required
+                            smaxAge.errors != null &&
+                            smaxAge.errors.required
                 ">
                                 Max Age is required.
                             </div>
@@ -463,17 +526,17 @@
                     </td>
 
                     <td>
-                        <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="text"
-                            [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="spremiumValue" name="spremiumValue" #spremiumValue="ngModel" type="text"
+                            [(ngModel)]="smokepremium.premiumValue" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
-                    premiumValue.invalid &&
-                (premiumValue.dirty || premiumValue.touched || submitted)
+                        spremiumValue.invalid &&
+                (spremiumValue.dirty || spremiumValue.touched || submitted)
               " class="errorText">
                             <div *ngIf="
-                        premiumValue.errors != null &&
-                        premiumValue.errors.required
+                            spremiumValue.errors != null &&
+                            spremiumValue.errors.required
                 ">
                                 Premium Value is required.
                             </div>
