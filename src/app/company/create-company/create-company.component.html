@@ -11,14 +11,14 @@
   {{ message }}
 </div>
 
-<h2 class="secondaryHeader">Company Information</h2>
+<h2 style="text-align: center" class="secondaryHeader">Company Information</h2>
 <form
   #createCompanyForm="ngForm"
   (ngSubmit)="create(createCompanyForm)"
   style="height: 10%"
 >
-  <div style="margin: center;">
-    <table width="60%" style="border-spacing: 0 23px">
+  <div style="text-align: center">
+    <table width="60%" style="margin-left: 30%; border-spacing: 0 23px">
       <tr>
         <td width="20%" style="font-weight: bold" class="bodyText">
           Company Name
@@ -166,6 +166,39 @@
       </tr>
 
       <tr>
+        <td width="20%" style="font-weight: bold" class="bodyText">
+          Company URL
+        </td>
+        <td>
+          <input
+            pInputText
+            id="companyUrl"
+            name="companyUrl"
+            #companyUrl="ngModel"
+            type="text"
+            [(ngModel)]="createCompanyEntityReq.companyEntity.companyUrl"
+            required="true"
+            class="bodyText, inputWidth"
+          />
+        </td>
+        <td>
+          <div
+            *ngIf="
+              companyUrl.invalid &&
+              (companyUrl.dirty || companyUrl.touched || submitted)
+            "
+            class="errorText"
+          >
+            <div
+              *ngIf="companyUrl.errors != null && companyUrl.errors.required"
+            >
+              Company URL is required.
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
         <td width="20%" style="font-weight: bold" class="bodyText">Password</td>
         <td>
           <p-password
@@ -194,15 +227,32 @@
         </td>
       </tr>
     </table>
-  </div>
-  <br />
-  <h2 class="secondaryHeader">Point Of Contact</h2>
-  <p-button
-    label="Add Point of Contact"
-    type="button"
-    (click)="handleClickAdd()"
-  ></p-button>
 
+    <p-fileUpload
+      name="myfile[]"
+      url="./upload.php"
+      accept="image/*"
+    ></p-fileUpload>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="secondaryHeader">Point Of Contact</h2>
+  <div style="text-align: center">
+    <p-button
+      label="Add Point of Contact"
+      type="button"
+      (click)="handleClickAdd()"
+    ></p-button>
+  </div>
   <p-table
     id="tablePointOfContact"
     [value]="createCompanyEntityReq.listOfPointOfContacts"
@@ -322,8 +372,10 @@
     <input pInputText type="submit" value="Create" />
   </div>
 </form>
-<br/>
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <app-footer></app-footer>

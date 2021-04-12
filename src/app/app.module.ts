@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,12 +13,16 @@ import { IndexComponent } from './index/index/index.component';
 import { MenubarModule } from 'primeng/menubar';
 import { HeaderComponent } from './header/header/header.component';
 import { FooterComponent } from './footer/footer/footer.component';
-import { CreateProductComponent } from './product/create-product/create-product.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details/view-my-company-details.component';
+import {ToastModule} from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {DialogModule} from 'primeng/dialog';
+
+
 
 
 @NgModule({
@@ -29,7 +33,6 @@ import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details
     HeaderComponent,
     FooterComponent,
     ViewMyCompanyDetailsComponent,
-    CreateProductComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,10 @@ import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details
     PasswordModule,
     ButtonModule,
     BrowserAnimationsModule,
+    ToastModule,
+    FileUploadModule,
+    ConfirmDialogModule,
+    DialogModule,
   ],
 
   providers: [],

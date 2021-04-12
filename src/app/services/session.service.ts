@@ -4,65 +4,57 @@ import { CompanyEntity } from '../models/company-entity';
 
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
 export class SessionService {
 
-	constructor() { }
+  constructor() { }
 
-	getCompany(): CompanyEntity | null {
-		try {
-			return JSON.parse(sessionStorage.company);
-
-		}
-		catch
-		{
-			return null;
-		}
-
-	}
+  getCompany(): CompanyEntity {
+      return JSON.parse(sessionStorage.company);
+  }
 
 
-	setCompany(company: CompanyEntity | null): void {
-		sessionStorage.company = JSON.stringify(company);
-	}
+  setCompany(company: CompanyEntity | null): void {
+    sessionStorage.company = JSON.stringify(company);
+  }
 
-	getIsLogin(): boolean {
-		if (sessionStorage.isLogin == "true") {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+  getIsLogin(): boolean {
+    if (sessionStorage.isLogin == "true") {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
-	setIsLogin(isLogin: boolean): void {
-		sessionStorage.isLogin = isLogin;
-	}
+  setIsLogin(isLogin: boolean): void {
+    sessionStorage.isLogin = isLogin;
+  }
 
-	getEmail(): string {
-		return sessionStorage.email;
-	}
+  getEmail(): string {
+    return sessionStorage.email;
+  }
 
-	setEmail(email: string | undefined) {
-		sessionStorage.email = email;
-	}
+  setEmail(email: string | undefined) {
+    sessionStorage.email = email;
+  }
 
-	getPassword(): string {
-		return sessionStorage.password;
-	}
+  getPassword(): string {
+    return sessionStorage.password;
+  }
 
-	setPassword(password: string | undefined) {
-		sessionStorage.password = password;
-	}
+  setPassword(password: string | undefined) {
+    sessionStorage.password = password;
+  }
 
-	checkAccessRight(path: string): boolean {
-		if (this.getIsLogin()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+  checkAccessRight(path: string): boolean {
+    if (this.getIsLogin()) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
 }

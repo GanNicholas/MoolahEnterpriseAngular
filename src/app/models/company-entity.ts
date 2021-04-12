@@ -19,18 +19,18 @@ export class CompanyEntity {
     isDeleted : boolean | undefined;
     isWarned : boolean | undefined;
     refund : RefundEntity | undefined;
-    listOfPointOfContacts : PointOfContactEntity[] | undefined;
+    listOfPointOfContacts : PointOfContactEntity[];
     listOfPayments : PaymentEntity[]| undefined;
     listOfProducts : ProductEntity[] | undefined;
     resetPasswordPathParam : string | undefined | null;
-    companyImage : string | undefined;
+    companyImage : any[];
     companyUrl : string | undefined;
     expiryDateOfPathParam : Date | undefined | null;
 
     constructor(companyID? : number, profilePic? : Uint8Array, companyName? : string, companyEmail? : string, businessRegNumber? : string,
         companyContactNumber? :string, warningMessage? : string, isVerified ? :boolean, password? : string, verificationDate? : Date,
         creditOwned? : bigint, isDeactivated? : boolean, isDeleted? : boolean, isWarned? : boolean, refund? : RefundEntity,
-        listOfPointOfContacts ? : PointOfContactEntity[], listOfPayments ? : PaymentEntity[], listOfProducts ? : ProductEntity[], 
+        listOfPointOfContacts ? : PointOfContactEntity[], listOfPayments ? : PaymentEntity[], listOfProducts ? : ProductEntity[],
         companyImage ? : string, companyUrl ? : string, expiryDateOfPathParam ? : Date){
 
             this.companyID = companyID;
@@ -48,10 +48,10 @@ export class CompanyEntity {
             this.isDeleted = isDeleted;
             this.isWarned = isWarned;
             this.refund = refund;
-            this.listOfPointOfContacts = listOfPointOfContacts;
+            this.listOfPointOfContacts = new Array();
             this.listOfPayments = listOfPayments;
             this.listOfProducts = listOfProducts;
-            this.companyImage = companyImage;
+            this.companyImage = new Array();
             this.companyUrl = companyUrl;
             this.expiryDateOfPathParam = expiryDateOfPathParam;
     }

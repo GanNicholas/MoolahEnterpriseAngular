@@ -1,18 +1,16 @@
 <app-header></app-header>
 
 <br />
-<br />
-<h1 class="pageHeader">View my Profile</h1>
-<br />
+<h1 style="text-align: center" class="pageHeader">View my Profile</h1>
 <br />
 
-<h2 class="secondaryHeader">Company Information</h2>
+<h2 style="text-align: center" class="secondaryHeader">Company Information</h2>
 <form
   #updateCompanyForm="ngForm"
   (ngSubmit)="update(updateCompanyForm)"
   style="height: 10%"
 >
-  <div style="margin: center">
+  <div style="margin-left: 30%; text-align: center">
     <table width="60%" style="border-spacing: 0 23px">
       <tr>
         <td width="20%" style="font-weight: bold" class="bodyText">
@@ -28,8 +26,15 @@
             [(ngModel)]="company.companyName"
             required="true"
             class="bodyText, inputWidth"
-            [disabled]="true"
+            [disabled]="toggleCompanyName"
+            ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true"
           />
+          <p-button
+            *ngIf="toggleCompanyName"
+            type="button"
+            (click)="saveCompanyNameEdit()"
+            >Edit</p-button
+          >
         </td>
         <td>
           <div
@@ -62,8 +67,14 @@
             [(ngModel)]="company.companyEmail"
             required="true"
             class="bodyText, inputWidth"
-            [disabled]="true"
+            [disabled]="toggleCompanyEmail"
           />
+          <p-button
+            *ngIf="toggleCompanyEmail"
+            type="button"
+            (click)="saveCompanyEmailEdit()"
+            >Edit</p-button
+          >
         </td>
         <td>
           <div
@@ -97,7 +108,8 @@
             type="text"
             [(ngModel)]="company.businessRegNumber"
             required="true"
-            class="bodyText, inputWidth"
+            class="bodyText"
+            style="width: 78%"
             [disabled]="true"
           />
         </td>
@@ -134,13 +146,18 @@
             name="companyContactNumber"
             #companyContactNumber="ngModel"
             type="text"
-            [(ngModel)]="
-              company.companyContactNumber
-            "
+            [(ngModel)]="company.companyContactNumber"
             required="true"
             class="bodyText, inputWidth"
-            [disabled]="true"
+            [disabled]="toggleCompanyNumber"
+            ngClass="{'bodyText, inputWidth'} : true, {'bodyText, inputWidth'} : false"
           />
+          <p-button
+            *ngIf="toggleCompanyNumber"
+            type="button"
+            (click)="saveCompanyNumberEdit()"
+            >Edit</p-button
+          >
         </td>
         <td>
           <div
@@ -165,6 +182,47 @@
       </tr>
 
       <tr>
+        <td width="20%" style="font-weight: bold" class="bodyText">
+          Company Contact Number
+        </td>
+        <td>
+          <input
+            pInputText
+            id="companyUrl"
+            name="companyUrl"
+            #companyUrl="ngModel"
+            type="text"
+            [(ngModel)]="company.companyUrl"
+            required="true"
+            class="bodyText, inputWidth"
+            [disabled]="toggleCompanyUrl"
+            ngClass="{'bodyText, inputWidth'} : true, {'bodyText, inputWidth'} : false"
+          />
+          <p-button
+            *ngIf="toggleCompanyUrl"
+            type="button"
+            (click)="saveUrlEdit()"
+            >Edit</p-button
+          >
+        </td>
+        <td>
+          <div
+            *ngIf="
+              companyUrl.invalid &&
+              (companyUrl.dirty || companyUrl.touched || submitted)
+            "
+            class="errorText"
+          >
+            <div
+              *ngIf="companyUrl.errors != null && companyUrl.errors.required"
+            >
+              Company Contact Number is required.
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
         <td width="20%" style="font-weight: bold" class="bodyText">Password</td>
         <td>
           <p-password
@@ -178,6 +236,12 @@
             class="bodyText, inputWidth"
             [disabled]="true"
           ></p-password>
+          <p-button
+            *ngIf="togglePassword"
+            type="button"
+            (click)="showDialog($event)"
+            >Edit</p-button
+          >
         </td>
         <td>
           <div
@@ -187,13 +251,233 @@
             "
             class="errorText"
           >
-            <div *ngIf="password.errors != null && password.errors.required">
-              Password is required.
-            </div>
+            <div
+              *ngIf="password.errors != null && password.errors.required"
+            ></div>
           </div>
         </td>
       </tr>
     </table>
   </div>
-  <app-footer></app-footer>
+
+  <br />
+  <br />
+
+  <h2 style="text-align: center" class="secondaryHeader">Point Of Contact</h2>
+
+  <br />
+  <div style="text-align: center">
+    <p-button *ngIf="togglePoc" type="button" (click)="savePocEdit()"
+      >Edit</p-button
+    >
+    &nbsp; &nbsp;
+    <p-button
+      *ngIf="!togglePoc"
+      label="Add Point of Contact"
+      type="button"
+      (click)="handleClickAddPoc()"
+    ></p-button>
+  </div>
+  <p-table
+    id="tablePointOfContact"
+    [value]="company.listOfPointOfContacts"
+    [rowTrackBy]="trackByRowIndex"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="p-datatable-thead" style="width: 7%; text-align: center">
+          S/N
+        </th>
+        <th style="text-align: center" colspan="2">Point Of Contact Name</th>
+        <th style="text-align: center" colspan="2">
+          Point Of Contact Mobile Number
+        </th>
+        <th style="text-align: center" colspan="2">Point Of Contact Email</th>
+        <th style="width: 7%; text-align: center">Action</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-poc>
+      <tr>
+        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+        <td>
+          <input
+            pInputText
+            name="pocName"
+            #pocName="ngModel"
+            type="text"
+            [(ngModel)]="poc.pocName"
+            required="true"
+            [disabled]="togglePoc"
+          />
+        </td>
+        <td>
+          <div
+            *ngIf="
+              pocName.invalid && (pocName.dirty || pocName.touched || submitted)
+            "
+            class="errorText"
+          >
+            <div *ngIf="pocName.errors != null && pocName.errors.required">
+              POC Name is required.
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <input
+            pInputText
+            name="pocMobileNumber"
+            #pocMobileNumber="ngModel"
+            type="text"
+            [(ngModel)]="poc.pocMobileNumber"
+            required="true"
+            [disabled]="togglePoc"
+          />
+        </td>
+        <td>
+          <div
+            *ngIf="
+              pocMobileNumber.invalid &&
+              (pocMobileNumber.dirty || pocMobileNumber.touched || submitted)
+            "
+            class="errorText"
+          >
+            <div
+              *ngIf="
+                pocMobileNumber.errors != null &&
+                pocMobileNumber.errors.required
+              "
+            >
+              POC Mobile Number is required.
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <input
+            pInputText
+            name="pocEmail"
+            #pocEmail="ngModel"
+            type="text"
+            [(ngModel)]="poc.pocEmail"
+            required="true"
+            [disabled]="togglePoc"
+          />
+        </td>
+        <td>
+          <div
+            *ngIf="
+              pocEmail.invalid &&
+              (pocEmail.dirty || pocEmail.touched || submitted)
+            "
+            class="errorText"
+          >
+            <div *ngIf="pocEmail.errors != null && pocEmail.errors.required">
+              POC Email is required.
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <button
+            (click)="confirm(rowIndex)"
+            pButton
+            icon="pi pi-cross"
+            label="Delete"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br />
+
+  <div style="text-align: center">
+    <input pInputText type="submit" value="Update" />
+  </div>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
 </form>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<p-toast></p-toast>
+
+<p-dialog
+  id="changePasswordDialog"
+  name="changePasswordDialog"
+  header="Change Password"
+  [(visible)]="display"
+  [closable]="true"
+  [resizable]="false"
+  [draggable]="false"
+  [dismissableMask]="true"
+>
+  <div id="dialogFormForUpdatePassword">
+    <form
+      #changePasswordForm="ngForm"
+      (ngSubmit)="updatePassword(changePasswordForm)"
+      style="height: 10%"
+    >
+      <div style="text-align: center; margin: 0 auto">
+        <table width="70%" style="border-spacing: 0 23px">
+          <tr>
+            <td class="bodyText">Old Password:</td>
+            <td>
+              <p-password
+                id="password"
+                name="password"
+                #password="ngModel"
+                [(ngModel)]="oldPassword"
+                required="true"
+                [toggleMask]="true"
+                class="bodyText, inputWidth"
+              ></p-password>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="bodyText">New Password:</td>
+            <td>
+              <p-password
+                id="password"
+                name="password"
+                #password="ngModel"
+                type="text"
+                [(ngModel)]="newPassword"
+                required="true"
+                [toggleMask]="true"
+                class="bodyText, inputWidth"
+              ></p-password>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="bodyText">Repeat New Password:</td>
+            <td>
+              <p-password
+                id="password"
+                name="password"
+                #password="ngModel"
+                type="text"
+                [(ngModel)]="repeatNewPassword"
+                required="true"
+                [toggleMask]="true"
+                class="bodyText, inputWidth"
+              ></p-password>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div style="text-align: center">
+        <input pInputText type="submit" value="Change Password" />
+      </div>
+    </form>
+  </div>
+</p-dialog>
+<app-footer></app-footer>
