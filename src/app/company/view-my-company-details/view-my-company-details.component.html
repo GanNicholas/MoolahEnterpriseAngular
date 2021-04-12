@@ -292,6 +292,9 @@
         <th style="text-align: center" colspan="2">
           Point Of Contact Mobile Number
         </th>
+        <th style="text-align: center" colspan="2">
+          Point Of Contact Office Number
+        </th>
         <th style="text-align: center" colspan="2">Point Of Contact Email</th>
         <th style="width: 7%; text-align: center">Action</th>
       </tr>
@@ -350,6 +353,36 @@
               "
             >
               POC Mobile Number is required.
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <input
+            pInputText
+            name="pocOfficeNumber"
+            #pocOfficeNumber="ngModel"
+            type="text"
+            [(ngModel)]="poc.pocOfficeNumber"
+            required="true"
+            [disabled]="togglePoc"
+          />
+        </td>
+        <td>
+          <div
+            *ngIf="
+              pocOfficeNumber.invalid &&
+              (pocOfficeNumber.dirty || pocOfficeNumber.touched || submitted)
+            "
+            class="errorText"
+          >
+            <div
+              *ngIf="
+                pocOfficeNumber.errors != null &&
+                pocOfficeNumber.errors.required
+              "
+            >
+              POC Office Number is required.
             </div>
           </div>
         </td>
