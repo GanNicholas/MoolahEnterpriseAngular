@@ -1,9 +1,42 @@
 <app-header></app-header>
 
-<h2 style="text-align: center" class="secondaryHeader">Make Payment</h2>
+<h2 style="text-align: center" class="secondaryHeader">
+  Purchase Moolah Credits
+</h2>
 
-<form (ngSubmit)="purchaseMoolahCredit()">
-  <div>
+<form #purchaseCreditForm="ngForm" (ngSubmit)="purchaseMoolahCredit()">
+  <div *ngIf="back && !success">
+    <table style="margin: 0 auto" cellspacing="20px">
+      <tr>
+        <td>Credits to Purchase</td>
+        <td>
+          <p-inputNumber
+            id="creditToBuy"
+            name="creditToBuy"
+            [(ngModel)]="creditToBuy"
+            [required]="true"
+            requiredMessage="Number of credits to purchase must be greater than 0"
+            class="bodyText, inputWidth, p-field"
+            [min]="0"
+            [step]="100"
+            [showButtons]="true"
+            (ngModelChange)="onCompleteCreditTopUp()"
+          ></p-inputNumber>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Amount Payable</td>
+        <td>$ &nbsp;{{ getAmountPayable() | number: ".2-2" }}</td>
+      </tr>
+    </table>
+
+    <div style="text-align: center">
+      <p-button (click)="goNext()" label="Next"> &nbsp;</p-button>
+    </div>
+  </div>
+
+  <div *ngIf="next && !success">
     <table style="margin: 0 auto" cellspacing="20px">
       <tr>
         <td>Name of Card Holder&nbsp;</td>
@@ -30,7 +63,7 @@
             name="creditCardNumber"
             type="text"
             [(ngModel)]="creditCardNumber"
-            required="true"
+            [required]="true"
             requiredMessage="Card Number is required"
             class="bodyText, inputWidth, p-field"
           />
@@ -46,7 +79,7 @@
             name="creditCardCvv"
             type="text"
             [(ngModel)]="creditCardCvv"
-            required="true"
+            [required]="true"
             requiredMessage="CVV is required"
             class="bodyText, inputWidth, p-field"
           />
@@ -58,6 +91,8 @@
         <td>
           <div class="p-field p-col-12 p-md-4">
             <p-calendar
+              id="creditCardExp"
+              name="creditCardExp"
               [(ngModel)]="creditCardExp"
               view="month"
               dateFormat="mm/yy"
@@ -69,12 +104,30 @@
           </div>
         </td>
       </tr>
-    </table>
-  </div>
 
-  <div style="text-align: center">
-    <input pInputText type="submit" value="Make Payment" />
+      <tr>
+        <td>Number of Credits</td>
+        <td>{{ creditToBuy }}</td>
+      </tr>
+
+      <tr>
+        <td>Amount Payable</td>
+        <td>$ &nbsp;{{ getAmountPayable() | number: ".2-2" }}</td>
+      </tr>
+    </table>
+
+    <div style="text-align: center">
+      <p-button (click)="goBack()" label="Back"> &nbsp;</p-button> &nbsp;
+      <input pInputText type="submit" value="Make Payment" />
+    </div>
   </div>
 </form>
 
+<div *ngIf="success" style="text-align: center">
+  <p>
+    You have successfully purchased {{ creditToBuy }} credits for ${{ getAmountPayable() }}
+  </p>
+  <p-button (click)="backToHome()">Back to Home</p-button>
+</div>
+<p-toast></p-toast>
 <app-footer></app-footer>

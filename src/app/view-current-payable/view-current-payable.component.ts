@@ -142,6 +142,10 @@ export class ViewCurrentPayableComponent implements OnInit {
   }
 
   getDateGeneratedString(): string {
-    return this.getDateString(this.monthlyPayments[this.selected].dateGenerated);
+    if (this.monthlyPayments[this.selected].dateGenerated == null) {
+      return "";
+    } else {
+      return this.getDateString(this.monthlyPayments[this.selected].dateGenerated);
+    }
   }
 }

@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'product/createProduct', component: CreateProductComponent },
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent},
   { path: 'makePayment', component: MakePaymentComponent},
-  { path: 'makePayment/:id', component: MakePaymentComponent},
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
   { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent }
