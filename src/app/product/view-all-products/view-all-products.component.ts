@@ -27,6 +27,7 @@ export class ViewAllProductsComponent implements OnInit {
     this.productService.retrieveCompanyProducts().subscribe(
       response => {
         this.products = response;
+        this.loading = false;
         console.log("Retrieved successfully" + this.products[0].productName);
         
       },
@@ -37,9 +38,11 @@ export class ViewAllProductsComponent implements OnInit {
 
     this.totalRecords = this.products.length;
     
+    
   }
 
   applyFilterGlobal($event : any, stringVal : string) {
+    
   
   }
 

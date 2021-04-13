@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: '/index/index'
+          routerLink: '/index'
         },
         {
           label: 'About Us',
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: '/index/index'
+          routerLink: '/index'
         },
         {
           label: 'About Us',
@@ -74,6 +74,7 @@ export class HeaderComponent implements OnInit {
         {
           label: 'View My Products',
           icon: 'pi pi-book',
+          routerLink: '/product/viewAllProducts'
         },
         {
           label: 'Create New Product',
@@ -132,6 +133,7 @@ export class HeaderComponent implements OnInit {
             {
               label: 'View My Products',
               icon: 'pi pi-book',
+              routerLink: '/product/viewAllProducts'
             },
             {
               label: 'Create New Product',
@@ -174,7 +176,6 @@ export class HeaderComponent implements OnInit {
     this.sessionService.setEmail("");
     this.sessionService.setPassword("");
     sessionStorage.clear();
-
 
     this.router.navigate(["/index"]);
   }
