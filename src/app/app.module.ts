@@ -30,6 +30,7 @@ import { ViewCurrentPayableComponent } from './view-current-payable/view-current
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { CalendarModule } from 'primeng/calendar';
     DialogModule,
     SplitButtonModule,
     BadgeModule,
-    CalendarModule
+    CalendarModule,
+    CheckboxModule
   ],
 
   providers: [],

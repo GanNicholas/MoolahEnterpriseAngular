@@ -58,6 +58,24 @@ export class ProductService {
     );
   }
 
+  updateEndowmentProduct(updateProduct: EndowmentEntity): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationEndowment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateTermLifeProduct(updateProduct: TermLifeProductEntity): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationTermLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateWholeLifeProduct(updateProduct: WholeLifeProductEntity): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   deleteProduct(productId: number): Observable<any> {
     return this.httpClient.delete<any>(this.baseUrl + "" + productId + "" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
       catchError(this.handleError)

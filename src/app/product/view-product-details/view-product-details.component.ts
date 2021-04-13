@@ -21,6 +21,7 @@ import { TermLifeProductEnum } from 'src/app/models/enums/term-life-product-enum
 import { PremiumEntity } from 'src/app/models/premium-entity';
 import { RiderEntity } from 'src/app/models/rider-entity';
 import { FeatureEntity } from 'src/app/models/feature-entity';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class ViewProductDetailsComponent implements OnInit {
   resultError: boolean = false;
   submitted: boolean = true;
   message: string | undefined;
+  dummyBoolean : boolean = true;
 
   productId: string | null;
   productToView: ProductEntity;
@@ -108,7 +110,7 @@ export class ViewProductDetailsComponent implements OnInit {
           this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
           this.productToView.clickThroughInfo, this.productToView.company);
 
-        this.productService.updateCompanyProduct(endowmentProd).subscribe(
+        this.productService.updateEndowmentProduct(endowmentProd).subscribe(
           response => {
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
@@ -132,7 +134,7 @@ export class ViewProductDetailsComponent implements OnInit {
           this.productToView.premiumTerm, this.productToView.averageInterestRate, this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, (<any>WholeLifeProductEnum)[this.productEnumType], this.productToView.isAvailableToSmoker,
           this.productToView.clickThroughInfo, this.productToView.company);
 
-        this.productService.updateCompanyProduct(wholeLifeProd).subscribe(
+        this.productService.updateWholeLifeProduct(wholeLifeProd).subscribe(
           response => {
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
@@ -157,7 +159,7 @@ export class ViewProductDetailsComponent implements OnInit {
           this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
           this.productToView.clickThroughInfo, this.productToView.company);
 
-        this.productService.updateCompanyProduct(termLifeProd).subscribe(
+        this.productService.updateTermLifeProduct(termLifeProd).subscribe(
           response => {
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
