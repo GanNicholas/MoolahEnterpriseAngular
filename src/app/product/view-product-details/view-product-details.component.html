@@ -157,7 +157,7 @@
             <td>
                 <select id="policyCurrencyList" name="policyCurrencyList" [(ngModel)]="productToView.policyCurrency"
                     (change)="selectChangeHandlerCurrency($event)" required="true" #policyCurrencyList="ngModel"
-                    style="float: left; margin-left: 3%;">
+                    style="float: left; ">
                     <option value="SGD"> SGD </option>
                     <option value="USD"> USD </option>
                     <option value="NZD"> NZD </option>
@@ -178,16 +178,12 @@
         <tr>
             <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
             <td>
-                <select id="smokerBoolean" name="smokerBoolean" [(ngModel)]="productToView.isAvailableToSmoker"
-                    (change)="selectChangeHandlerSmoker($event)" required="true" #smokerBoolean="ngModel"
-                    style="float: left; margin-left: 3%;">
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="dummyBoolean" name="smokerBoolean" binary="true" inputId="smokerBoolean">
+                    </p-checkbox>
+                    <label for="smokerBoolean">{{dummyBoolean}}</label>
+                </div>
 
-                    <option value="true"> Yes </option>
-                    <option value="false"> No </option>
-                </select>
-                <span class="errorText" *ngIf="smokerBoolean.touched && smokerBoolean.invalid">
-                    Please select if product can be for smoker
-                </span>
             </td>
 
         </tr>

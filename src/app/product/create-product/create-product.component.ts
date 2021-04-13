@@ -70,6 +70,7 @@ export class CreateProductComponent implements OnInit {
     this.product.productCategoryPricing = null;
     this.product.clickThroughInfo = new ClickThroughEntity();
     this.product.productCategoryPricing = null;
+    this.product.isAvailableToSmoker = false;
     this.productType = "";
   }
 

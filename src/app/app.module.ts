@@ -28,9 +28,13 @@ import { AccessRightErrorComponent } from './access-right-error/access-right-err
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 import { ViewCurrentPayableComponent } from './view-current-payable/view-current-payable.component';
+import { ViewAllProductsComponent } from './product/view-all-products/view-all-products.component';
+import { ForgetPasswordComponent } from './password/forget-password/forget-password.component';
+import { KeyNewPasswordComponent } from './password/key-new-password/key-new-password.component';
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
+import {CheckboxModule} from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
@@ -47,6 +51,9 @@ import {MessageModule} from 'primeng/message';
     AccessRightErrorComponent,
     ViewProductDetailsComponent,
     ViewCurrentPayableComponent,
+    ViewAllProductsComponent,
+    ForgetPasswordComponent,
+    KeyNewPasswordComponent,
     MakePaymentComponent,
   ],
   imports: [
@@ -67,6 +74,7 @@ import {MessageModule} from 'primeng/message';
     SplitButtonModule,
     BadgeModule,
     CalendarModule,
+    CheckboxModule,
     InputNumberModule,
     KeyFilterModule,
     MessageModule,

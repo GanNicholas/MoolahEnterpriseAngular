@@ -47,13 +47,31 @@ export class ProductService {
   }
 
   retrieveCompanyProducts(): Observable<ProductEntity[]> {
-    return this.httpClient.get<ProductEntity[]>(this.baseUrl + "/retrieveAllProductsById?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
+    return this.httpClient.get<ProductEntity[]>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
       catchError(this.handleError)
     );
   }
 
   updateCompanyProduct(updateProduct: ProductEntity): Observable<ProductEntity> {
     return this.httpClient.post<ProductEntity>(this.baseUrl + "?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateEndowmentProduct(updateProduct: EndowmentEntity): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationEndowment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateTermLifeProduct(updateProduct: TermLifeProductEntity): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationTermLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateWholeLifeProduct(updateProduct: WholeLifeProductEntity): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
