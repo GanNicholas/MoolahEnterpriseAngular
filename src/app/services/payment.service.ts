@@ -68,4 +68,9 @@ export class PaymentService {
     return throwError(errorMessage);
   }
 
+  getCostOfCredit(): Observable<number> {
+    return this.httpClient.get<number>(this.baseUrl + "/getCostOfCredit?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
+      catchError(this.handleError)
+    );
+  }
 }

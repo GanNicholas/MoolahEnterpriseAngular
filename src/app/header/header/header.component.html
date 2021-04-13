@@ -22,7 +22,7 @@
 		</div>
 		
 		<div *ngIf="sessionService.getIsLogin() == true">
-			You are login as {{sessionService.getCompany().companyEmail}} 
+			You are login as {{sessionService.getCompany().companyEmail}}
 			<p-splitButton label="My Account" icon="pi pi-user" [model]="accounts"></p-splitButton>
 			
 		</div>
