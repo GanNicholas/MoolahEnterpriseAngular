@@ -7,7 +7,7 @@ import { SessionService } from '../../services/session.service';
 import { CompanyService } from 'src/app/services/company.service';
 
 import { CompanyEntity } from '../../models/company-entity';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 
 @Component({
@@ -48,11 +48,12 @@ export class HeaderComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: '/index/index'
+          routerLink: '/index'
         },
         {
           label: 'About Us',
           icon: 'pi pi-info-circle',
+          routerLink: '/aboutus/aboutUs'
         },
         {
           label: 'Create Company Account',
@@ -65,11 +66,12 @@ export class HeaderComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: '/index/index'
+          routerLink: '/index'
         },
         {
           label: 'About Us',
           icon: 'pi pi-info-circle',
+          routerLink: 'aboutus/aboutUs'
         },
         {
           label: 'View My Products',
@@ -84,18 +86,24 @@ export class HeaderComponent implements OnInit {
       ];
 
       this.accounts = [
-        {label: 'View My Profile',
-        icon: 'pi pi-user-edit',
-
+        {
+          label: 'View My Profile',
+          icon: 'pi pi-user-edit',
+          routerLink: '/company/viewMyCompanyDetails'
+        }, {
+          label: 'My Outstanding Bills',
+          icon: 'pi pi-user-edit',
+          routerLink: '/viewCurrentPayable'
         },
         {
           label: 'Logout',
           icon: 'pi pi-sign-out',
           command: () => {
             this.companyLogout();
-        }}
+          }
+        }
 
-    ];
+      ];
 
     }
 
@@ -141,18 +149,25 @@ export class HeaderComponent implements OnInit {
           ];
 
           this.accounts = [
-            {label: 'View My Profile',
-            icon: 'pi pi-user-edit',
-
+            {
+              label: 'View My Profile',
+              icon: 'pi pi-user-edit',
+              routerLink: '/company/viewMyCompanyDetails'
+            },
+            {
+              label: 'My Oustanding Bills',
+              icon: 'pi pi-user-edit',
+              routerLink: '/viewCurrentPayable'
             },
             {
               label: 'Logout',
               icon: 'pi pi-sign-out',
               command: () => {
                 this.companyLogout();
-            }},
+              }
+            },
 
-        ];
+          ];
         }
         else {
           this.loginError = true;
@@ -169,7 +184,7 @@ export class HeaderComponent implements OnInit {
   companyLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCompany(null);
-    
+
     this.router.navigate(["/index"]);
   }
 

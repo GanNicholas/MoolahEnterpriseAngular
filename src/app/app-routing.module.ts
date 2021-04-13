@@ -7,6 +7,7 @@ import { CreateCompanyComponent } from './company/create-company/create-company.
 import { IndexComponent } from './index/index/index.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
+import { AboutUsComponent } from './aboutus/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -17,9 +18,9 @@ const routes: Routes = [
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent},
   { path: 'makePayment', component: MakePaymentComponent},
   { path: 'makePayment/:id', component: MakePaymentComponent},
-  { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
-  { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent }
+  { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },
+  { path: 'aboutus/aboutUs', component: AboutUsComponent }
 ];
 
 @NgModule({

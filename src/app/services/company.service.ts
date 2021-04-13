@@ -56,7 +56,7 @@ export class CompanyService {
   }
 
   deactivateCompany(): Observable<any> {
-    return this.httpClient.get<any>(this.baseUrl + "/deactivateAccount?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword).pipe(
+    return this.httpClient.get<any>(this.baseUrl + "/deactivateAccount?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password).pipe(
       catchError(this.handleError)
     );
   }

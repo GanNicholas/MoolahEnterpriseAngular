@@ -29,7 +29,7 @@ import { ViewCurrentPayableComponent } from './view-current-payable/view-current
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
-
+import { AboutUsComponent } from './aboutus/about-us/about-us.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +43,7 @@ import { CalendarModule } from 'primeng/calendar';
     ViewProductDetailsComponent,
     ViewCurrentPayableComponent,
     MakePaymentComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +62,7 @@ import { CalendarModule } from 'primeng/calendar';
     DialogModule,
     SplitButtonModule,
     BadgeModule,
-    CalendarModule
+    CalendarModule, 
   ],
 
   providers: [],
