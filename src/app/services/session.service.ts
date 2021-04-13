@@ -56,5 +56,4 @@ export class SessionService {
       return false;
     }
   }
-
 }

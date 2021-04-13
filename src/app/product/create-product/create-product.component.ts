@@ -70,6 +70,7 @@ export class CreateProductComponent implements OnInit {
     this.product.productCategoryPricing = null;
     this.product.clickThroughInfo = new ClickThroughEntity();
     this.product.productCategoryPricing = null;
+    this.product.isAvailableToSmoker = false;
     this.productType = "";
   }
 
@@ -85,7 +86,7 @@ export class CreateProductComponent implements OnInit {
 
         console.log(wholeLifeProd);
 
-        this.productService.createProduct(wholeLifeProd).subscribe(
+        this.productService.createProductForWholeLife(wholeLifeProd).subscribe(
           response => {
             let productId: number = response;
             this.resultSuccess = true;
@@ -119,7 +120,7 @@ export class CreateProductComponent implements OnInit {
 
         console.log(termLifeProd);
 
-        this.productService.createProduct(termLifeProd).subscribe(
+        this.productService.createProductForTermLife(termLifeProd).subscribe(
           response => {
             let productId: number = response;
             this.resultSuccess = true;
@@ -152,7 +153,7 @@ export class CreateProductComponent implements OnInit {
 
         console.log(endowmentProd);
 
-        this.productService.createProduct(endowmentProd).subscribe(
+        this.productService.createProductForEndowment(endowmentProd).subscribe(
           response => {
             let productId: number = response;
             this.resultSuccess = true;

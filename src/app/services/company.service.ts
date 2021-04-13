@@ -50,7 +50,7 @@ export class CompanyService {
   }
 
   retrieveCompany(): Observable<CompanyEntity> {
-    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail).pipe(
+    return this.httpClient.get<CompanyEntity>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail()).pipe(
       catchError(this.handleError)
     );
   }
@@ -81,10 +81,25 @@ export class CompanyService {
     if (updateCompany == null || oldPassword === null || newPassword === null || repeatNewPassword === null) {
       return new Observable();
     } else {
-      return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyPassword" + "?email=" + this.sessionService.getEmail + "&password=" + this.sessionService.getPassword + "&oldPassword=" + oldPassword + "&newPassword=" + newPassword + "&repeatNewPassword=" + repeatNewPassword,
+      return this.httpClient.post<CompanyEntity>(this.baseUrl + "/updateCompanyPassword" + "?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&oldPassword=" + oldPassword + "&newPassword=" + newPassword + "&repeatNewPassword=" + repeatNewPassword,
         updateCompany, httpOptions).pipe(
           catchError(this.handleError)
         );
     }
   }
+
+  sendOTP(email: string): Observable<Boolean> {
+    return this.httpClient.get<Boolean>(this.baseUrl + "/sendOTP?email=" + email).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  resetCompanyPassword(email: string, otp: number, newPassword: string, repeatNewPassword: string): Observable <Boolean> {
+    return this.httpClient.get<Boolean>(this.baseUrl + "/resetCompanyPassword?email=" + email + "&otp=" + otp + "&newPassword=" + newPassword + "&repeatPassword=" + repeatNewPassword).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  
+
 }

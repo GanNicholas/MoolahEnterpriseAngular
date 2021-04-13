@@ -76,6 +76,7 @@ export class HeaderComponent implements OnInit {
         {
           label: 'View My Products',
           icon: 'pi pi-book',
+          routerLink: '/product/viewAllProducts'
         },
         {
           label: 'Create New Product',
@@ -94,6 +95,7 @@ export class HeaderComponent implements OnInit {
           label: 'My Outstanding Bills',
           icon: 'pi pi-user-edit',
           routerLink: '/viewCurrentPayable'
+
         },
         {
           label: 'Logout',
@@ -113,7 +115,6 @@ export class HeaderComponent implements OnInit {
     console.log('Hello I did it!');
     this.sessionService.setEmail(this.email);
     this.sessionService.setPassword(this.password);
-
     this.companyService.login(this.email, this.password).subscribe(
       response => {
         let company: CompanyEntity = response;
@@ -139,6 +140,7 @@ export class HeaderComponent implements OnInit {
             {
               label: 'View My Products',
               icon: 'pi pi-book',
+              routerLink: '/product/viewAllProducts'
             },
             {
               label: 'Create New Product',
@@ -184,6 +186,9 @@ export class HeaderComponent implements OnInit {
   companyLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCompany(null);
+    this.sessionService.setEmail("");
+    this.sessionService.setPassword("");
+    sessionStorage.clear();
 
     this.router.navigate(["/index"]);
   }

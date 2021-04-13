@@ -1,9 +1,11 @@
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadModule } from 'primeng/fileupload';
+
 
 import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,10 +28,18 @@ import { AccessRightErrorComponent } from './access-right-error/access-right-err
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 import { ViewCurrentPayableComponent } from './view-current-payable/view-current-payable.component';
+import { ViewAllProductsComponent } from './product/view-all-products/view-all-products.component';
+import { ForgetPasswordComponent } from './password/forget-password/forget-password.component';
+import { KeyNewPasswordComponent } from './password/key-new-password/key-new-password.component';
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
 import { AboutUsComponent } from './aboutus/about-us/about-us.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import { InputNumberModule } from 'primeng/inputnumber';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +52,9 @@ import { AboutUsComponent } from './aboutus/about-us/about-us.component';
     AccessRightErrorComponent,
     ViewProductDetailsComponent,
     ViewCurrentPayableComponent,
+    ViewAllProductsComponent,
+    ForgetPasswordComponent,
+    KeyNewPasswordComponent,
     MakePaymentComponent,
     AboutUsComponent,
   ],
@@ -63,6 +76,12 @@ import { AboutUsComponent } from './aboutus/about-us/about-us.component';
     SplitButtonModule,
     BadgeModule,
     CalendarModule, 
+    CalendarModule,
+    CheckboxModule,
+    InputNumberModule,
+    KeyFilterModule,
+    MessageModule,
+    MessagesModule
   ],
 
   providers: [],
