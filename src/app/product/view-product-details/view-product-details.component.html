@@ -179,7 +179,7 @@
             <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
             <td>
                 <div class="p-field-checkbox">
-                    <p-checkbox [(ngModel)]="dummyBoolean" name="smokerBoolean" binary="true" inputId="smokerBoolean">
+                    <p-checkbox [(ngModel)]="productToView.isAvailableToSmoker" name="smokerBoolean" [binary]="true" inputId="smokerBoolean">
                     </p-checkbox>
                     <label for="smokerBoolean">{{dummyBoolean}}</label>
                 </div>
