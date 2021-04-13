@@ -47,7 +47,7 @@ export class ProductService {
   }
 
   retrieveCompanyProducts(): Observable<ProductEntity[]> {
-    return this.httpClient.get<ProductEntity[]>(this.baseUrl + "/retrieveAllRecordsById?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
+    return this.httpClient.get<ProductEntity[]>(this.baseUrl + "/retrieveListOfProductByCompany?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
       catchError(this.handleError)
     );
   }
