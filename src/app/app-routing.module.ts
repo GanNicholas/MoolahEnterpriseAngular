@@ -1,3 +1,4 @@
+import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { ViewCurrentPayableComponent } from './view-current-payable/view-current-payable.component';
 import { ViewMyCompanyDetailsComponent } from './company/view-my-company-details/view-my-company-details.component';
 import { NgModule, Component } from '@angular/core';
@@ -13,6 +14,9 @@ const routes: Routes = [
   { path: 'company/createCompany', component: CreateCompanyComponent },
   { path: 'company/viewMyCompanyDetails', component: ViewMyCompanyDetailsComponent },
   { path: 'product/createProduct', component: CreateProductComponent },
+  { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent},
+  { path: 'makePayment', component: MakePaymentComponent},
+  { path: 'makePayment/:id', component: MakePaymentComponent},
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
   { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent }

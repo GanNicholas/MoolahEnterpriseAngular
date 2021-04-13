@@ -80,13 +80,13 @@ export class HeaderComponent implements OnInit {
           icon: 'pi pi-plus',
           routerLink: '/product/createProduct'
         }
-  
+
       ];
 
       this.accounts = [
         {label: 'View My Profile',
         icon: 'pi pi-user-edit',
-        
+
         },
         {
           label: 'Logout',
@@ -94,7 +94,7 @@ export class HeaderComponent implements OnInit {
           command: () => {
             this.companyLogout();
         }}
-        
+
     ];
 
     }
@@ -143,7 +143,7 @@ export class HeaderComponent implements OnInit {
           this.accounts = [
             {label: 'View My Profile',
             icon: 'pi pi-user-edit',
-            
+
             },
             {
               label: 'Logout',
@@ -151,7 +151,7 @@ export class HeaderComponent implements OnInit {
               command: () => {
                 this.companyLogout();
             }},
-            
+
         ];
         }
         else {
@@ -169,7 +169,7 @@ export class HeaderComponent implements OnInit {
   companyLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCompany(null);
-
+    
     this.router.navigate(["/index"]);
   }
 
