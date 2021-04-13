@@ -71,17 +71,15 @@ export class MakePaymentComponent implements OnInit {
       return;
     }
 
-    try {
-      Number(this.creditCardNumber);
-    } catch (e) {
+    if (isNaN(Number(this.creditCardNumber.toString()))) {
       this.messageService.add({ severity: 'error', summary: "Credit Card Number is invalid", detail: 'Via MessageService' });
+      return;
+    }
+    if (isNaN(Number(this.creditCardCvv.toString()))) {
+      this.messageService.add({ severity: 'error', summary: "Credit Card CVV is invalid", detail: 'Via MessageService' });
+      return;
     }
 
-    try {
-      Number(this.creditCardCvv);
-    } catch (e) {
-      this.messageService.add({ severity: 'error', summary: "Credit Card CVV is invalid", detail: 'Via MessageService' });
-    }
     this.paymentService.purchaseMoolahCredit(this.creditToBuy).subscribe(
       response => {
         var id = response;

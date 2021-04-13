@@ -34,6 +34,7 @@ import { KeyNewPasswordComponent } from './password/key-new-password/key-new-pas
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
+import {CheckboxModule} from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
@@ -73,6 +74,7 @@ import {MessageModule} from 'primeng/message';
     SplitButtonModule,
     BadgeModule,
     CalendarModule,
+    CheckboxModule,
     InputNumberModule,
     KeyFilterModule,
     MessageModule,

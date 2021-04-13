@@ -171,11 +171,8 @@
         <tr>
             <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
             <td>
-                <select id="smokerBoolean" name="smokerBoolean" [(ngModel)]="product.isAvailableToSmoker"
-                    (change)="selectChangeHandlerSmoker($event)" required="true" #smokerBoolean="ngModel">
-                    <option value="true"> Yes </option>
-                    <option value="false"> No </option>
-                </select>
+                <input id="smokerBoolean" name="smokerBoolean" [(ngModel)]="product.isAvailableToSmoker" type="checkbox"
+                    required #smokerBoolean="ngModel" />
                 <span class="errorText" *ngIf="smokerBoolean.touched && smokerBoolean.invalid">
                     Please select if product can be for smoker
                 </span>
@@ -202,8 +199,8 @@
         <tr *ngIf="isTermLife == true">
             <td style="font-weight: bold; width: 20%" class="bodyText">Type of Term Life</td>
             <td>
-                <select id="termLife" name="termLife" [(ngModel)]="termLifeEnum"
-                    (change)="selectTermLifeEnum($event)" required="true" #termLife="ngModel">
+                <select id="termLife" name="termLife" [(ngModel)]="termLifeEnum" (change)="selectTermLifeEnum($event)"
+                    required="true" #termLife="ngModel">
                     <option value="ACCIDENT"> Accident </option>
                     <option value="HOSPITAL"> Hospital </option>
                     <option value="CRITICALILLNESS"> Critical Illness </option>
@@ -548,7 +545,8 @@
                     </td>
 
                     <td>
-                        <p-button label="Delete" type="button" (click)="handleClickRemoveSmokerPremium(rowIndex)"></p-button>
+                        <p-button label="Delete" type="button" (click)="handleClickRemoveSmokerPremium(rowIndex)">
+                        </p-button>
                     </td>
                 </tr>
             </ng-template>
