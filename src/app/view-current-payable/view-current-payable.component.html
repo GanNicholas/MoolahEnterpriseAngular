@@ -1,1 +1,113 @@
-<p>view-current-payable works!</p>
+<app-header></app-header>
+
+<h2 style="text-align: center" class="secondaryHeader">Unpaid Transactions</h2>
+
+<div *ngIf="monthlyPayments.length <= 0">
+  <p class="bodyText" style="text-align: center;">You do not have any unpaid transactions</p>
+</div>
+<div class="card" *ngIf="monthlyPayments.length > 0">
+  <p-table [value]="monthlyPayments">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Payment Number</th>
+        <th>Date(MM-YYYY)</th>
+        <th>Sub Total(Credit)</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-payment let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ payment.paymentId }}</td>
+        <td>{{ payment.paymentNumber }}</td>
+        <td>{{ getDateString(payment.dateGenerated) }}</td>
+        <td>{{ payment.totalPayable }}</td>
+        <td>
+          <p-badge
+            value="{{ getString(payment.paid) }}"
+            severity="{{ severity }}"
+          ></p-badge>
+        </td>
+        <td>
+          <p-button
+            label="View"
+            (click)="viewLineItems($event, rowIndex)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  (visibleChange)="clearDialog($event)"
+  [style]="{ width: '50vw' }"
+  header="Statement for {{
+    getDateGeneratedString()
+  }}"
+  [(visible)]="display"
+  [modal]="true"
+>
+  <p-table [value]="listOfProductItems">
+    <ng-template pTemplate="header">
+      <tr>
+        <th width="5%">S/N</th>
+        <th width="20%">Product Name</th>
+        <th width="5%">Product ID</th>
+        <th width="10%">Monthly Clicks</th>
+        <th width="10%">Subtotal (Credits)</th>
+        <th width="10%">Subscription (Credits)</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-lineItem let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ lineItem.product.productName }}</td>
+        <td>{{ lineItem.product.productId }}</td>
+        <td>{{ lineItem.monthlyClicks }}</td>
+        <td>{{ lineItem.monthlySubtotalCredit }}</td>
+        <td>{{ lineItem.fixedSubscriptionCredit }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br />
+
+  <p style="font-size: 18px; font-weight: bold; text-align: center">
+    Subtotal (Credits)
+  </p>
+  <p style="font-size: 18px; text-align: center">
+    {{ monthlyPayments[selected].totalPayable }} Credits
+  </p>
+
+  <br />
+  <div
+    style="text-align: center"
+    *ngIf="
+      company.creditOwned >=
+      getTotalPayable(monthlyPayments[selected].totalPayable)
+    "
+  >
+    <p-button label="Pay Now" (click)="payNow()"></p-button>
+  </div>
+
+  <div
+    style="text-align: center"
+    *ngIf="
+      company.creditOwned <
+      getTotalPayable(monthlyPayments[selected].totalPayable)
+    "
+  >
+    <p>You do not have enough credits to pay now</p>
+    <p-button label="Top up now" (click)="redirectToTopUp()"></p-button>
+  </div>
+</p-dialog>
+
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<p-toast></p-toast>
+<app-footer></app-footer>

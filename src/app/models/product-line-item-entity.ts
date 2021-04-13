@@ -1,15 +1,15 @@
 import { ProductEntity } from "./product-entity";
 
 export class ProductLineItemEntity {
-    prodcutLineItemId: number | undefined;
+    productLineItemId: number | undefined;
     product : ProductEntity | undefined;
-    monthlyClicks : bigint | undefined;
-    monthlySubtotalCredit : bigint | undefined;
-    fixedSubscriptionCredit : bigint | undefined;
+    monthlyClicks : number | undefined;
+    monthlySubtotalCredit : number | undefined;
+    fixedSubscriptionCredit : number | undefined;
 
-    constructor(prodcutLineItemId ?: number, product ?: ProductEntity, monthlyClicks ?: bigint, 
-        monthlySubtotalCredit ?: bigint, fixedSubscriptionCredit ?: bigint){
-            this.prodcutLineItemId = prodcutLineItemId;
+    constructor(productLineItemId ?: number, product ?: ProductEntity, monthlyClicks ?: number,
+        monthlySubtotalCredit ?: number, fixedSubscriptionCredit ?: number){
+            this.productLineItemId = productLineItemId;
             this.product = product;
             this.monthlyClicks = monthlyClicks;
             this.monthlySubtotalCredit = monthlySubtotalCredit;

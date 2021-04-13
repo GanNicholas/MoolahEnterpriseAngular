@@ -64,7 +64,7 @@
                 Product Coverage Term
             </td>
             <td>
-                <input pInputText id="coverageTerm" name="coverageTerm" #coverageTerm="ngModel" type="text"
+                <input pInputText id="coverageTerm" name="coverageTerm" #coverageTerm="ngModel" type="number"
                     [(ngModel)]="product.coverageTerm" required="true" class="bodyText, inputWidth" />
             </td>
             <td>
@@ -84,7 +84,7 @@
                 Product Assured Sum
             </td>
             <td>
-                <input pInputText id="assuredSum" name="assuredSum" #assuredSum="ngModel" type="text"
+                <input pInputText id="assuredSum" name="assuredSum" #assuredSum="ngModel" type="number"
                     [(ngModel)]="product.assuredSum" required="true" class="bodyText, inputWidth" />
             </td>
             <td>
@@ -107,7 +107,7 @@
                 Product Premium Term
             </td>
             <td>
-                <input pInputText id="premiumTerm" name="premiumTerm" #premiumTerm="ngModel" type="text"
+                <input pInputText id="premiumTerm" name="premiumTerm" #premiumTerm="ngModel" type="number"
                     [(ngModel)]="product.premiumTerm" required="true" class="bodyText, inputWidth" />
             </td>
             <td>
@@ -130,7 +130,7 @@
         <tr>
             <td style="font-weight: bold; width: 20%" class="bodyText">Average Interest Rate</td>
             <td>
-                <input id="avgInterestRate" name="avgInterestRate" #avgInterestRate="ngModel" type="text"
+                <input id="avgInterestRate" name="avgInterestRate" #avgInterestRate="ngModel" type="number"
                     [(ngModel)]="product.averageInterestRate" required="true" class="bodyText, inputWidth" />
             </td>
             <td>
@@ -351,7 +351,7 @@
 
                 <td>
                     <input pInputText id="riderPremiumValue" name="riderPremiumValue" #riderPremiumValue="ngModel"
-                        type="text" [(ngModel)]="rider.riderPremiumValue" required="true"
+                        type="number" [(ngModel)]="rider.riderPremiumValue" required="true"
                         class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -415,7 +415,7 @@
                 <td>{{ rowIndex + 1 }}</td>
 
                 <td>
-                    <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="text"
+                    <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="number"
                         [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -429,7 +429,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="text"
+                    <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="number"
                         [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -447,7 +447,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="text"
+                    <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="number"
                         [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -498,7 +498,7 @@
                     <td>{{ rowIndex + 1 }}</td>
 
                     <td>
-                        <input pInputText id="sminAge" name="sminAge" #sminAge="ngModel" type="text"
+                        <input pInputText id="sminAge" name="sminAge" #sminAge="ngModel" type="number"
                             [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
@@ -512,7 +512,7 @@
                     </td>
 
                     <td>
-                        <input pInputText id="smaxAge" name="smaxAge" #smaxAge="ngModel" type="text"
+                        <input pInputText id="smaxAge" name="smaxAge" #smaxAge="ngModel" type="number"
                             [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
@@ -530,7 +530,7 @@
                     </td>
 
                     <td>
-                        <input pInputText id="spremiumValue" name="spremiumValue" #spremiumValue="ngModel" type="text"
+                        <input pInputText id="spremiumValue" name="spremiumValue" #spremiumValue="ngModel" type="number"
                             [(ngModel)]="smokepremium.premiumValue" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>

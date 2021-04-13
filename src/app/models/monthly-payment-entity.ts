@@ -4,13 +4,12 @@ import { ProductLineItemEntity } from "./product-line-item-entity";
 
 export class MonthlyPaymentEntity extends PaymentEntity {
 
-    listOfProductLineItems : ProductLineItemEntity[] | undefined;
-    totalPayable : bigint | undefined;
+  listOfProductLineItems: ProductLineItemEntity[] = new Array();
+  totalPayable: number | undefined;
 
-    constructor(listOfProductLineItems ?: ProductLineItemEntity[], paid?: boolean, dateTransacted ?: Date,
-        paymentNumber ?: string, totalPayable ?: bigint, dateGenerated ?: Date, company ?: CompanyEntity, paymentId ?: number|null){
-            super(paid, dateTransacted, paymentNumber, dateGenerated, company, paymentId);
-            this.listOfProductLineItems = listOfProductLineItems;
-            this.totalPayable = totalPayable;
-    }
+  constructor(dateGenerated: Date, dateTransacted: Date, listOfProductLineItems?: ProductLineItemEntity[], paid?: boolean,
+    paymentNumber?: string, totalPayable?: number, company?: CompanyEntity, paymentId?: number) {
+      super(dateGenerated, dateTransacted, paymentNumber, paid, company, paymentId);
+    this.totalPayable = totalPayable;
+  }
 }

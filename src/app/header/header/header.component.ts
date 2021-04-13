@@ -84,9 +84,14 @@ export class HeaderComponent implements OnInit {
       ];
 
       this.accounts = [
+<<<<<<< HEAD
         {
           label: 'View My Profile',
           icon: 'pi pi-user-edit',
+=======
+        {label: 'View My Profile',
+        icon: 'pi pi-user-edit',
+>>>>>>> 4004049f2574c642f25005f712880a5e21b3f536
 
         },
         {
@@ -94,10 +99,16 @@ export class HeaderComponent implements OnInit {
           icon: 'pi pi-sign-out',
           command: () => {
             this.companyLogout();
+<<<<<<< HEAD
           }
         }
 
       ];
+=======
+        }}
+
+    ];
+>>>>>>> 4004049f2574c642f25005f712880a5e21b3f536
 
     }
 
@@ -142,9 +153,8 @@ export class HeaderComponent implements OnInit {
           ];
 
           this.accounts = [
-            {
-              label: 'View My Profile',
-              icon: 'pi pi-user-edit',
+            {label: 'View My Profile',
+            icon: 'pi pi-user-edit',
 
             },
             {
@@ -172,10 +182,14 @@ export class HeaderComponent implements OnInit {
   companyLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCompany(null);
+<<<<<<< HEAD
     this.sessionService.setEmail("");
     this.sessionService.setPassword("");
     sessionStorage.clear();
 
+=======
+    
+>>>>>>> 4004049f2574c642f25005f712880a5e21b3f536
     this.router.navigate(["/index"]);
   }
 

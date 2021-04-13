@@ -3,13 +3,13 @@ import { CompanyEntity } from "./company-entity";
 export class PaymentEntity {
     paymentId: number | undefined;
     paid: boolean | undefined;
-    dateTransacted: Date | undefined;
+    dateTransacted: Date | null;
     paymentNumber: string | undefined;
-    dateGenerated: Date | undefined;
+    dateGenerated: Date | null;
     company: CompanyEntity | undefined;
 
-    constructor(paid?: boolean, dateTransacted?: Date, paymentNumber?: string,
-        dateGenerated?: Date, company?: CompanyEntity, paymentId?: number) {
+    constructor(dateGenerated: Date, dateTransacted: Date, paymentNumber?: string,
+         paid?: boolean, company?: CompanyEntity, paymentId?: number) {
         this.paymentId = paymentId;
         this.paid = paid;
         this.dateTransacted = dateTransacted;

@@ -281,7 +281,7 @@
   <p-table
     id="tablePointOfContact"
     [value]="company.listOfPointOfContacts"
-    [rowTrackBy]="trackByRowIndex"
+    dataKey = "pocEmail"
   >
     <ng-template pTemplate="header">
       <tr>
