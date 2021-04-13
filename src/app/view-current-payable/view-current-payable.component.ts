@@ -142,10 +142,31 @@ export class ViewCurrentPayableComponent implements OnInit {
   }
 
   getDateGeneratedString(): string {
-    if (this.monthlyPayments[this.selected].dateGenerated == null) {
+    let monthlyPaymentEntity: MonthlyPaymentEntity = this.monthlyPayments[this.selected];
+    if (monthlyPaymentEntity !== undefined) {
+      var dateGenerated = monthlyPaymentEntity.dateGenerated;
+    } else {
+      dateGenerated = null;
+    }
+    if (dateGenerated === null || dateGenerated === undefined) {
       return "";
     } else {
-      return this.getDateString(this.monthlyPayments[this.selected].dateGenerated);
+      return this.getDateString(monthlyPaymentEntity.dateGenerated);
+    }
+  }
+
+  getTotalPayableString(): number {
+    let monthlyPaymentEntity: MonthlyPaymentEntity = this.monthlyPayments[this.selected];
+    if (monthlyPaymentEntity !== undefined) {
+      var total = monthlyPaymentEntity.totalPayable;
+    } else {
+      total = undefined;
+    }
+
+    if (total === null || total === undefined) {
+      return 0;
+    } else {
+      return total;
     }
   }
 }

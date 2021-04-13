@@ -3,7 +3,9 @@
 <h2 style="text-align: center" class="secondaryHeader">Unpaid Transactions</h2>
 
 <div *ngIf="monthlyPayments.length <= 0">
-  <p class="bodyText" style="text-align: center;">You do not have any unpaid transactions</p>
+  <p class="bodyText" style="text-align: center">
+    You do not have any unpaid transactions
+  </p>
 </div>
 <div class="card" *ngIf="monthlyPayments.length > 0">
   <p-table [value]="monthlyPayments">
@@ -43,9 +45,7 @@
 <p-dialog
   (visibleChange)="clearDialog($event)"
   [style]="{ width: '50vw' }"
-  header="Statement for {{
-    getDateGeneratedString()
-  }}"
+  header="Statement for {{ getDateGeneratedString() }}"
   [(visible)]="display"
   [modal]="true"
 >
@@ -78,7 +78,7 @@
     Subtotal (Credits)
   </p>
   <p style="font-size: 18px; text-align: center">
-    {{ monthlyPayments[selected].totalPayable }} Credits
+    {{ getTotalPayableString() }} Credits
   </p>
 
   <br />
@@ -86,7 +86,7 @@
     style="text-align: center"
     *ngIf="
       company.creditOwned >=
-      getTotalPayable(monthlyPayments[selected].totalPayable)
+      getTotalPayable(getTotalPayableString())
     "
   >
     <p-button label="Pay Now" (click)="payNow()"></p-button>
@@ -96,7 +96,7 @@
     style="text-align: center"
     *ngIf="
       company.creditOwned <
-      getTotalPayable(monthlyPayments[selected].totalPayable)
+      getTotalPayable(getTotalPayableString())
     "
   >
     <p>You do not have enough credits to pay now</p>
