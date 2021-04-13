@@ -7,7 +7,7 @@ import { SessionService } from '../../services/session.service';
 import { CompanyService } from 'src/app/services/company.service';
 
 import { CompanyEntity } from '../../models/company-entity';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 
 @Component({
@@ -80,22 +80,24 @@ export class HeaderComponent implements OnInit {
           icon: 'pi pi-plus',
           routerLink: '/product/createProduct'
         }
-  
+
       ];
 
       this.accounts = [
-        {label: 'View My Profile',
-        icon: 'pi pi-user-edit',
-        
+        {
+          label: 'View My Profile',
+          icon: 'pi pi-user-edit',
+
         },
         {
           label: 'Logout',
           icon: 'pi pi-sign-out',
           command: () => {
             this.companyLogout();
-        }}
-        
-    ];
+          }
+        }
+
+      ];
 
     }
 
@@ -105,7 +107,6 @@ export class HeaderComponent implements OnInit {
     console.log('Hello I did it!');
     this.sessionService.setEmail(this.email);
     this.sessionService.setPassword(this.password);
-
     this.companyService.login(this.email, this.password).subscribe(
       response => {
         let company: CompanyEntity = response;
@@ -141,18 +142,20 @@ export class HeaderComponent implements OnInit {
           ];
 
           this.accounts = [
-            {label: 'View My Profile',
-            icon: 'pi pi-user-edit',
-            
+            {
+              label: 'View My Profile',
+              icon: 'pi pi-user-edit',
+
             },
             {
               label: 'Logout',
               icon: 'pi pi-sign-out',
               command: () => {
                 this.companyLogout();
-            }},
-            
-        ];
+              }
+            },
+
+          ];
         }
         else {
           this.loginError = true;
@@ -169,6 +172,9 @@ export class HeaderComponent implements OnInit {
   companyLogout(): void {
     this.sessionService.setIsLogin(false);
     this.sessionService.setCompany(null);
+    this.sessionService.setEmail("");
+    this.sessionService.setPassword("");
+    sessionStorage.clear();
 
     this.router.navigate(["/index"]);
   }

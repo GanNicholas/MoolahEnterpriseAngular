@@ -87,4 +87,19 @@ export class CompanyService {
         );
     }
   }
+
+  sendOTP(email: string): Observable<Boolean> {
+    return this.httpClient.get<Boolean>(this.baseUrl + "/sendOTP?email=" + email).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  resetCompanyPassword(email: string, otp: number, newPassword: string, repeatNewPassword: string): Observable <Boolean> {
+    return this.httpClient.get<Boolean>(this.baseUrl + "/resetCompanyPassword?email=" + email + "&otp=" + otp + "&newPassword=" + newPassword + "&repeatPassword=" + repeatNewPassword).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  
+
 }

@@ -26,6 +26,9 @@ import { AccessRightErrorComponent } from './access-right-error/access-right-err
 import {SplitButtonModule} from 'primeng/splitbutton';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 import { ViewCurrentPayableComponent } from './view-current-payable/view-current-payable.component';
+import { ViewAllProductsComponent } from './product/view-all-products/view-all-products.component';
+import { ForgetPasswordComponent } from './password/forget-password/forget-password.component';
+import { KeyNewPasswordComponent } from './password/key-new-password/key-new-password.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { ViewCurrentPayableComponent } from './view-current-payable/view-current
     AccessRightErrorComponent,
     ViewProductDetailsComponent,
     ViewCurrentPayableComponent,
+    ViewAllProductsComponent,
+    ForgetPasswordComponent,
+    KeyNewPasswordComponent,
   ],
   imports: [
     BrowserModule,
