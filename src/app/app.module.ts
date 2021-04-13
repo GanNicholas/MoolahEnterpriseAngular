@@ -1,3 +1,4 @@
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -33,6 +34,9 @@ import { KeyNewPasswordComponent } from './password/key-new-password/key-new-pas
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -68,7 +72,11 @@ import { CalendarModule } from 'primeng/calendar';
     DialogModule,
     SplitButtonModule,
     BadgeModule,
-    CalendarModule
+    CalendarModule,
+    InputNumberModule,
+    KeyFilterModule,
+    MessageModule,
+    MessagesModule
   ],
 
   providers: [],
