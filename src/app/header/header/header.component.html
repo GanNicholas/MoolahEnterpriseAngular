@@ -14,7 +14,7 @@
 			<p-button label="Login" type="button" (click)="companyLogin()"></p-button>
 	
             &nbsp;
-			<p-button label="Forget Password" type="button" ></p-button>
+			<p-button label="Forget Password" type="button" routerLink="/password/forgetPassword"></p-button>
 		</div>
 		
 		<div *ngIf="loginError == true" style="text-align: right; color: red;">

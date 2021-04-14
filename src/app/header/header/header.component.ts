@@ -48,11 +48,12 @@ export class HeaderComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: '/index/index'
+          routerLink: '/index'
         },
         {
           label: 'About Us',
           icon: 'pi pi-info-circle',
+          routerLink: '/aboutus/aboutUs'
         },
         {
           label: 'Create Company Account',
@@ -65,15 +66,17 @@ export class HeaderComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: '/index/index'
+          routerLink: '/index'
         },
         {
           label: 'About Us',
           icon: 'pi pi-info-circle',
+          routerLink: 'aboutus/aboutUs'
         },
         {
           label: 'View My Products',
           icon: 'pi pi-book',
+          routerLink: '/product/viewAllProducts'
         },
         {
           label: 'Create New Product',
@@ -87,6 +90,11 @@ export class HeaderComponent implements OnInit {
         {
           label: 'View My Profile',
           icon: 'pi pi-user-edit',
+          routerLink: '/company/viewMyCompanyDetails'
+        }, {
+          label: 'My Outstanding Bills',
+          icon: 'pi pi-user-edit',
+          routerLink: '/viewCurrentPayable'
 
         },
         {
@@ -123,7 +131,7 @@ export class HeaderComponent implements OnInit {
             {
               label: 'Home',
               icon: 'pi pi-home',
-              routerLink: '/index/index'
+              routerLink: '/index'
             },
             {
               label: 'About Us',
@@ -132,6 +140,7 @@ export class HeaderComponent implements OnInit {
             {
               label: 'View My Products',
               icon: 'pi pi-book',
+              routerLink: '/product/viewAllProducts'
             },
             {
               label: 'Create New Product',
@@ -142,9 +151,15 @@ export class HeaderComponent implements OnInit {
           ];
 
           this.accounts = [
-            {label: 'View My Profile',
-            icon: 'pi pi-user-edit',
-
+            {
+              label: 'View My Profile',
+              icon: 'pi pi-user-edit',
+              routerLink: '/company/viewMyCompanyDetails'
+            },
+            {
+              label: 'My Oustanding Bills',
+              icon: 'pi pi-user-edit',
+              routerLink: '/viewCurrentPayable'
             },
             {
               label: 'Logout',
@@ -174,7 +189,6 @@ export class HeaderComponent implements OnInit {
     this.sessionService.setEmail("");
     this.sessionService.setPassword("");
     sessionStorage.clear();
-
 
     this.router.navigate(["/index"]);
   }

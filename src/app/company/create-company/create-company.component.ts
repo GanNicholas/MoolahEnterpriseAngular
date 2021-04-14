@@ -13,11 +13,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PointOfContactEntity } from 'src/app/models/point-of-contact-entity';
 import {InputTextModule} from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-create-company',
   templateUrl: './create-company.component.html',
   styleUrls: ['./create-company.component.css'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class CreateCompanyComponent implements OnInit {
 

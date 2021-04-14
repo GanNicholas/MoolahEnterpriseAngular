@@ -1,16 +1,16 @@
-
+<app-header></app-header>
 <h2 style="text-align: center" class="pageHeader">View All Products</h2>
 <br />
 
 <p-table #dt id="tableProductCatalogue" [value]="products" [rows]="10" [showCurrentPageReport]="true"
-rowPerPageOptions="[10,25,50]" [loading] ="loading" [paginator]="true" dataKey="id"
+rowPerPageOptions="[10,25,50]" [loading] ="loading" [paginator]="true" dataKey="id" [totalRecords]="totalRecords" [lazy]="false"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 [globalFilterFields] ="['product.productName', 'product.productCategoryPricing.categoryType', 'product.productDateCreated']" >	 
     <ng-template pTemplate="caption">
 		<div class="p-d-flex">
 			<span class="p-input-icon-left p-ml-auto">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text" id="filterInputText" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search keyword" />
+                <input pInputText type="text" id="filterInputText" (input)="applyFilterGlobal($event, 'contains', dt)" placeholder="Search keyword" />
             </span>
 		</div>
 	</ng-template>
