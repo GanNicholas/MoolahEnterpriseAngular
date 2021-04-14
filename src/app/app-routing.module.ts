@@ -11,7 +11,7 @@ import { AboutUsComponent } from './aboutus/about-us/about-us.component';
 import { ViewAllProductsComponent } from './product/view-all-products/view-all-products.component';
 import { ForgetPasswordComponent } from './password/forget-password/forget-password.component';
 import { KeyNewPasswordComponent } from './password/key-new-password/key-new-password.component';
-
+import {ViewTransactionComponent} from './transaction/view-transaction/view-transaction.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -30,7 +30,8 @@ const routes: Routes = [
   { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },
   { path: 'product/viewAllProducts', component: ViewAllProductsComponent},
   { path: 'password/forgetPassword', component: ForgetPasswordComponent},
-  { path: 'password/keyNewPassword', component: KeyNewPasswordComponent}
+  { path: 'password/keyNewPassword', component: KeyNewPasswordComponent},
+  { path: 'transaction/view', component: ViewTransactionComponent}
 ];
 
 @NgModule({

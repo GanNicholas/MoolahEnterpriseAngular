@@ -42,7 +42,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   newPassword: string = "";
   repeatNewPassword: string = "";
   display: boolean = false;
-  dialogDeactivateAccount : boolean =false;
+  dialogDeactivateAccount: boolean = false;
   constructor(private sessionService: SessionService,
     private companyService: CompanyService,
     private messageService: MessageService,
@@ -57,11 +57,11 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showDeactivateDialog(){
+  showDeactivateDialog() {
     this.dialogDeactivateAccount = true;
   }
 
-  hideDeactiveDialog(){
+  hideDeactiveDialog() {
     this.dialogDeactivateAccount = false;
   }
   enableCompanyNameEdit() {
@@ -208,10 +208,18 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   deactiveAccount() {
     this.companyService.deactivateCompany().subscribe(
       response => {
+        let refundAmt : any  = response; 
         this.resultSuccess = true;
         this.resultError = false;
-        this.messageService.add({ severity: 'success', summary: "You have successfully deactivated your account", detail: 'Via MessageService' });
+        this.messageService.add({ severity: 'success', summary: "You have successfully deactivated your account. We will refund " + refundAmt +" within 5 business days.", detail: 'Via MessageService' });
         this.dialogDeactivateAccount = false;
+
+        this.sessionService.setIsLogin(false);
+        this.sessionService.setCompany(null);
+        this.sessionService.setEmail("");
+        this.sessionService.setPassword("");
+        sessionStorage.clear();
+        this.router.navigate(["/index"]);
       },
       error => {
         this.resultError = true;
@@ -222,7 +230,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
         console.log('********** UpdateCompanyComponent.ts: ' + error);
       }
     );
-    
+
   }
 
 }

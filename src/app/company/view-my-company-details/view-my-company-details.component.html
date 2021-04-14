@@ -29,6 +29,7 @@
             [disabled]="toggleCompanyName"
             ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true"
           />
+         
           <p-button
             *ngIf="toggleCompanyName"
             type="button"
@@ -270,6 +271,7 @@
     <p-button *ngIf="togglePoc" type="button" (click)="savePocEdit()"
       >Edit</p-button
     >
+
     &nbsp; &nbsp;
     <p-button
       *ngIf="!togglePoc"
@@ -427,13 +429,14 @@
 
   <div style="text-align: center">
     <input pInputText type="submit" value="Update" />
+    &nbsp; <button type="button" (click)="showDeactivateDialog()" icon="pi pi-info-circle" >Deactive your account</button>
+
   </div>
   <p-confirmDialog
     header="Confirmation"
     icon="pi pi-exclamation-triangle"
   ></p-confirmDialog>
-  <button type="button" (click)="showDeactivateDialog()" icon="pi pi-info-circle" >Deactive your account</button>
-</form>
+ </form>
 <br />
 <br />
 <br />
@@ -441,7 +444,7 @@
 <br />
 <br />
 <p-toast></p-toast>
-<p-dialog header="Deactive Account" 
+<p-dialog id="dialogForDeactivate" icon="pi pi-exclamation-triangle" header="Deactive Account" 
 [(visible)]="dialogDeactivateAccount"  
 [closable]="true"
 [resizable]="false"

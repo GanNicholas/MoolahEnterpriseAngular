@@ -1,0 +1,69 @@
+<app-header></app-header>
+<br />
+<div id="filterDate">
+    From : <input pInputText name="startDate" type="date" [(ngModel)]="startDate" [disabled]="false">
+    To :
+    <input pInputText name="endDate" type="date" [(ngModel)]="endDate" [disabled]="false">
+    <p-button  type="button" (click)="searchForDate()">Search</p-button>
+</div>
+<div id="viewTransactionForBill">
+
+    <p-table id="tablePointOfContact" [value]="listOfAllSpecificHistoricalTransaction">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="p-datatable-thead" style="width: 7%; text-align: center">
+                    S/N
+                </th>
+                <th style="text-align: center" colspan="2">Product Line Item ID:</th>
+                <th style="text-align: center" colspan="2">
+                    Product Name
+                </th>
+                <th style="text-align: center" colspan="2">
+                    Description
+                </th>
+                <th style="text-align: center" colspan="2">Date Listed</th>
+                <th style="width: 7%; text-align: center">Rider Details</th>
+
+                <th style="text-align: center" colspan="2">Premium Details</th>
+                <th style="width: 7%; text-align: center">Clickthrough Rate</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowIndex="rowIndex" let-specTransaction>
+            <tr>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td>
+                    <input pInputText name="monthlyPaymentId" +{{rowIndex}} type="text"
+                        [(ngModel)]="specTransaction.paymentId" [disabled]="true" />
+                </td>
+
+                <td>
+                    <input pInputText name="paid" +{{rowIndex}} type="text" [(ngModel)]="specTransaction.dateTransacted"
+                        [disabled]="true" />
+                </td>
+                <td>
+                    <input pInputText name="paid" +{{rowIndex}} type="text" [(ngModel)]="specTransaction.paid"
+                        [disabled]="true" />
+                </td>
+
+                <td>
+                    <input pInputText name="paymentNumber" +{{rowIndex}} type="text"
+                        [(ngModel)]="specTransaction.paymentNumber" [disabled]="true">
+                </td>
+
+                <td>
+                    <input pInputText name="paymentNumber" +{{rowIndex}} type="text"
+                        [(ngModel)]="specTransaction.dateGenerated" [disabled]="true">
+                </td>
+                <td>
+                    <input pInputText name="paymentNumber" +{{rowIndex}} type="text"
+                        [(ngModel)]="specTransaction.totalPayable" [disabled]="true">
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<app-footer></app-footer>

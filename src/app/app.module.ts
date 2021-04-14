@@ -39,6 +39,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import { ViewTransactionComponent } from './transaction/view-transaction/view-transaction.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {MessageModule} from 'primeng/message';
     KeyNewPasswordComponent,
     MakePaymentComponent,
     AboutUsComponent,
+    ViewTransactionComponent,
   ],
   imports: [
     BrowserModule,

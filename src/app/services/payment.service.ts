@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { PaymentEntity } from '../models/payment-entity';
+import { PaymentWrapper } from '../models/payment-wrapper';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -36,8 +37,8 @@ export class PaymentService {
     );
   }
 
-  retrieveSpecificHistoricalTransactions(startDate: string, endDate: string): Observable<PaymentEntity[]> {
-    return this.httpClient.get<PaymentEntity[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
+  retrieveSpecificHistoricalTransactions(startDate: string, endDate: string): Observable<MonthlyPaymentEntity[]> {
+    return this.httpClient.get<MonthlyPaymentEntity[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password + "&startDate=" +startDate +"&endDate=" + endDate ).pipe(
       catchError(this.handleError)
     );
   }
@@ -51,7 +52,14 @@ export class PaymentService {
   retrieveMonthlyPaymentById(id: number): Observable<MonthlyPaymentEntity> {
     return this.httpClient.get<MonthlyPaymentEntity>(this.baseUrl + "/retrieveMonthlyPaymentById?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&id=" + id).pipe(
       catchError(this.handleError)
-    );  }
+    );  
+  }
+
+  retrieveAllSpecificHistoricalTransaction(): Observable<PaymentWrapper[]> {
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&startDate=01-01-1990&endDate=01-01-2022").pipe(
+      catchError(this.handleError)
+    );  
+  }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
