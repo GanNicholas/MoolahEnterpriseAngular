@@ -58,21 +58,21 @@ export class ProductService {
     );
   }
 
-  updateEndowmentProduct(updateProduct: EndowmentEntity): Observable<ProductEntity> {
-    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationEndowment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+  updateEndowmentProduct(updateProduct: EndowmentEntity, isSmoker: boolean): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationEndowment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  updateTermLifeProduct(updateProduct: TermLifeProductEntity): Observable<ProductEntity> {
-    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationTermLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+  updateTermLifeProduct(updateProduct: TermLifeProductEntity, isSmoker: boolean): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationTermLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  updateWholeLifeProduct(updateProduct: WholeLifeProductEntity): Observable<ProductEntity> {
+  updateWholeLifeProduct(updateProduct: WholeLifeProductEntity, isSmoker: boolean): Observable<ProductEntity> {
     console.log(JSON.stringify(updateProduct));
-    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }

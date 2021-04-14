@@ -7,15 +7,17 @@
 <span *ngIf="retrieveProductError == true" style="color:red;">Product ID {{productId}} does not exist!</span>
 
 <form #updateProductForm="ngForm" (ngSubmit)="updateProduct(updateProductForm)" style="height: 10%">
-    <p-button type="button" (click)="deleteProduct()" style="float: right;">Delete Product</p-button>
+    <br/>
+    <p-button *ngIf="!isDeleted" type="button" (click)="deleteProduct()" style="margin-left: 45%; ">Delete Product</p-button>
     <div *ngIf="isDeleted" style="text-align: center;">
+        <br/>
         <h4>Product has been successfully deleted!</h4>
-        <p-button type="button" (click)="backToHome()" style="text-align: center;">Bacl to Home</p-button>
+        <p-button type="button" (click)="backToHome()" style="text-align: center;">Back to Home</p-button>
     </div>
     <br />
 
     <div *ngIf="!isDeleted">
-        <table style="border-spacing: 0 23px; margin-left: 30%; width: 60% ">
+        <table style="border-spacing: 0 23px; margin-left: 25%; width: 60% ">
             <tr>
                 <td style="font-weight: bold; width: 30%" class="bodyText">
                     Product Name
