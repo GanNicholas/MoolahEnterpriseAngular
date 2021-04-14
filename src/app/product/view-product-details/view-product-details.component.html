@@ -3,449 +3,373 @@
 <p-toast></p-toast>
 
 <h2 style="text-align: center" class="pageHeader">View Product Details</h2>
-<br />
 
 <span *ngIf="retrieveProductError == true" style="color:red;">Product ID {{productId}} does not exist!</span>
 
 <form #updateProductForm="ngForm" (ngSubmit)="updateProduct(updateProductForm)" style="height: 10%">
-    <table style="border-spacing: 0 23px; margin-left: 30%; width: 60% ">
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">
-                Product Name
-            </td>
-            <input pInputText id="productName" name="productName" #productName="ngModel" type="text"
-                [(ngModel)]="productToView.productName" required="true" class="bodyText, inputWidth"
-                [disabled]="toggleProductName"
-                ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
-            <p-button *ngIf="toggleProductName" type="button" (click)="saveProductName()">Edit</p-button>
-            <td>
-                <div *ngIf="
+    <p-button type="button" (click)="deleteProduct()" style="float: right;">Delete Product</p-button>
+    <div *ngIf="isDeleted" style="text-align: center;">
+        <h4>Product has been successfully deleted!</h4>
+        <p-button type="button" (click)="backToHome()" style="text-align: center;">Bacl to Home</p-button>
+    </div>
+    <br />
+
+    <div *ngIf="!isDeleted">
+        <table style="border-spacing: 0 23px; margin-left: 30%; width: 60% ">
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">
+                    Product Name
+                </td>
+                <input pInputText id="productName" name="productName" #productName="ngModel" type="text"
+                    [(ngModel)]="productToView.productName" required="true" class="bodyText, inputWidth"
+                    [disabled]="toggleProductName"
+                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                <p-button *ngIf="toggleProductName" type="button" (click)="saveProductName()">Edit</p-button>
+                <td>
+                    <div *ngIf="
                     productName.invalid &&
                     (productName.dirty || productName.touched || submitted)
                   " class="errorText">
-                    <div *ngIf="productName.errors != null && productName.errors.required">
-                        Product Name is required.
+                        <div *ngIf="productName.errors != null && productName.errors.required">
+                            Product Name is required.
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">
-                Product Description
-            </td>
-            <input pInputText id="productDescription" name="productDescription" #productDescription="ngModel"
-                type="text" [(ngModel)]="productToView.description" required="true" class="bodyText, inputWidth"
-                [disabled]="toggleProductDescription"
-                ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
-            <p-button *ngIf="toggleProductDescription" type="button" (click)="saveProductDescription()">Edit
-            </p-button>
-            <td>
-                <div *ngIf="
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">
+                    Product Description
+                </td>
+                <input pInputText id="productDescription" name="productDescription" #productDescription="ngModel"
+                    type="text" [(ngModel)]="productToView.description" required="true" class="bodyText, inputWidth"
+                    [disabled]="toggleProductDescription"
+                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                <p-button *ngIf="toggleProductDescription" type="button" (click)="saveProductDescription()">Edit
+                </p-button>
+                <td>
+                    <div *ngIf="
                     productDescription.invalid &&
                     (productDescription.dirty || productDescription.touched || submitted)
                   " class="errorText">
-                    <div *ngIf="productDescription.errors != null && productDescription.errors.required">
-                        Product description is required.
+                        <div *ngIf="productDescription.errors != null && productDescription.errors.required">
+                            Product description is required.
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">
-                Product Coverage Term
-            </td>
-            <td>
-                <input pInputText id="productCoverage" name="productCoverage" #productCoverage="ngModel" type="text"
-                    [(ngModel)]="productToView.coverageTerm" required="true" class="bodyText, inputWidth"
-                    [disabled]="toggleCoverageTerm"
-                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
-                <p-button *ngIf="toggleCoverageTerm" type="button" (click)="saveCoverageTerm()">Edit
-                </p-button>
-            </td>
-            <td>
-                <div *ngIf="
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">
+                    Product Coverage Term
+                </td>
+                <td>
+                    <input pInputText id="productCoverage" name="productCoverage" #productCoverage="ngModel" type="text"
+                        [(ngModel)]="productToView.coverageTerm" required="true" class="bodyText, inputWidth"
+                        [disabled]="toggleCoverageTerm"
+                        ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                    <p-button *ngIf="toggleCoverageTerm" type="button" (click)="saveCoverageTerm()">Edit
+                    </p-button>
+                </td>
+                <td>
+                    <div *ngIf="
                     productCoverage.invalid &&
                     (productCoverage.dirty || productCoverage.touched || submitted)
                   " class="errorText">
-                    <div *ngIf="productCoverage.errors != null && productCoverage.errors.required">
-                        Product coverage term is required.
+                        <div *ngIf="productCoverage.errors != null && productCoverage.errors.required">
+                            Product coverage term is required.
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">
-                Product Assured Sum
-            </td>
-            <td>
-                <input pInputText id="productAssured" name="productAssured" #productAssured="ngModel" type="text"
-                    [(ngModel)]="productToView.assuredSum" required="true" class="bodyText, inputWidth"
-                    [disabled]="toggleAssuredSum"
-                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
-                <p-button *ngIf="toggleAssuredSum" type="button" (click)="saveAssuredSum()">Edit
-                </p-button>
-            </td>
-            <td>
-                <div *ngIf="
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">
+                    Product Assured Sum
+                </td>
+                <td>
+                    <input pInputText id="productAssured" name="productAssured" #productAssured="ngModel" type="text"
+                        [(ngModel)]="productToView.assuredSum" required="true" class="bodyText, inputWidth"
+                        [disabled]="toggleAssuredSum"
+                        ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                    <p-button *ngIf="toggleAssuredSum" type="button" (click)="saveAssuredSum()">Edit
+                    </p-button>
+                </td>
+                <td>
+                    <div *ngIf="
                     productAssured.invalid &&
                     (productAssured.dirty || productAssured.touched || submitted)
                   " class="errorText">
-                    <div *ngIf="
+                        <div *ngIf="
                         productAssured.errors != null &&
                         productAssured.errors.required
                     ">
-                        Product assured sum is required.
+                            Product assured sum is required.
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">
-                Product Premium Term
-            </td>
-            <td>
-                <input pInputText id="productPremiumTerm" name="productPremiumTerm" #productPremiumTerm="ngModel"
-                    type="text" [(ngModel)]="productToView.premiumTerm" required="true" class="bodyText, inputWidth"
-                    [disabled]="togglePremiumTerm"
-                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
-                <p-button *ngIf="togglePremiumTerm" type="button" (click)="savePremiumTerm()">Edit
-                </p-button>
-            </td>
-            <td>
-                <div *ngIf="
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">
+                    Product Premium Term
+                </td>
+                <td>
+                    <input pInputText id="productPremiumTerm" name="productPremiumTerm" #productPremiumTerm="ngModel"
+                        type="text" [(ngModel)]="productToView.premiumTerm" required="true" class="bodyText, inputWidth"
+                        [disabled]="togglePremiumTerm"
+                        ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                    <p-button *ngIf="togglePremiumTerm" type="button" (click)="savePremiumTerm()">Edit
+                    </p-button>
+                </td>
+                <td>
+                    <div *ngIf="
                     productPremiumTerm.invalid &&
                     (productPremiumTerm.dirty ||
                     productPremiumTerm.touched ||
                       submitted)
                   " class="errorText">
-                    <div *ngIf="
+                        <div *ngIf="
                         productPremiumTerm.errors != null &&
                         productPremiumTerm.errors.required
                     ">
-                        Product Premium Term is required.
+                            Product Premium Term is required.
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">Average Interest Rate</td>
-            <td>
-                <input pInputText id="productAvgInterest" name="productAvgInterest" #productAvgInterest="ngModel"
-                    type="text" [(ngModel)]="productToView.averageInterestRate" required="true"
-                    class="bodyText, inputWidth" [disabled]="toggleAverageInterestRate"
-                    ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
-                <p-button *ngIf="toggleAverageInterestRate" type="button" (click)="saveAverageInterestRate()">Edit
-                </p-button>
-            </td>
-            <td>
-                <div *ngIf="
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">Average Interest Rate</td>
+                <td>
+                    <input pInputText id="productAvgInterest" name="productAvgInterest" #productAvgInterest="ngModel"
+                        type="text" [(ngModel)]="productToView.averageInterestRate" required="true"
+                        class="bodyText, inputWidth" [disabled]="toggleAverageInterestRate"
+                        ngClass="{'bodyText, inputWidth'} : false, {'bodyText, inputWidth'} : true" />
+                    <p-button *ngIf="toggleAverageInterestRate" type="button" (click)="saveAverageInterestRate()">Edit
+                    </p-button>
+                </td>
+                <td>
+                    <div *ngIf="
                     productAvgInterest.invalid &&
                     (productAvgInterest.dirty || productAvgInterest.touched || submitted)
                   " class="errorText">
-                    <div *ngIf="productAvgInterest.errors != null && productAvgInterest.errors.required">
-                        Average Interest Rate is required.
-                    </div>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td style="font-weight: bold; width: 30%" class="bodyText">Policy Currency Value</td>
-            <td>
-                <select id="policyCurrencyList" name="policyCurrencyList" [(ngModel)]="productToView.policyCurrency"
-                    (change)="selectChangeHandlerCurrency($event)" required="true" #policyCurrencyList="ngModel"
-                    style="float: left; ">
-                    <option value="SGD"> SGD </option>
-                    <option value="USD"> USD </option>
-                    <option value="NZD"> NZD </option>
-                    <option value="EUR"> EUR </option>
-                    <option value="GBP"> GBP </option>
-                    <option value="MYR"> MYR </option>
-                    <option value="HKD"> HKD </option>
-                    <option value="RMB"> RMB </option>
-                </select>
-                <span class="errorText" *ngIf="policyCurrencyList.touched && policyCurrencyList.invalid">
-                    Policy Currency is required
-                </span>
-            </td>
-
-        </tr>
-
-
-        <tr>
-            <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
-            <td>
-                <div class="p-field-checkbox">
-                    <p-checkbox [(ngModel)]="productToView.isAvailableToSmoker" name="smokerBoolean" [binary]="true" inputId="smokerBoolean">
-                    </p-checkbox>
-                    <label for="smokerBoolean">{{dummyBoolean}}</label>
-                </div>
-
-            </td>
-
-        </tr>
-
-        <tr>
-            <td style="font-weight: bold; width: 20%" class="bodyText">Product Type</td>
-            <td>
-                <p>{{productType}}</p>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold; width: 20%" class="bodyText">Product Type (Specific)</td>
-            <td>
-                <p>{{productEnumType}}</p>
-            </td>
-        </tr>
-    </table>
-
-    <br /><br />
-
-    <div style="text-align: center;">
-        <h2 class="secondaryHeader">Additional Features</h2>
-        <br />
-        <p-button *ngIf="toggleAdditionalFeatures" type="button" (click)="saveAdditionalFeatures()">Edit</p-button>
-
-        &nbsp; &nbsp;
-        <br />
-        <p-button *ngIf="!toggleAdditionalFeatures" label="Add Feature" type="button" (click)="handleClickAddFeature()">
-        </p-button>
-
-    </div>
-
-    <p-table id="tableFeature" [value]="productToView.listOfAdditionalFeatures" style="text-align: center">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>S/N</th>
-                <th colspan="2">Feature name</th>
-                <th colspan="2">Feature Description</th>
-                <th>Action</th>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-prod let-rowIndex="rowIndex">
-            <tr>
-                <td>{{ rowIndex + 1 }}</td>
-
-                <td>
-                    <input pInputText id="featureName" name="featureName" #featureName="ngModel" type="text"
-                        [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
-                    featureName.invalid && (featureName.dirty || featureName.touched || submitted)
-              " class="errorText">
-                        <div *ngIf="featureName.errors != null && featureName.errors.required">
-                            Feature Name is required.
+                        <div *ngIf="productAvgInterest.errors != null && productAvgInterest.errors.required">
+                            Average Interest Rate is required.
                         </div>
                     </div>
                 </td>
+            </tr>
 
+            <tr>
+                <td style="font-weight: bold; width: 30%" class="bodyText">Policy Currency Value</td>
                 <td>
-                    <input pInputText id="featureDescription" name="featureDescription" #featureDescription="ngModel"
-                        type="text" [(ngModel)]="prod.featureDescription" required="true"
-                        class="bodyText, inputWidth" />
+                    <select id="policyCurrencyList" name="policyCurrencyList" [(ngModel)]="productToView.policyCurrency"
+                        (change)="selectChangeHandlerCurrency($event)" required="true" #policyCurrencyList="ngModel"
+                        style="float: left; ">
+                        <option value="SGD"> SGD </option>
+                        <option value="USD"> USD </option>
+                        <option value="NZD"> NZD </option>
+                        <option value="EUR"> EUR </option>
+                        <option value="GBP"> GBP </option>
+                        <option value="MYR"> MYR </option>
+                        <option value="HKD"> HKD </option>
+                        <option value="RMB"> RMB </option>
+                    </select>
+                    <span class="errorText" *ngIf="policyCurrencyList.touched && policyCurrencyList.invalid">
+                        Policy Currency is required
+                    </span>
                 </td>
+
+            </tr>
+
+
+            <tr>
+                <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
                 <td>
-                    <div *ngIf="
+                    <div class="p-field-checkbox">
+                        <p-checkbox [(ngModel)]="productToView.isAvailableToSmoker" name="smokerBoolean"
+                            [binary]="true">
+                        </p-checkbox> &nbsp;
+                        <label for="smokerBoolean">{{productToView.isAvailableToSmoker}}</label>
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <td style="font-weight: bold; width: 20%" class="bodyText">Product Type</td>
+                <td>
+                    <p>{{productType}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; width: 20%" class="bodyText">Product Type (Specific)</td>
+                <td>
+                    <p>{{productEnumType}}</p>
+                </td>
+            </tr>
+        </table>
+
+        <br /><br />
+
+        <div style="text-align: center;">
+            <h2 class="secondaryHeader">Additional Features</h2>
+            <br />
+            <p-button *ngIf="toggleAdditionalFeatures" type="button" (click)="saveAdditionalFeatures()">Edit</p-button>
+
+            &nbsp; &nbsp;
+            <br />
+            <p-button *ngIf="!toggleAdditionalFeatures" label="Add Feature" type="button"
+                (click)="handleClickAddFeature()">
+            </p-button>
+
+        </div>
+
+        <p-table id="tableFeature" [value]="productToView.listOfAdditionalFeatures" style="text-align: center">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>S/N</th>
+                    <th colspan="2">Feature name</th>
+                    <th colspan="2">Feature Description</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-prod let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ rowIndex + 1 }}</td>
+
+                    <td>
+                        <input pInputText id="featureName" name="featureName_{{rowIndex}}" #featureName="ngModel" type="text"
+                            [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
+                    featureName.invalid && (featureName.dirty || featureName.touched || submitted)
+              " class="errorText">
+                            <div *ngIf="featureName.errors != null && featureName.errors.required">
+                                Feature Name is required.
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <input pInputText id="featureDescription" name="featureDescription_{{rowIndex}}"
+                            #featureDescription="ngModel" type="text" [(ngModel)]="prod.featureDescription"
+                            required="true" class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
                     featureDescription.invalid &&
                 (featureDescription.dirty || featureDescription.touched || submitted)
               " class="errorText">
-                        <div *ngIf="
+                            <div *ngIf="
                         featureDescription.errors != null &&
                         featureDescription.errors.required
                 ">
-                            Feature Description is required.
+                                Feature Description is required.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td>
-                    <p-button label="Delete" type="button" (click)="handleClickRemoveFeature(rowIndex)"></p-button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+                    <td>
+                        <p-button label="Delete" type="button" (click)="handleClickRemoveFeature(rowIndex)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
 
-    <div style="text-align: center;">
-        <br />
-        <h2 class="secondaryHeader">Riders For Product</h2>
-        <br />
-        <p-button *ngIf="toggleRider" type="button" (click)="saveRider()">Edit</p-button> &nbsp; &nbsp;
-        <p-button *ngIf="!toggleRider" label="Add Rider" type="button" (click)="handleClickAddRider()"></p-button>
-    </div>
+        <div style="text-align: center;">
+            <br />
+            <h2 class="secondaryHeader">Riders For Product</h2>
+            <br />
+            <p-button *ngIf="toggleRider" type="button" (click)="saveRider()">Edit</p-button> &nbsp; &nbsp;
+            <p-button *ngIf="!toggleRider" label="Add Rider" type="button" (click)="handleClickAddRider()"></p-button>
+        </div>
 
-    <p-table id="tableRider" [value]="productToView.listOfRiders" style="text-align: center">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>S/N</th>
-                <th colspan="2">Rider name</th>
-                <th colspan="2">Rider Premium Value</th>
-                <th colspan="2">Rider Description</th>
-                <th>Action</th>
-            </tr>
-        </ng-template>
+        <p-table id="tableRider" [value]="productToView.listOfRiders" style="text-align: center">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>S/N</th>
+                    <th colspan="2">Rider name</th>
+                    <th colspan="2">Rider Premium Value</th>
+                    <th colspan="2">Rider Description</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
 
-        <ng-template pTemplate="body" let-rider let-rowIndex="rowIndex">
-            <tr>
-                <td>{{ rowIndex + 1 }}</td>
+            <ng-template pTemplate="body" let-rider let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ rowIndex + 1 }}</td>
 
-                <td>
-                    <input pInputText id="riderName" name="riderName" #riderName="ngModel" type="text"
-                        [(ngModel)]="rider.riderName" required="true" class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
+                    <td>
+                        <input pInputText id="riderName" name="riderName_{{rowIndex}}" #riderName="ngModel" type="text"
+                            [(ngModel)]="rider.riderName" required="true" class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
                         riderName.invalid && (riderName.dirty || riderName.touched || submitted)
                   " class="errorText">
-                        <div *ngIf="riderName.errors != null && riderName.errors.required">
-                            Rider Name is required.
+                            <div *ngIf="riderName.errors != null && riderName.errors.required">
+                                Rider Name is required.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td>
-                    <input pInputText id="riderPremiumValue" name="riderPremiumValue" #riderPremiumValue="ngModel"
-                        type="number" [(ngModel)]="rider.riderPremiumValue" required="true"
-                        class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
+                    <td>
+                        <input pInputText id="riderPremiumValue" name="riderPremiumValue_{{rowIndex}}" #riderPremiumValue="ngModel"
+                            type="number" [(ngModel)]="rider.riderPremiumValue" required="true"
+                            class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
                         riderPremiumValue.invalid &&
                     (riderPremiumValue.dirty || riderPremiumValue.touched || submitted)
                   " class="errorText">
-                        <div *ngIf="
+                            <div *ngIf="
                             riderPremiumValue.errors != null &&
                             riderPremiumValue.errors.required
                     ">
-                            Rider premium value is required.
+                                Rider premium value is required.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td>
-                    <input pInputText id="riderDescription" name="riderDescription" #riderDescription="ngModel"
-                        type="text" [(ngModel)]="rider.riderDescription" required="true" class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
+                    <td>
+                        <input pInputText id="riderDescription" name="riderDescription_{{rowIndex}}" #riderDescription="ngModel"
+                            type="text" [(ngModel)]="rider.riderDescription" required="true"
+                            class="bodyText, inputWidth" />
+                    </td>
+                    <td>
+                        <div *ngIf="
                         riderDescription.invalid &&
                     (riderDescription.dirty || riderDescription.touched || submitted)
                   " class="errorText">
-                        <div *ngIf="
+                            <div *ngIf="
                             riderDescription.errors != null &&
                             riderDescription.errors.required
                     ">
-                            Rider Description is required.
+                                Rider Description is required.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td>
-                    <p-button label="Delete" type="button" (click)="handleClickRemoveRider(rowIndex)"></p-button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <div style="text-align: center;">
-        <br />
-        <h2 class="secondaryHeader">Premium For Product</h2>
-        <br />
-        <p-button *ngIf="togglePremium" type="button" (click)="savePremium()">Edit</p-button> &nbsp; &nbsp;
-        <p-button *ngIf="!togglePremium" label="Add Premium" type="button" (click)="handleClickAddPremium()">
-        </p-button>
-    </div>
-    <p-table id="tablePremium" [value]="productToView.listOfPremium" style="text-align: center">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>S/N</th>
-                <th colspan="2">Min Age Group</th>
-                <th colspan="2">Max Age Group</th>
-                <th colspan="2">Premium Value</th>
-                <th>Action</th>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-premium let-rowIndex="rowIndex">
-            <tr>
-                <td>{{ rowIndex + 1 }}</td>
-
-                <td>
-                    <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="number"
-                        [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
-                        minAge.invalid && (minAge.dirty || minAge.touched || submitted)
-                  " class="errorText">
-                        <div *ngIf="minAge.errors != null && minAge.errors.required">
-                            Min Age is required.
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="number"
-                        [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
-                        maxAge.invalid &&
-                    (maxAge.dirty || maxAge.touched || submitted)
-                  " class="errorText">
-                        <div *ngIf="
-                            maxAge.errors != null &&
-                            maxAge.errors.required
-                    ">
-                            Max Age is required.
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="number"
-                        [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
-                </td>
-                <td>
-                    <div *ngIf="
-                        premiumValue.invalid &&
-                    (premiumValue.dirty || premiumValue.touched || submitted)
-                  " class="errorText">
-                        <div *ngIf="
-                            premiumValue.errors != null &&
-                            premiumValue.errors.required
-                    ">
-                            Premium Value is required.
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <p-button label="Delete" type="button" (click)="handleClickRemovePremium(rowIndex)"></p-button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-
-    <br />
-    <div *ngIf="productToView.isAvailableToSmoker == true">
+                    <td>
+                        <p-button label="Delete" type="button" (click)="handleClickRemoveRider(rowIndex)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
 
         <div style="text-align: center;">
-            <h2 class="secondaryHeader">Smoker Premium For Product</h2>
             <br />
-            <p-button *ngIf="toggleSmokerPremium" type="button" (click)="savePremium()">Edit</p-button> &nbsp;
-            &nbsp;
-            <p-button *ngIf="!toggleSmokerPremium" label="Add Premium" type="button"
-                (click)="handleClickAddSmokerPremium()"></p-button>
+            <h2 class="secondaryHeader">Premium For Product</h2>
             <br />
+            <p-button *ngIf="togglePremium" type="button" (click)="savePremium()">Edit</p-button> &nbsp; &nbsp;
+            <p-button *ngIf="!togglePremium" label="Add Premium" type="button" (click)="handleClickAddPremium()">
+            </p-button>
         </div>
-
-        <p-table id="tableSmokerPremium" [value]="productToView.listOfSmokerPremium" style="text-align: center">
+        <p-table id="tablePremium" [value]="productToView.listOfPremium" style="text-align: center">
             <ng-template pTemplate="header">
                 <tr>
                     <th>S/N</th>
@@ -456,36 +380,36 @@
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="body" let-smokepremium let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-premium let-rowIndex="rowIndex">
                 <tr>
                     <td>{{ rowIndex + 1 }}</td>
 
                     <td>
-                        <input pInputText id="sminAge" name="sminAge" #sminAge="ngModel" type="number"
-                            [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="minAge" name="minAge_{{rowIndex}}" #minAge="ngModel" type="number"
+                            [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
-                            sminAge.invalid && (sminAge.dirty || sminAge.touched || submitted)
+                        minAge.invalid && (minAge.dirty || minAge.touched || submitted)
                   " class="errorText">
-                            <div *ngIf="sminAge.errors != null && sminAge.errors.required">
+                            <div *ngIf="minAge.errors != null && minAge.errors.required">
                                 Min Age is required.
                             </div>
                         </div>
                     </td>
 
                     <td>
-                        <input pInputText id="smaxAge" name="smaxAge" #smaxAge="ngModel" type="number"
-                            [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="maxAge" name="maxAge_{{rowIndex}}" #maxAge="ngModel" type="number"
+                            [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
-                            smaxAge.invalid &&
-                    (smaxAge.dirty || smaxAge.touched || submitted)
+                        maxAge.invalid &&
+                    (maxAge.dirty || maxAge.touched || submitted)
                   " class="errorText">
                             <div *ngIf="
-                                smaxAge.errors != null &&
-                                smaxAge.errors.required
+                            maxAge.errors != null &&
+                            maxAge.errors.required
                     ">
                                 Max Age is required.
                             </div>
@@ -493,35 +417,122 @@
                     </td>
 
                     <td>
-                        <input pInputText id="spremiumValue" name="spremiumValue" #spremiumValue="ngModel" type="number"
-                            [(ngModel)]="smokepremium.premiumValue" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="premiumValue" name="premiumValue_{{rowIndex}}" #premiumValue="ngModel" type="number"
+                            [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
-                            spremiumValue.invalid &&
-                    (spremiumValue.dirty || spremiumValue.touched || submitted)" class="errorText">
+                        premiumValue.invalid &&
+                    (premiumValue.dirty || premiumValue.touched || submitted)
+                  " class="errorText">
                             <div *ngIf="
-                                spremiumValue.errors != null &&
-                                spremiumValue.errors.required">
+                            premiumValue.errors != null &&
+                            premiumValue.errors.required
+                    ">
                                 Premium Value is required.
                             </div>
                         </div>
                     </td>
 
                     <td>
-                        <p-button label="Delete" type="button" (click)="handleClickRemoveSmokerPremium(rowIndex)">
-                        </p-button>
+                        <p-button label="Delete" type="button" (click)="handleClickRemovePremium(rowIndex)"></p-button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
-    </div>
 
-    <br />
-    <div style="text-align: center">
-        <input pInputText type="submit" value="Update" />
-    </div>
 
+        <br />
+        <div *ngIf="productToView.isAvailableToSmoker == true">
+
+            <div style="text-align: center;">
+                <h2 class="secondaryHeader">Smoker Premium For Product</h2>
+                <br />
+                <p-button *ngIf="toggleSmokerPremium" type="button" (click)="savePremium()">Edit</p-button> &nbsp;
+                &nbsp;
+                <p-button *ngIf="!toggleSmokerPremium" label="Add Premium" type="button"
+                    (click)="handleClickAddSmokerPremium()"></p-button>
+                <br />
+            </div>
+
+            <p-table id="tableSmokerPremium" [value]="productToView.listOfSmokerPremium" style="text-align: center">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>S/N</th>
+                        <th colspan="2">Min Age Group</th>
+                        <th colspan="2">Max Age Group</th>
+                        <th colspan="2">Premium Value</th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-smokepremium let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{ rowIndex + 1 }}</td>
+
+                        <td>
+                            <input pInputText id="sminAge" name="sminAge_{{rowIndex}}" #sminAge="ngModel" type="number"
+                                [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                        </td>
+                        <td>
+                            <div *ngIf="
+                            sminAge.invalid && (sminAge.dirty || sminAge.touched || submitted)
+                  " class="errorText">
+                                <div *ngIf="sminAge.errors != null && sminAge.errors.required">
+                                    Min Age is required.
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <input pInputText id="smaxAge" name="smaxAge_{{rowIndex}}" #smaxAge="ngModel" type="number"
+                                [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                        </td>
+                        <td>
+                            <div *ngIf="
+                            smaxAge.invalid &&
+                    (smaxAge.dirty || smaxAge.touched || submitted)
+                  " class="errorText">
+                                <div *ngIf="
+                                smaxAge.errors != null &&
+                                smaxAge.errors.required
+                    ">
+                                    Max Age is required.
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <input pInputText id="spremiumValue" name="spremiumValue_{{rowIndex}}" #spremiumValue="ngModel"
+                                type="number" [(ngModel)]="smokepremium.premiumValue" required="true"
+                                class="bodyText, inputWidth" />
+                        </td>
+                        <td>
+                            <div *ngIf="
+                            spremiumValue.invalid &&
+                    (spremiumValue.dirty || spremiumValue.touched || submitted)" class="errorText">
+                                <div *ngIf="
+                                spremiumValue.errors != null &&
+                                spremiumValue.errors.required">
+                                    Premium Value is required.
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <p-button label="Delete" type="button" (click)="handleClickRemoveSmokerPremium(rowIndex)">
+                            </p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <br />
+        <div style="text-align: center">
+            <input pInputText type="submit" value="Update" />
+        </div>
+    </div>
 
 </form>
 

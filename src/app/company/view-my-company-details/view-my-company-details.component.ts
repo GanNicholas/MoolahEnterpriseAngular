@@ -168,8 +168,8 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
     return Object.assign({}, obj);
   }
 
-  trackByRowIndex(index: number, poc: any) {
-    return poc ? poc : undefined
+  trackByRowIndex(index: number, poc: any): number {
+    return index;
   }
 
   confirm(rowIndex: number) {

@@ -21,7 +21,7 @@ import { TermLifeProductEnum } from 'src/app/models/enums/term-life-product-enum
 import { PremiumEntity } from 'src/app/models/premium-entity';
 import { RiderEntity } from 'src/app/models/rider-entity';
 import { FeatureEntity } from 'src/app/models/feature-entity';
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 @Component({
@@ -35,13 +35,13 @@ export class ViewProductDetailsComponent implements OnInit {
   resultError: boolean = false;
   submitted: boolean = true;
   message: string | undefined;
-  dummyBoolean : boolean = true;
 
-  productId: string | null;
+  productId: string;
   productToView: ProductEntity;
   productEnumType: string;
   productType: string;
   retrieveProductError: boolean;
+  isDeleted: boolean = false;
 
 
   toggleProductName: boolean = true;
@@ -72,7 +72,7 @@ export class ViewProductDetailsComponent implements OnInit {
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
     }
-    this.productId = null;
+    this.productId = "";
     this.productToView = new ProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
 
 
@@ -84,38 +84,77 @@ export class ViewProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
-
-    if (this.productId != null) {
-      this.productService.retrieveSpecificProductWrapper(parseInt(this.productId)).subscribe(
-        response => {
-          let productWrapper: ProductEntityWrapper = response;
-          this.productToView = productWrapper.product;
-          this.productEnumType = productWrapper.productEnum;
-          this.productType = productWrapper.productType;
-        },
-        error => {
-          this.retrieveProductError = true;
-          console.log("Error for Product Details: " + error);
-        }
-      );
+    let prodIdTemp: string | null = this.activatedRoute.snapshot.paramMap.get('productId');
+    if (prodIdTemp == null) {
+      this.router.navigate(["/index"])
+    } else {
+      this.productId = prodIdTemp;
+      if (this.productId != null) {
+        this.productService.retrieveSpecificProductWrapper(parseInt(this.productId)).subscribe(
+          response => {
+            let productWrapper: ProductEntityWrapper = response;
+            this.productToView = productWrapper.product;
+            this.productEnumType = productWrapper.productEnum;
+            this.productType = productWrapper.productType;
+          },
+          error => {
+            this.retrieveProductError = true;
+            console.log("Error for Product Details: " + error);
+          }
+        );
+      }
     }
+
   }
 
-  updateProduct(updateProductForm: NgForm) {
-    if (updateProductForm.valid) {
-      if (this.productType == "ENDOWMENT") {
+  deleteProduct() {
+    this.productService.deleteProduct(parseInt(this.productId)).subscribe(
+      response => {
+        this.isDeleted = true;
+        this.message = "Product has been successfully deleted!";
+        this.messageService.add({ severity: 'success', summary: this.message, detail: 'From Moolah Enterprise' });
+      },
+      error => {
+        this.message = "Error deleting product! Err: " + error;
+        this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
+      }
+    );
+  }
 
-        let endowmentProd: EndowmentEntity = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
-          this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
-          this.productToView.clickThroughInfo, this.productToView.company);
+  backToHome() {
+    this.router.navigate(["/index"]);
+  }
+
+
+  updateProduct(updateProductForm: NgForm) {
+    console.log("Entered Here");
+    if (updateProductForm.valid) {
+      console.log("Check form valid");
+      if (this.productType == "ENDOWMENTPRODUCT") {
+        let endowmentProd: EndowmentEntity = new EndowmentEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
+        if (this.productToView.isAvailableToSmoker == true) {
+          endowmentProd = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
+            this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
+            this.productToView.clickThroughInfo, this.productToView.company);
+          endowmentProd.productId = this.productToView.productId;
+        } else {
+          endowmentProd = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
+            this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
+            this.productToView.clickThroughInfo, this.productToView.company);
+          endowmentProd.productId = this.productToView.productId;
+        }
 
         this.productService.updateEndowmentProduct(endowmentProd).subscribe(
           response => {
+            this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
+            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
+                this.message = "Company has been successfully retrieved!";
+                this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
               },
               error => {
                 this.message = "Error updating company: " + error;
@@ -129,17 +168,35 @@ export class ViewProductDetailsComponent implements OnInit {
 
           }
         )
-      } else if (this.productType == "WHOLELIFE") {
-        let wholeLifeProd: WholeLifeProductEntity = new WholeLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
-          this.productToView.premiumTerm, this.productToView.averageInterestRate, this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, (<any>WholeLifeProductEnum)[this.productEnumType], this.productToView.isAvailableToSmoker,
-          this.productToView.clickThroughInfo, this.productToView.company);
-
+      } else if (this.productType == "WHOLELIFEPRODUCT") {
+        let wholeLifeProd: WholeLifeProductEntity = new WholeLifeProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
+        if (this.productToView.isAvailableToSmoker == true) {
+          console.log("YES smoker");
+          wholeLifeProd = new WholeLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
+            this.productToView.premiumTerm, this.productToView.averageInterestRate, this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, (<any>WholeLifeProductEnum)[this.productEnumType], this.productToView.isAvailableToSmoker,
+            this.productToView.clickThroughInfo, this.productToView.company);
+          wholeLifeProd.productId = this.productToView.productId;
+        } else {
+          console.log("NO smoker");
+          wholeLifeProd = new WholeLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
+            this.productToView.premiumTerm, this.productToView.averageInterestRate, this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, (<any>WholeLifeProductEnum)[this.productEnumType], this.productToView.isAvailableToSmoker,
+            this.productToView.clickThroughInfo, this.productToView.company);
+          wholeLifeProd.productId = this.productToView.productId;
+        }
+        console.log("Whole life entry before subscribe");
         this.productService.updateWholeLifeProduct(wholeLifeProd).subscribe(
           response => {
+            console.log(JSON.stringify(wholeLifeProd));
+            console.log("Whole life entry successful");
+            this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
+            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
+                this.message = "Company has been successfully retrieved!";
+                this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
               },
               error => {
                 this.message = "Error updating company: " + error;
@@ -154,17 +211,32 @@ export class ViewProductDetailsComponent implements OnInit {
           }
         )
 
-      } else if (this.productType == "TERMLIFE") {
-        let termLifeProd: TermLifeProductEntity = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
-          this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
-          this.productToView.clickThroughInfo, this.productToView.company);
+      } else if (this.productType == "TERMLIFEPRODUCT") {
+        let termLifeProd: TermLifeProductEntity = new TermLifeProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
+        if (this.productToView.isAvailableToSmoker == true) {
+          termLifeProd = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
+            this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
+            this.productToView.clickThroughInfo, this.productToView.company);
+          termLifeProd.productId = this.productToView.productId;
+        } else {
+          termLifeProd = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
+            this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
+            this.productToView.clickThroughInfo, this.productToView.company);
+          termLifeProd.productId = this.productToView.productId;
+        }
+
 
         this.productService.updateTermLifeProduct(termLifeProd).subscribe(
           response => {
+            this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
+            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
+                this.message = "Company has been successfully retrieved!";
+                this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
               },
               error => {
                 this.message = "Error updating company: " + error;
@@ -283,6 +355,6 @@ export class ViewProductDetailsComponent implements OnInit {
     this.productToView?.listOfSmokerPremium?.splice(index, 1);
   }
 
- 
+
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CompanyService } from 'src/app/services/company.service';
 
@@ -11,9 +12,7 @@ import { CompanyService } from 'src/app/services/company.service';
 })
 export class KeyNewPasswordComponent implements OnInit {
 
-  resultSuccess: boolean = false;
-  resultError: boolean = false;
-  submitted: boolean = true;
+  submitted: boolean = false;
   message: string | undefined;
 
   newPassword : string = "";
@@ -22,34 +21,49 @@ export class KeyNewPasswordComponent implements OnInit {
   otp: number = 0;
 
 
-  constructor(private companyService : CompanyService, private messageService : MessageService) { }
+  constructor(private companyService : CompanyService, private messageService : MessageService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   
   keyNewPassword(enterPasswordForm: NgForm){
-    this.submitted = true;
 
-    if(enterPasswordForm.valid){
-      
-      this.companyService.resetCompanyPassword(this.email, this.otp, this.newPassword, this.repeatNewPassword).subscribe(
+    if(this.email==""){
+      this.messageService.add({ severity: 'error', summary: "Email is cannot be empty!", detail: 'Via MessageService' });
+      return;
+    } else if(this.otp == 0){
+      this.messageService.add({ severity: 'error', summary: "Please enter your given OTP!", detail: 'Via MessageService' });
+      return;
+    } else if(this.newPassword == ""){
+      this.messageService.add({ severity: 'error', summary: "Password cannot be empty!", detail: 'Via MessageService' });
+      return;
+    } else if(this.repeatNewPassword == ""){
+      this.messageService.add({ severity: 'error', summary: "Enter your password again!", detail: 'Via MessageService' });
+      return;
+    }
+ 
+
+    this.companyService.resetCompanyPassword(this.email, this.otp, this.newPassword, this.repeatNewPassword).subscribe(
         response => {
-          this.resultSuccess = true;
-          this.resultError = false;
           this.message = "Password has successfully been reset!";
           this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+          this.submitted = true;
+
         },
         error => {
-          this.resultError = true;
-          this.resultSuccess = false;
-          this.message = "Password has not been updated: " + error;
+          this.message = "Password has failed to update! Please check your details!";
           console.log(error);
           this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
         }
       );
-    }
+    
 
+  }
+
+
+  backToHome() {
+    this.router.navigate(["/index"]);
   }
 
 }
