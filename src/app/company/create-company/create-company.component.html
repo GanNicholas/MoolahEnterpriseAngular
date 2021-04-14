@@ -273,7 +273,7 @@
           <input
             pInputText
             id="pocName"
-            name="pocName"
+            name="pocName_{{rowIndex}}"
             #pocName="ngModel"
             type="text"
             [(ngModel)]="poc.pocName"
@@ -297,7 +297,7 @@
           <input
             pInputText
             id="pocMobileNumber"
-            name="pocMobileNumber"
+            name="pocMobileNumber_{{rowIndex}}"
             #pocMobileNumber="ngModel"
             type="text"
             [(ngModel)]="poc.pocMobileNumber"
@@ -326,7 +326,8 @@
         <td>
           <input
             pInputText
-            name="pocOfficeNumber"
+            id="pocOfficeNumber"
+            name="pocOfficeNumber_{{rowIndex}}"
             #pocOfficeNumber="ngModel"
             type="text"
             [(ngModel)]="poc.pocOfficeNumber"
@@ -356,7 +357,7 @@
           <input
             pInputText
             id="pocEmail"
-            name="pocEmail"
+            name="pocEmail_{{rowIndex}}"
             #pocEmail="ngModel"
             type="text"
             [(ngModel)]="poc.pocEmail"
@@ -393,6 +394,7 @@
     &nbsp;
     <input pInputText type="submit" value="Create" />
   </div>
+
 </form>
 <br />
 <br />

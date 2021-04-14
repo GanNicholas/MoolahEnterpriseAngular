@@ -34,6 +34,7 @@ import { KeyNewPasswordComponent } from './password/key-new-password/key-new-pas
 import { BadgeModule } from 'primeng/badge';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { CalendarModule } from 'primeng/calendar';
+import { AboutUsComponent } from './aboutus/about-us/about-us.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
@@ -55,6 +56,7 @@ import {MessageModule} from 'primeng/message';
     ForgetPasswordComponent,
     KeyNewPasswordComponent,
     MakePaymentComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,7 @@ import {MessageModule} from 'primeng/message';
     DialogModule,
     SplitButtonModule,
     BadgeModule,
+    CalendarModule, 
     CalendarModule,
     CheckboxModule,
     InputNumberModule,
