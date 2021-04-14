@@ -281,7 +281,7 @@
   <p-table
     id="tablePointOfContact"
     [value]="company.listOfPointOfContacts"
-    dataKey = "pocEmail"
+    dataKey="pocEmail"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -306,7 +306,7 @@
         <td>
           <input
             pInputText
-            name="pocName"
+            name="pocName_{{ rowIndex }}"
             #pocName="ngModel"
             type="text"
             [(ngModel)]="poc.pocName"
@@ -330,7 +330,7 @@
         <td>
           <input
             pInputText
-            name="pocMobileNumber"
+            name="pocMobileNumber_{{ rowIndex }}"
             #pocMobileNumber="ngModel"
             type="text"
             [(ngModel)]="poc.pocMobileNumber"
@@ -360,7 +360,7 @@
         <td>
           <input
             pInputText
-            name="pocOfficeNumber"
+            name="pocOfficeNumber_{{ rowIndex }}"
             #pocOfficeNumber="ngModel"
             type="text"
             [(ngModel)]="poc.pocOfficeNumber"
@@ -390,7 +390,7 @@
         <td>
           <input
             pInputText
-            name="pocEmail"
+            name="pocEmail_{{ rowIndex }}"
             #pocEmail="ngModel"
             type="text"
             [(ngModel)]="poc.pocEmail"
