@@ -56,11 +56,17 @@ export class PaymentService {
   }
 
   retrieveAllSpecificHistoricalTransaction(): Observable<PaymentWrapper[]> {
-    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&startDate=01-01-1990&endDate=01-01-2022").pipe(
+    console.log("/retrieveSpecificHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
       catchError(this.handleError)
     );  
   }
-
+  retrieveAllSpecificMonthlyHistoricalTransaction(): Observable<PaymentWrapper[]> {
+    console.log("/retrieveSpecificMonthlyHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
+      catchError(this.handleError)
+    );  
+  }
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
 
@@ -81,4 +87,6 @@ export class PaymentService {
       catchError(this.handleError)
     );
   }
+
+  
 }

@@ -29,7 +29,11 @@ export class ViewTransactionComponent implements OnInit {
     this.paymentService.retrieveAllSpecificHistoricalTransaction().subscribe(
       response => {
         this.listOfAllSpecificHistoricalTransaction = response;
-       console.log("Retrieved successfully" + this.listOfAllSpecificHistoricalTransaction[0].paymentEntity.dateGenerated);
+        console.log(JSON.stringify(this.listOfAllSpecificHistoricalTransaction));
+       //console.log("Retrieved successfully" + this.listOfAllSpecificHistoricalTransaction[0].paymentEntity.paymentId);
+       this.listOfAllSpecificHistoricalTransaction.forEach(history => {
+         console.log(history.paymentEntity.paymentId);
+       });
       },
       error => {
         console.log("Error retrieving products : " + error);
