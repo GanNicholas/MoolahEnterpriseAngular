@@ -1,3 +1,4 @@
+import { UploadPath } from './../models/upload-path';
 import { Injectable } from '@angular/core';
 
 import { CreateCompanyEntityReq } from '../models/create-company-entity-req';
@@ -94,12 +95,15 @@ export class CompanyService {
     );
   }
 
-  resetCompanyPassword(email: string, otp: number, newPassword: string, repeatNewPassword: string): Observable <Boolean> {
+  resetCompanyPassword(email: string, otp: number, newPassword: string, repeatNewPassword: string): Observable<Boolean> {
     return this.httpClient.get<Boolean>(this.baseUrl + "/resetCompanyPassword?email=" + email + "&otp=" + otp + "&newPassword=" + newPassword + "&repeatPassword=" + repeatNewPassword).pipe(
       catchError(this.handleError)
     );
   }
 
-  
-
+  retrieveUploadPath(): Observable<UploadPath> {
+    return this.httpClient.get<UploadPath>(this.baseUrl + "/retrieveUploadPath").pipe(
+      catchError(this.handleError)
+    );
+  }
 }
