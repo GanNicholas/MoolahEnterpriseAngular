@@ -71,13 +71,14 @@ export class ProductService {
   }
 
   updateWholeLifeProduct(updateProduct: WholeLifeProductEntity): Observable<ProductEntity> {
+    console.log(JSON.stringify(updateProduct));
     return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  deleteProduct(productId: number): Observable<any> {
-    return this.httpClient.delete<any>(this.baseUrl + "" + productId + "" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
+  deleteProduct(productId: number): Observable<string> {
+    return this.httpClient.get<string>(this.baseUrl + "/deleteProductListing?productId=" + productId + "&email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
       catchError(this.handleError)
     );
   }

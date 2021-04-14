@@ -271,7 +271,7 @@
                 <td>{{ rowIndex + 1 }}</td>
 
                 <td>
-                    <input pInputText id="featureName" name="featureName" #featureName="ngModel" type="text"
+                    <input pInputText id="featureName" name="featureName_{{rowIndex}}" #featureName="ngModel" type="text"
                         [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -285,7 +285,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="featureDescription" name="featureDescription" #featureDescription="ngModel"
+                    <input pInputText id="featureDescription" name="featureDescription_{{rowIndex}}" #featureDescription="ngModel"
                         type="text" [(ngModel)]="prod.featureDescription" required="true"
                         class="bodyText, inputWidth" />
                 </td>
@@ -333,7 +333,7 @@
                 <td>{{ rowIndex + 1 }}</td>
 
                 <td>
-                    <input pInputText id="riderName" name="riderName" #riderName="ngModel" type="text"
+                    <input pInputText id="riderName" name="riderName_{{rowIndex}}" #riderName="ngModel" type="text"
                         [(ngModel)]="rider.riderName" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -347,7 +347,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="riderPremiumValue" name="riderPremiumValue" #riderPremiumValue="ngModel"
+                    <input pInputText id="riderPremiumValue" name="riderPremiumValue_{{rowIndex}}" #riderPremiumValue="ngModel"
                         type="number" [(ngModel)]="rider.riderPremiumValue" required="true"
                         class="bodyText, inputWidth" />
                 </td>
@@ -366,7 +366,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="riderDescription" name="riderDescription" #riderDescription="ngModel"
+                    <input pInputText id="riderDescription" name="riderDescription_{{rowIndex}}" #riderDescription="ngModel"
                         type="text" [(ngModel)]="rider.riderDescription" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -412,7 +412,7 @@
                 <td>{{ rowIndex + 1 }}</td>
 
                 <td>
-                    <input pInputText id="minAge" name="minAge" #minAge="ngModel" type="number"
+                    <input pInputText id="minAge" name="minAge_{{rowIndex}}" #minAge="ngModel" type="number"
                         [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -426,7 +426,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="maxAge" name="maxAge" #maxAge="ngModel" type="number"
+                    <input pInputText id="maxAge" name="maxAge_{{rowIndex}}" #maxAge="ngModel" type="number"
                         [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -444,7 +444,7 @@
                 </td>
 
                 <td>
-                    <input pInputText id="premiumValue" name="premiumValue" #premiumValue="ngModel" type="number"
+                    <input pInputText id="premiumValue" name="premiumValue_{{rowIndex}}" #premiumValue="ngModel" type="number"
                         [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
                 </td>
                 <td>
@@ -495,7 +495,7 @@
                     <td>{{ rowIndex + 1 }}</td>
 
                     <td>
-                        <input pInputText id="sminAge" name="sminAge" #sminAge="ngModel" type="number"
+                        <input pInputText id="sminAge" name="sminAge_{{rowIndex}}" #sminAge="ngModel" type="number"
                             [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
@@ -509,7 +509,7 @@
                     </td>
 
                     <td>
-                        <input pInputText id="smaxAge" name="smaxAge" #smaxAge="ngModel" type="number"
+                        <input pInputText id="smaxAge" name="smaxAge_{{rowIndex}}" #smaxAge="ngModel" type="number"
                             [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
@@ -527,7 +527,7 @@
                     </td>
 
                     <td>
-                        <input pInputText id="spremiumValue" name="spremiumValue" #spremiumValue="ngModel" type="number"
+                        <input pInputText id="spremiumValue" name="spremiumValue_{{rowIndex}}" #spremiumValue="ngModel" type="number"
                             [(ngModel)]="smokepremium.premiumValue" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
