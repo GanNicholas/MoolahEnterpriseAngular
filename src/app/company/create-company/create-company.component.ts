@@ -1,3 +1,5 @@
+import { UploadPath } from './../../models/upload-path';
+import { ToastModule } from 'primeng/toast';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FooterComponent } from './../../footer/footer/footer.component';
 import { HeaderComponent } from './../../header/header/header.component';
@@ -11,7 +13,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PointOfContactEntity } from 'src/app/models/point-of-contact-entity';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -27,6 +29,7 @@ export class CreateCompanyComponent implements OnInit {
   submitted: boolean = true;
   message: string | undefined;
   createCompanyEntityReq: CreateCompanyEntityReq;
+  uploadPath: UploadPath = new UploadPath();
 
   constructor(private router: Router,
     private browserAnimationsModule: BrowserAnimationsModule,
@@ -40,9 +43,22 @@ export class CreateCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.companyService.retrieveUploadPath().subscribe(
+      response => {
+        this.uploadPath = response;
+      },
+      error => {
+        this.resultError = true;
+        this.resultSuccess = false;
+        this.message = "An error has occurred while retrieving file upload path: " + error;
+        this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+
+        console.log('********** CreateCompanyComponent.ts: ' + error);
+      }
+    );
   }
 
-  create( createCompanyForm: NgForm) {
+  create(createCompanyForm: NgForm) {
 
     this.submitted = true;
     if (createCompanyForm.valid) {
@@ -53,12 +69,13 @@ export class CreateCompanyComponent implements OnInit {
           this.resultSuccess = true;
           this.resultError = false;
           this.message = "Company " + newCompanyId + " created successfully";
+          this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
         },
         error => {
           this.resultError = true;
           this.resultSuccess = false;
           this.message = "An error has occurred while creating the new company: " + error;
-
+          this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
           console.log('********** CreateCompanyComponent.ts: ' + error);
         }
       );
@@ -74,12 +91,12 @@ export class CreateCompanyComponent implements OnInit {
   }
 
   onUpload(event: { files: any; }) {
-    for(let file of event.files) {
+    for (let file of event.files) {
 
     }
 
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
+    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+  }
 
   clear() {
     this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity, new Array());

@@ -1,3 +1,5 @@
+import { UploadPath } from './../../models/upload-path';
+import { FileUploadModule } from 'primeng/fileupload';
 import { Router } from '@angular/router';
 import { SessionService } from './../../services/session.service';
 import { Component, OnInit } from '@angular/core';
@@ -43,6 +45,9 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   repeatNewPassword: string = "";
   display: boolean = false;
   dialogDeactivateAccount: boolean = false;
+
+  uploadPath: UploadPath = new UploadPath();
+
   constructor(private sessionService: SessionService,
     private companyService: CompanyService,
     private messageService: MessageService,
@@ -55,6 +60,19 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.companyService.retrieveUploadPath().subscribe(
+      response => {
+        this.uploadPath = response;
+      },
+      error => {
+        this.resultError = true;
+        this.resultSuccess = false;
+        this.message = "An error has occurred while retrieving file upload path: " + error;
+        this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+
+        console.log('********** CreateCompanyComponent.ts: ' + error);
+      }
+    );
   }
 
   showDeactivateDialog() {
@@ -232,5 +250,4 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
     );
 
   }
-
 }
