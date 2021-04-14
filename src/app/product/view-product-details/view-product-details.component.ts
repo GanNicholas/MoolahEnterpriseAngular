@@ -42,6 +42,7 @@ export class ViewProductDetailsComponent implements OnInit {
   productType: string;
   retrieveProductError: boolean;
   isDeleted: boolean = false;
+  isSmoker: boolean = false;
 
 
   toggleProductName: boolean = true;
@@ -94,8 +95,14 @@ export class ViewProductDetailsComponent implements OnInit {
           response => {
             let productWrapper: ProductEntityWrapper = response;
             this.productToView = productWrapper.product;
+            console.log(JSON.stringify(productWrapper));
             this.productEnumType = productWrapper.productEnum;
             this.productType = productWrapper.productType;
+            if (productWrapper.isSmoker == "true") {
+              this.productToView.isAvailableToSmoker = true;
+            } else {
+              this.productToView.isAvailableToSmoker = false;
+            }
           },
           error => {
             this.retrieveProductError = true;
@@ -133,11 +140,13 @@ export class ViewProductDetailsComponent implements OnInit {
       if (this.productType == "ENDOWMENTPRODUCT") {
         let endowmentProd: EndowmentEntity = new EndowmentEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
         if (this.productToView.isAvailableToSmoker == true) {
+          console.log("YES smoker");
           endowmentProd = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           endowmentProd.productId = this.productToView.productId;
         } else {
+          console.log("NO smoker");
           endowmentProd = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
@@ -214,11 +223,13 @@ export class ViewProductDetailsComponent implements OnInit {
       } else if (this.productType == "TERMLIFEPRODUCT") {
         let termLifeProd: TermLifeProductEntity = new TermLifeProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
         if (this.productToView.isAvailableToSmoker == true) {
+          console.log("YES smoker");
           termLifeProd = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           termLifeProd.productId = this.productToView.productId;
         } else {
+          console.log("NO smoker");
           termLifeProd = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
@@ -314,7 +325,8 @@ export class ViewProductDetailsComponent implements OnInit {
 
   selectChangeHandlerSmoker(event: any) {
     //update the ui
-    if (event.target.value == "true") {
+    console.log("Event: " + event.target.value);
+    if (event.target.value == "0") {
       this.productToView.isAvailableToSmoker = true;
     } else {
       this.productToView.isAvailableToSmoker = false;

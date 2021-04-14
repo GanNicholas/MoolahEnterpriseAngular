@@ -185,12 +185,15 @@
             <tr>
                 <td style="font-weight: bold; width: 20%" class="bodyText">Is Available To Smoker</td>
                 <td>
-                    <div class="p-field-checkbox">
-                        <p-checkbox [(ngModel)]="productToView.isAvailableToSmoker" name="smokerBoolean"
-                            [binary]="true">
-                        </p-checkbox> &nbsp;
-                        <label for="smokerBoolean">{{productToView.isAvailableToSmoker}}</label>
-                    </div>
+                    <select id="smokerBoolean" name="smokerBoolean" [(ngModel)]="productToView.isAvailableToSmoker"
+                        required="true" #smokerBoolean="ngModel">
+                        <option [ngValue]="true"> Yes </option>
+                        <option [ngValue]="false"> No </option>
+                    </select>&nbsp;
+
+                    <span class="errorText" *ngIf="smokerBoolean.touched && smokerBoolean.invalid">
+                        Please select if product can be for smoker
+                    </span>
 
                 </td>
 
@@ -240,8 +243,8 @@
                     <td>{{ rowIndex + 1 }}</td>
 
                     <td>
-                        <input pInputText id="featureName" name="featureName_{{rowIndex}}" #featureName="ngModel" type="text"
-                            [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="featureName" name="featureName_{{rowIndex}}" #featureName="ngModel"
+                            type="text" [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
@@ -317,9 +320,9 @@
                     </td>
 
                     <td>
-                        <input pInputText id="riderPremiumValue" name="riderPremiumValue_{{rowIndex}}" #riderPremiumValue="ngModel"
-                            type="number" [(ngModel)]="rider.riderPremiumValue" required="true"
-                            class="bodyText, inputWidth" />
+                        <input pInputText id="riderPremiumValue" name="riderPremiumValue_{{rowIndex}}"
+                            #riderPremiumValue="ngModel" type="number" [(ngModel)]="rider.riderPremiumValue"
+                            required="true" class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
@@ -336,8 +339,8 @@
                     </td>
 
                     <td>
-                        <input pInputText id="riderDescription" name="riderDescription_{{rowIndex}}" #riderDescription="ngModel"
-                            type="text" [(ngModel)]="rider.riderDescription" required="true"
+                        <input pInputText id="riderDescription" name="riderDescription_{{rowIndex}}"
+                            #riderDescription="ngModel" type="text" [(ngModel)]="rider.riderDescription" required="true"
                             class="bodyText, inputWidth" />
                     </td>
                     <td>
@@ -417,8 +420,9 @@
                     </td>
 
                     <td>
-                        <input pInputText id="premiumValue" name="premiumValue_{{rowIndex}}" #premiumValue="ngModel" type="number"
-                            [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
+                        <input pInputText id="premiumValue" name="premiumValue_{{rowIndex}}" #premiumValue="ngModel"
+                            type="number" [(ngModel)]="premium.premiumValue" required="true"
+                            class="bodyText, inputWidth" />
                     </td>
                     <td>
                         <div *ngIf="
@@ -448,7 +452,7 @@
             <div style="text-align: center;">
                 <h2 class="secondaryHeader">Smoker Premium For Product</h2>
                 <br />
-                <p-button *ngIf="toggleSmokerPremium" type="button" (click)="savePremium()">Edit</p-button> &nbsp;
+                <p-button *ngIf="toggleSmokerPremium" type="button" (click)="saveSmokerPremium()">Edit</p-button> &nbsp;
                 &nbsp;
                 <p-button *ngIf="!toggleSmokerPremium" label="Add Premium" type="button"
                     (click)="handleClickAddSmokerPremium()"></p-button>
@@ -503,9 +507,9 @@
                         </td>
 
                         <td>
-                            <input pInputText id="spremiumValue" name="spremiumValue_{{rowIndex}}" #spremiumValue="ngModel"
-                                type="number" [(ngModel)]="smokepremium.premiumValue" required="true"
-                                class="bodyText, inputWidth" />
+                            <input pInputText id="spremiumValue" name="spremiumValue_{{rowIndex}}"
+                                #spremiumValue="ngModel" type="number" [(ngModel)]="smokepremium.premiumValue"
+                                required="true" class="bodyText, inputWidth" />
                         </td>
                         <td>
                             <div *ngIf="
