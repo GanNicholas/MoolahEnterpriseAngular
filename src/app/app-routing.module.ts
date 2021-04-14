@@ -7,6 +7,7 @@ import { CreateCompanyComponent } from './company/create-company/create-company.
 import { IndexComponent } from './index/index/index.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
+import { AboutUsComponent } from './aboutus/about-us/about-us.component';
 import { ViewAllProductsComponent } from './product/view-all-products/view-all-products.component';
 import { ForgetPasswordComponent } from './password/forget-password/forget-password.component';
 import { KeyNewPasswordComponent } from './password/key-new-password/key-new-password.component';
@@ -20,6 +21,10 @@ const routes: Routes = [
   { path: 'product/createProduct', component: CreateProductComponent },
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent},
   { path: 'makePayment', component: MakePaymentComponent},
+  { path: 'makePayment/:id', component: MakePaymentComponent},
+  { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
+  { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },
+  { path: 'aboutus/aboutUs', component: AboutUsComponent },
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
   { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },

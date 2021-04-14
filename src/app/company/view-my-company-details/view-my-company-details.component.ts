@@ -42,6 +42,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   newPassword: string = "";
   repeatNewPassword: string = "";
   display: boolean = false;
+  dialogDeactivateAccount : boolean =false;
   constructor(private sessionService: SessionService,
     private companyService: CompanyService,
     private messageService: MessageService,
@@ -56,6 +57,13 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showDeactivateDialog(){
+    this.dialogDeactivateAccount = true;
+  }
+
+  hideDeactiveDialog(){
+    this.dialogDeactivateAccount = false;
+  }
   enableCompanyNameEdit() {
     this.toggleCompanyName = true;
   }
@@ -197,6 +205,24 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
       );
     }
   }
-
+  deactiveAccount() {
+    this.companyService.deactivateCompany().subscribe(
+      response => {
+        this.resultSuccess = true;
+        this.resultError = false;
+        this.messageService.add({ severity: 'success', summary: "You have successfully deactivated your account", detail: 'Via MessageService' });
+        this.dialogDeactivateAccount = false;
+      },
+      error => {
+        this.resultError = true;
+        this.resultSuccess = false;
+        this.message = "An error has occurred while deactivating your account: " + error;
+        this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+        this.dialogDeactivateAccount = false;
+        console.log('********** UpdateCompanyComponent.ts: ' + error);
+      }
+    );
+    
+  }
 
 }
