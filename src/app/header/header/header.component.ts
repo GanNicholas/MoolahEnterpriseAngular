@@ -88,6 +88,7 @@ export class HeaderComponent implements OnInit {
         {
           label: 'View My Profile',
           icon: 'pi pi-user-edit',
+          routerLink: '/company/viewMyCompanyDetails'
 
         },
         {
@@ -124,7 +125,7 @@ export class HeaderComponent implements OnInit {
             {
               label: 'Home',
               icon: 'pi pi-home',
-              routerLink: '/index/index'
+              routerLink: '/index'
             },
             {
               label: 'About Us',
@@ -146,6 +147,7 @@ export class HeaderComponent implements OnInit {
           this.accounts = [
             {label: 'View My Profile',
             icon: 'pi pi-user-edit',
+            routerLink: '/company/viewMyCompanyDetails'
 
             },
             {
