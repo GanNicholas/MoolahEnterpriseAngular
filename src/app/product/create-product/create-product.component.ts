@@ -188,6 +188,8 @@ export class CreateProductComponent implements OnInit {
       }
 
     }
+    this.message = "An error occured while created product! Invalid Form submission!";
+    this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
 
 
   }
