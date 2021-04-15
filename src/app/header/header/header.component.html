@@ -1,31 +1,99 @@
 <header class="header">
-<p-menubar [model]="items">
+  <p-menubar [model]="items">
+    <aside id="loginbox" class="loginbox">
+      <div *ngIf="sessionService.getIsLogin() == false">
+        <label for="username">Username </label>
+        <input
+          type="text"
+          [(ngModel)]="email"
+          size="16"
+          required
+          maxlength="32"
+        />
+        &nbsp;
+        <label for="password">Password </label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          size="16"
+          required
+          maxlength="32"
+        />
+        &nbsp;
+        <p-button
+          label="Login"
+          type="button"
+          (click)="companyLogin()"
+        ></p-button>
 
+        &nbsp;
+        <p-button
+          label="Forget Password"
+          type="button"
+          routerLink="/password/forgetPassword"
+        ></p-button>
+      </div>
 
-<aside id="loginbox" class="loginbox">		
-	
-		<div *ngIf="sessionService.getIsLogin() == false">
-			<label for="username">Username </label>
-			<input type="text" [(ngModel)]="email" size="16" required maxlength="32" />
-			&nbsp;
-			<label for="password">Password </label>
-			<input type="password" [(ngModel)]="password" size="16" required maxlength="32" />
-			&nbsp;
-			<p-button label="Login" type="button" (click)="companyLogin()"></p-button>
-	
-            &nbsp;
-			<p-button label="Forget Password" type="button" routerLink="/password/forgetPassword"></p-button>
-		</div>
-		
-		<div *ngIf="loginError == true" style="text-align: right; color: red;">
-			{{errorMessage}}
-		</div>
-		
-		<div *ngIf="sessionService.getIsLogin() == true">
-			You are login as {{sessionService.getCompany().companyEmail}}
-			<p-splitButton label="My Account" icon="pi pi-user" [model]="accounts"></p-splitButton>
-			
-		</div>
-	</aside>
-</p-menubar>
+      <div *ngIf="loginError == true" style="text-align: right; color: red">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="sessionService.getIsLogin() == true">
+        <div class="p-col-12 p-md-4">
+          <div #actualTarget class="card" name="actualTarget" id="actualTarget">
+            <p-avatar
+              styleClass="p-mr-2 p-avatar p-component p-avatar-circle p-avatar-lg"
+              size="xlarge"
+              shape="circle"
+              [style]="{
+                'background-color': 'rgb(33, 150, 243)',
+                color: 'rgb(255, 255, 255)',
+                border: '0.5px solid black',
+                'margin-left': '-200%'
+              }"
+              (click)="op.show($event, actualTarget)"
+              ><img
+                src="https://primefaces.org/primeng/showcase/assets/showcase/images/primeng-logo-dark.svg"
+            /></p-avatar>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </p-menubar>
+
+  <p-overlayPanel #op [dismissable]="true">
+    <ng-template pTemplate>
+      <p-avatar
+        styleClass="p-mr-2 p-avatar p-component p-avatar-circle p-avatar-lg"
+        size="xlarge"
+        shape="circle"
+        [style]="{
+          'background-color': 'rgb(33, 150, 243)',
+          color: 'rgb(255, 255, 255)',
+          border: '0.5px solid black',
+          'margin-left': '42%'
+        }"
+        ><img
+          src="https://primefaces.org/primeng/showcase/assets/showcase/images/primeng-logo-dark.svg"
+        />
+      </p-avatar>
+      <br />
+      <hr />
+      <p style="text-align: center; font-weight: bold; font-size: 16px">
+        Welcome!
+      </p>
+      <p style="text-align: center">
+        You are logged in as {{ sessionService.getEmail() }}
+      </p>
+      <div style="margin-left: 0%">
+        <p-menu
+          id="accountMenu"
+          styleClass="p-menuitem-text"
+          [model]="accounts"
+          [style]="{ width: '100%', border: 'none'}"
+        >
+        </p-menu>
+      </div>
+    </ng-template>
+  </p-overlayPanel>
 </header>
