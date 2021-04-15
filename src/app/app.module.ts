@@ -39,6 +39,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {DropdownModule} from 'primeng/dropdown';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -81,10 +83,11 @@ import {MessageModule} from 'primeng/message';
     InputNumberModule,
     KeyFilterModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    DropdownModule
   ],
 
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
