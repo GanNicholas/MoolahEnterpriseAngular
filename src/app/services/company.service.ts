@@ -36,7 +36,7 @@ export class CompanyService {
     formData.append('json', JSON.stringify(file));
     //  formData.append('json', file, file.name);
     console.log("formData = " + JSON.stringify(file));
-    return this.httpClient.post<UploadPath>(this.baseUrl + "/uploadCompanyImage", formData, httpOptions).pipe(
+    return this.httpClient.post<UploadPath>("/api/File/upload", formData, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
