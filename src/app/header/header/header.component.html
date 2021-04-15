@@ -2,8 +2,8 @@
 <p-menubar [model]="items">
 
 
-<aside id="loginbox" class="loginbox">		
-	
+<aside id="loginbox" class="loginbox">
+
 		<div *ngIf="sessionService.getIsLogin() == false">
 			<label for="username">Username </label>
 			<input type="text" [(ngModel)]="email" size="16" required maxlength="32" />
@@ -12,19 +12,19 @@
 			<input type="password" [(ngModel)]="password" size="16" required maxlength="32" />
 			&nbsp;
 			<p-button label="Login" type="button" (click)="companyLogin()"></p-button>
-	
+
             &nbsp;
 			<p-button label="Forget Password" type="button" routerLink="/password/forgetPassword"></p-button>
 		</div>
-		
+
 		<div *ngIf="loginError == true" style="text-align: right; color: red;">
 			{{errorMessage}}
 		</div>
-		
+
 		<div *ngIf="sessionService.getIsLogin() == true">
 			You are login as {{sessionService.getCompany().companyEmail}}
 			<p-splitButton label="My Account" icon="pi pi-user" [model]="accounts"></p-splitButton>
-			
+
 		</div>
 	</aside>
 </p-menubar>

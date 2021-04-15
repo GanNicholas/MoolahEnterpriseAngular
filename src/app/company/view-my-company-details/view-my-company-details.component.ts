@@ -18,6 +18,7 @@ import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-my-company-details',
@@ -47,6 +48,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   dialogDeactivateAccount: boolean = false;
 
   uploadPath: UploadPath = new UploadPath();
+  file: File = new File(new Array(), "");
 
   constructor(private sessionService: SessionService,
     private companyService: CompanyService,
@@ -240,5 +242,22 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
         console.log('********** UpdateCompanyComponent.ts: ' + error);
       }
     );
+  }
+
+  onUpload(event: any) {
+    console.log("onUpload()");
+    this.file = event.files;
+    this.companyService.uploadCompanyImage(this.file);
+    this.companyService.uploadCompanyImage(this.file).subscribe(
+      response => {
+        let fileName: string = response.uploadPath;
+        this.messageService.add({ severity: 'success', summary: "Company image has been uploaded", detail: 'Via MessageService' });
+      },
+      error => {
+        this.message = "An error has occurred while deactivating your account: " + error;
+        this.messageService.add({ severity: 'error', summary: "Uploading is not completed. Please try again.", detail: 'Via MessageService' });
+      }
+    );
+    this.file = new File(new Array(), "");
   }
 }

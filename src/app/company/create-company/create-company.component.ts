@@ -1,6 +1,6 @@
 import { UploadPath } from './../../models/upload-path';
 import { ToastModule } from 'primeng/toast';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { FooterComponent } from './../../footer/footer/footer.component';
 import { HeaderComponent } from './../../header/header/header.component';
 import { CreateCompanyEntityReq } from './../../models/create-company-entity-req';
@@ -29,7 +29,7 @@ export class CreateCompanyComponent implements OnInit {
   submitted: boolean = true;
   message: string | undefined;
   createCompanyEntityReq: CreateCompanyEntityReq;
-  uploadPath: UploadPath = new UploadPath();
+  stringUploadPath: string = "";
 
   constructor(private router: Router,
     private browserAnimationsModule: BrowserAnimationsModule,
@@ -39,13 +39,15 @@ export class CreateCompanyComponent implements OnInit {
     private inputTextModule: InputTextModule,
     private fileUploadModule: FileUploadModule,
     private messageService: MessageService) {
-    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity(), new Array());
+    this.createCompanyEntityReq = new CreateCompanyEntityReq();
   }
 
   ngOnInit(): void {
     this.companyService.retrieveUploadPath().subscribe(
       response => {
-        this.uploadPath = response;
+        let uploadPath: UploadPath = new UploadPath();
+        uploadPath = response;
+        this.stringUploadPath = 'http://localhost:8080/' + uploadPath.uploadPath;
       },
       error => {
         this.resultError = true;
@@ -59,7 +61,6 @@ export class CreateCompanyComponent implements OnInit {
   }
 
   create(createCompanyForm: NgForm) {
-
     this.submitted = true;
     if (createCompanyForm.valid) {
       this.companyService.createNewCompany(this.createCompanyEntityReq).subscribe(
@@ -90,15 +91,7 @@ export class CreateCompanyComponent implements OnInit {
     this.createCompanyEntityReq.listOfPointOfContacts.splice(index, 1);
   }
 
-  onUpload(event: { files: any; }) {
-    for (let file of event.files) {
-
-    }
-
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-  }
-
   clear() {
-    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity, new Array());
+    this.createCompanyEntityReq = new CreateCompanyEntityReq();
   }
 }

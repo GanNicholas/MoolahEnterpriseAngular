@@ -5,6 +5,17 @@
 <br />
 
 <h2 style="text-align: center" class="secondaryHeader">Company Information</h2>
+<br />
+
+<p-fileUpload
+  #form
+  name="myfile[]"
+  [customUpload]="true"
+  accept="image/*"
+  [maxFileSize]="1000000"
+  (onSelect)="onUpload($event)"
+></p-fileUpload>
+
 <form
   #updateCompanyForm="ngForm"
   (ngSubmit)="update(updateCompanyForm)"
@@ -432,7 +443,13 @@
     header="Confirmation"
     icon="pi pi-exclamation-triangle"
   ></p-confirmDialog>
-  <button type="button" (click)="showDeactivateDialog()" icon="pi pi-info-circle" >Deactive your account</button>
+  <button
+    type="button"
+    (click)="showDeactivateDialog()"
+    icon="pi pi-info-circle"
+  >
+    Deactive your account
+  </button>
 </form>
 <br />
 <br />
@@ -441,16 +458,22 @@
 <br />
 <br />
 <p-toast></p-toast>
-<p-dialog header="Deactive Account"
-[(visible)]="dialogDeactivateAccount"
-[closable]="true"
-[resizable]="false"
-[draggable]="false"
-[dismissableMask]="true" >
-    <p>Are you sure that you want to deactivate your account? </p>
-    <button type="button" (click)="hideDeactiveDialog()" icon="pi pi-info-circle" >Cancel</button>
-    &nbsp;
-    <button type="button" (click)="deactiveAccount()" icon="pi pi-info-circle" >Deactive your account</button>
+<p-dialog
+  header="Deactive Account"
+  [(visible)]="dialogDeactivateAccount"
+  [closable]="true"
+  [resizable]="false"
+  [draggable]="false"
+  [dismissableMask]="true"
+>
+  <p>Are you sure that you want to deactivate your account?</p>
+  <button type="button" (click)="hideDeactiveDialog()" icon="pi pi-info-circle">
+    Cancel
+  </button>
+  &nbsp;
+  <button type="button" (click)="deactiveAccount()" icon="pi pi-info-circle">
+    Deactive your account
+  </button>
 </p-dialog>
 <p-dialog
   id="changePasswordDialog"

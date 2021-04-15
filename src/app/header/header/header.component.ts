@@ -189,7 +189,7 @@ export class HeaderComponent implements OnInit {
     this.sessionService.setEmail("");
     this.sessionService.setPassword("");
     sessionStorage.clear();
-
+    this.ngOnInit();
     this.router.navigate(["/index"]);
   }
 
