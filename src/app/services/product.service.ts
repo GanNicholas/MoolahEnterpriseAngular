@@ -25,23 +25,23 @@ export class ProductService {
 
   }
 
-  createProductForWholeLife(newProduct: WholeLifeProductEntity): Observable<number> {
+  createProductForWholeLife(newProduct: WholeLifeProductEntity, isSmoker: boolean): Observable<number> {
     console.log(JSON.stringify(newProduct));
-    return this.httpClient.put<number>(this.baseUrl + "/WholeLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword(), newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/WholeLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  createProductForTermLife(newProduct: TermLifeProductEntity): Observable<number> {
+  createProductForTermLife(newProduct: TermLifeProductEntity, isSmoker: boolean): Observable<number> {
     console.log(JSON.stringify(newProduct));
-    return this.httpClient.put<number>(this.baseUrl + "/TermLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword(), newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/TermLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  createProductForEndowment(newProduct: EndowmentEntity): Observable<number> {
+  createProductForEndowment(newProduct: EndowmentEntity, isSmoker: boolean): Observable<number> {
     console.log(JSON.stringify(newProduct));
-    return this.httpClient.put<number>(this.baseUrl + "/Endownment?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword(), newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/Endownment?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -58,21 +58,21 @@ export class ProductService {
     );
   }
 
-  updateEndowmentProduct(updateProduct: EndowmentEntity): Observable<ProductEntity> {
-    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationEndowment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+  updateEndowmentProduct(updateProduct: EndowmentEntity, isSmoker: boolean): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationEndowment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  updateTermLifeProduct(updateProduct: TermLifeProductEntity): Observable<ProductEntity> {
-    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationTermLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+  updateTermLifeProduct(updateProduct: TermLifeProductEntity, isSmoker: boolean): Observable<ProductEntity> {
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationTermLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  updateWholeLifeProduct(updateProduct: WholeLifeProductEntity): Observable<ProductEntity> {
+  updateWholeLifeProduct(updateProduct: WholeLifeProductEntity, isSmoker: boolean): Observable<ProductEntity> {
     console.log(JSON.stringify(updateProduct));
-    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), updateProduct, httpOptions).pipe(
+    return this.httpClient.post<ProductEntity>(this.baseUrl + "/updateProductInformationWholeLife?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, updateProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }

@@ -42,6 +42,7 @@ export class ViewProductDetailsComponent implements OnInit {
   productType: string;
   retrieveProductError: boolean;
   isDeleted: boolean = false;
+  isSmoker: boolean = false;
 
 
   toggleProductName: boolean = true;
@@ -94,8 +95,14 @@ export class ViewProductDetailsComponent implements OnInit {
           response => {
             let productWrapper: ProductEntityWrapper = response;
             this.productToView = productWrapper.product;
+            console.log(JSON.stringify(productWrapper));
             this.productEnumType = productWrapper.productEnum;
             this.productType = productWrapper.productType;
+            if (productWrapper.isSmoker == "true") {
+              this.productToView.isAvailableToSmoker = true;
+            } else {
+              this.productToView.isAvailableToSmoker = false;
+            }
           },
           error => {
             this.retrieveProductError = true;
@@ -122,7 +129,7 @@ export class ViewProductDetailsComponent implements OnInit {
   }
 
   backToHome() {
-    this.router.navigate(["/index"]);
+    this.router.navigate(["/product/viewAllProducts"]);
   }
 
 
@@ -130,21 +137,25 @@ export class ViewProductDetailsComponent implements OnInit {
     console.log("Entered Here");
     if (updateProductForm.valid) {
       console.log("Check form valid");
-      if (this.productType == "ENDOWMENTPRODUCT") {
+      if (this.productType == "ENDOWMENT") {
         let endowmentProd: EndowmentEntity = new EndowmentEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
         if (this.productToView.isAvailableToSmoker == true) {
+          console.log("YES smoker");
+          this.isSmoker = true;
           endowmentProd = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           endowmentProd.productId = this.productToView.productId;
         } else {
+          console.log("NO smoker");
+          this.isSmoker = false;
           endowmentProd = new EndowmentEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>EndowmentProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           endowmentProd.productId = this.productToView.productId;
         }
 
-        this.productService.updateEndowmentProduct(endowmentProd).subscribe(
+        this.productService.updateEndowmentProduct(endowmentProd, this.isSmoker).subscribe(
           response => {
             this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
             this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
@@ -172,19 +183,21 @@ export class ViewProductDetailsComponent implements OnInit {
         let wholeLifeProd: WholeLifeProductEntity = new WholeLifeProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
         if (this.productToView.isAvailableToSmoker == true) {
           console.log("YES smoker");
+          this.isSmoker = true;
           wholeLifeProd = new WholeLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, (<any>WholeLifeProductEnum)[this.productEnumType], this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           wholeLifeProd.productId = this.productToView.productId;
         } else {
           console.log("NO smoker");
+          this.isSmoker = false;
           wholeLifeProd = new WholeLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, (<any>WholeLifeProductEnum)[this.productEnumType], this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           wholeLifeProd.productId = this.productToView.productId;
         }
         console.log("Whole life entry before subscribe");
-        this.productService.updateWholeLifeProduct(wholeLifeProd).subscribe(
+        this.productService.updateWholeLifeProduct(wholeLifeProd, this.isSmoker).subscribe(
           response => {
             console.log(JSON.stringify(wholeLifeProd));
             console.log("Whole life entry successful");
@@ -214,11 +227,15 @@ export class ViewProductDetailsComponent implements OnInit {
       } else if (this.productType == "TERMLIFEPRODUCT") {
         let termLifeProd: TermLifeProductEntity = new TermLifeProductEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
         if (this.productToView.isAvailableToSmoker == true) {
+          console.log("YES smoker");
+          this.isSmoker = true;
           termLifeProd = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, this.productToView.listOfSmokerPremium, this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
           termLifeProd.productId = this.productToView.productId;
         } else {
+          console.log("NO smoker");
+          this.isSmoker = false;
           termLifeProd = new TermLifeProductEntity(this.productToView.listOfAdditionalFeatures, this.productToView.listOfRiders, this.productToView.listOfPremium, new Array(), this.productToView.coverageTerm, this.productToView.assuredSum,
             this.productToView.premiumTerm, this.productToView.averageInterestRate, (<any>TermLifeProductEnum)[this.productEnumType], this.productToView.productName, this.productToView.description, this.productToView.policyCurrency, this.productToView.isAvailableToSmoker,
             this.productToView.clickThroughInfo, this.productToView.company);
@@ -226,7 +243,7 @@ export class ViewProductDetailsComponent implements OnInit {
         }
 
 
-        this.productService.updateTermLifeProduct(termLifeProd).subscribe(
+        this.productService.updateTermLifeProduct(termLifeProd, this.isSmoker).subscribe(
           response => {
             this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
             this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
@@ -252,6 +269,9 @@ export class ViewProductDetailsComponent implements OnInit {
         )
       }
 
+    } else {
+      this.message = "An error occured while creating product! Invalid Form submission!";
+      this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
     }
   }
 
@@ -314,7 +334,8 @@ export class ViewProductDetailsComponent implements OnInit {
 
   selectChangeHandlerSmoker(event: any) {
     //update the ui
-    if (event.target.value == "true") {
+    console.log("Event: " + event.target.value);
+    if (event.target.value == "0") {
       this.productToView.isAvailableToSmoker = true;
     } else {
       this.productToView.isAvailableToSmoker = false;
