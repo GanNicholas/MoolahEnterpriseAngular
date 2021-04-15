@@ -32,7 +32,7 @@ export class CompanyService {
 
   uploadCompanyImage(file: File): Observable<UploadPath> {
     console.log("uploadCompanyImage");
-    const formData: FormData = new FormData()
+    let formData: FormData = new FormData()
     formData.append('json', JSON.stringify(file));
     //  formData.append('json', file, file.name);
     console.log("formData = " + JSON.stringify(file));

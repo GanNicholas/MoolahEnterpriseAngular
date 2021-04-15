@@ -41,6 +41,8 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {DropdownModule} from 'primeng/dropdown';
 import { DatePipe } from '@angular/common';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
 
 @NgModule({
   declarations: [
@@ -77,14 +79,16 @@ import { DatePipe } from '@angular/common';
     DialogModule,
     SplitButtonModule,
     BadgeModule,
-    CalendarModule, 
+    CalendarModule,
     CalendarModule,
     CheckboxModule,
     InputNumberModule,
     KeyFilterModule,
     MessageModule,
     MessagesModule,
-    DropdownModule
+    DropdownModule,
+    AvatarGroupModule,
+    AvatarModule
   ],
 
   providers: [DatePipe],

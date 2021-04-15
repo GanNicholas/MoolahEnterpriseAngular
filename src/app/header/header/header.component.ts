@@ -8,7 +8,8 @@ import { CompanyService } from 'src/app/services/company.service';
 
 import { CompanyEntity } from '../../models/company-entity';
 import { SplitButtonModule } from 'primeng/splitbutton';
-
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
 
 @Component({
   selector: 'app-header',

@@ -1,3 +1,4 @@
+import { FileUploadService } from '../../services/fileuploadservice.service';
 import { UploadPath } from './../../models/upload-path';
 import { FileUploadModule } from 'primeng/fileupload';
 import { Router } from '@angular/router';
@@ -54,7 +55,8 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
     private companyService: CompanyService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router) {
+    private router: Router,
+    private fileUploadService: FileUploadService) {
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
     }
@@ -246,18 +248,16 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
 
   onUpload(event: any) {
     console.log("onUpload()");
-    this.file = event.files;
-    this.companyService.uploadCompanyImage(this.file);
-    this.companyService.uploadCompanyImage(this.file).subscribe(
+    this.file = event.files[0];
+
+    this.fileUploadService.uploadFile(this.file).subscribe(
       response => {
-        let fileName: string = response.uploadPath;
-        this.messageService.add({ severity: 'success', summary: "Company image has been uploaded", detail: 'Via MessageService' });
+        console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
       },
       error => {
-        this.message = "An error has occurred while deactivating your account: " + error;
-        this.messageService.add({ severity: 'error', summary: "Uploading is not completed. Please try again.", detail: 'Via MessageService' });
+        console.log('********** FileUploadComponent.ts: ' + error);
       }
     );
-    this.file = new File(new Array(), "");
   }
+
 }
