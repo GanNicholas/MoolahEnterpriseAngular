@@ -25,23 +25,23 @@ export class ProductService {
 
   }
 
-  createProductForWholeLife(newProduct: WholeLifeProductEntity): Observable<number> {
+  createProductForWholeLife(newProduct: WholeLifeProductEntity, isSmoker: boolean): Observable<number> {
     console.log(JSON.stringify(newProduct));
-    return this.httpClient.put<number>(this.baseUrl + "/WholeLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword(), newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/WholeLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  createProductForTermLife(newProduct: TermLifeProductEntity): Observable<number> {
+  createProductForTermLife(newProduct: TermLifeProductEntity, isSmoker: boolean): Observable<number> {
     console.log(JSON.stringify(newProduct));
-    return this.httpClient.put<number>(this.baseUrl + "/TermLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword(), newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/TermLifeProductEntity?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  createProductForEndowment(newProduct: EndowmentEntity): Observable<number> {
+  createProductForEndowment(newProduct: EndowmentEntity, isSmoker: boolean): Observable<number> {
     console.log(JSON.stringify(newProduct));
-    return this.httpClient.put<number>(this.baseUrl + "/Endownment?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword(), newProduct, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/Endownment?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&isSmoker=" + isSmoker, newProduct, httpOptions).pipe(
       catchError(this.handleError)
     );
   }

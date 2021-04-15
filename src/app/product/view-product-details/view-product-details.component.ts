@@ -243,7 +243,7 @@ export class ViewProductDetailsComponent implements OnInit {
         }
 
 
-        this.productService.updateTermLifeProduct(termLifeProd,this.isSmoker).subscribe(
+        this.productService.updateTermLifeProduct(termLifeProd, this.isSmoker).subscribe(
           response => {
             this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
             this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
@@ -269,6 +269,9 @@ export class ViewProductDetailsComponent implements OnInit {
         )
       }
 
+    } else {
+      this.message = "An error occured while creating product! Invalid Form submission!";
+      this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
     }
   }
 

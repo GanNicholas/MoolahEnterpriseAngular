@@ -44,6 +44,7 @@ export class CreateProductComponent implements OnInit {
   isTermLife: boolean = false;
   isWholeLife: boolean = false;
   isEndowment: boolean = false;
+  isSmoker: boolean = false;
 
   constructor(private sessionService: SessionService,
     private productService: ProductService,
@@ -85,13 +86,18 @@ export class CreateProductComponent implements OnInit {
           this.product.policyCurrency, this.wholeLifeEnum, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
 
         console.log(wholeLifeProd);
+        if(this.product.isAvailableToSmoker == true){
+          this.isSmoker = true;
+        } else {
+          this.isSmoker = false;
+        }
 
-        this.productService.createProductForWholeLife(wholeLifeProd).subscribe(
+        this.productService.createProductForWholeLife(wholeLifeProd,this.isSmoker).subscribe(
           response => {
             let productId: number = response;
             this.resultSuccess = true;
             this.resultError = false;
-            this.message = "Product " + productId + " created successfully";
+            this.message = "Whole life Product has been created successfully";
             this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
 
             this.companyService.retrieveCompany().subscribe(
@@ -120,12 +126,18 @@ export class CreateProductComponent implements OnInit {
 
         console.log(termLifeProd);
 
-        this.productService.createProductForTermLife(termLifeProd).subscribe(
+        if(this.product.isAvailableToSmoker == true){
+          this.isSmoker = true;
+        } else {
+          this.isSmoker = false;
+        }
+
+        this.productService.createProductForTermLife(termLifeProd, this.isSmoker).subscribe(
           response => {
             let productId: number = response;
             this.resultSuccess = true;
             this.resultError = false;
-            this.message = "Product " + productId + " created successfully";
+            this.message = "Term Life Product has been created successfully";
             this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
 
             this.companyService.retrieveCompany().subscribe(
@@ -153,12 +165,18 @@ export class CreateProductComponent implements OnInit {
 
         console.log(endowmentProd);
 
-        this.productService.createProductForEndowment(endowmentProd).subscribe(
+        if(this.product.isAvailableToSmoker == true){
+          this.isSmoker = true;
+        } else {
+          this.isSmoker = false;
+        }
+
+        this.productService.createProductForEndowment(endowmentProd, this.isSmoker ).subscribe(
           response => {
             let productId: number = response;
             this.resultSuccess = true;
             this.resultError = false;
-            this.message = "Product " + productId + " created successfully";
+            this.message = "Endowment Product has been created successfully";
             this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
 
 
@@ -187,9 +205,10 @@ export class CreateProductComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
       }
 
+    } else {
+      this.message = "An error occured while creating product! Invalid Form submission!";
+      this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
     }
-    this.message = "An error occured while created product! Invalid Form submission!";
-    this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
 
 
   }
