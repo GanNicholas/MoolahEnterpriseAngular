@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { PaymentEntity } from '../models/payment-entity';
 import { PaymentWrapper } from '../models/payment-wrapper';
+import { CreditPaymentEntity } from '../models/credit-payment-entity';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,11 +38,6 @@ export class PaymentService {
     );
   }
 
-  retrieveSpecificHistoricalTransactions(startDate: string, endDate: string): Observable<MonthlyPaymentEntity[]> {
-    return this.httpClient.get<MonthlyPaymentEntity[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password + "&startDate=" +startDate +"&endDate=" + endDate ).pipe(
-      catchError(this.handleError)
-    );
-  }
 
   retrieveAllUnpaidMonthlyPayment(): Observable<MonthlyPaymentEntity[]> {
     return this.httpClient.get<MonthlyPaymentEntity[]>(this.baseUrl + "/retrieveAllUnpaidMonthlyPayment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
@@ -55,15 +51,27 @@ export class PaymentService {
     );  
   }
 
+  retrieveSpecificHistoricalTransactions(startDate: Date, endDate: Date): Observable<PaymentWrapper[]> {
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&startDate=" +startDate +"&endDate=" + endDate ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   retrieveAllSpecificHistoricalTransaction(): Observable<PaymentWrapper[]> {
     console.log("/retrieveSpecificHistoricalTransactions?email=");
-    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword()+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
       catchError(this.handleError)
     );  
   }
-  retrieveAllSpecificMonthlyHistoricalTransaction(): Observable<PaymentWrapper[]> {
-    console.log("/retrieveSpecificMonthlyHistoricalTransactions?email=");
-    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getCompany().password+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
+  retrieveAllSpecificCreditHistoricalTransaction(startDate:Date, endDate:Date): Observable<PaymentWrapper[]> {
+    console.log("/retrieveSpecificMonthlyCreditHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyCreditHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword()+ "&startDate=" +startDate +"&endDate=" + endDate).pipe(
+      catchError(this.handleError)
+    );  
+  }
+  retrieveAllSpecificMonthlyCreditHistoricalTransaction(): Observable<PaymentWrapper[]> {
+    console.log("/retrieveSpecificMonthlyCreditHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyCreditHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword()+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
       catchError(this.handleError)
     );  
   }

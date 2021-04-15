@@ -444,16 +444,20 @@
 <br />
 <br />
 <p-toast></p-toast>
-<p-dialog header="Deactive Account"
+<p-dialog 
 [(visible)]="dialogDeactivateAccount"
 [closable]="true"
 [resizable]="false"
 [draggable]="false"
-[dismissableMask]="true" >
+[dismissableMask]="true" 
+[showHeader] = "false">
+    <div style=" height:10%;width:100%;background-color:grey;">&nbsp;</div>
+    <h2 style="color:red;">Deactive Account</h2>
     <p>Are you sure that you want to deactivate your account? </p>
     <button type="button" (click)="hideDeactiveDialog()" icon="pi pi-info-circle" >Cancel</button>
     &nbsp;
     <button type="button" (click)="deactiveAccount()" icon="pi pi-info-circle" >Deactive your account</button>
+  
 </p-dialog>
 <p-dialog
   id="changePasswordDialog"

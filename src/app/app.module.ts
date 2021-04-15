@@ -40,6 +40,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { ViewTransactionComponent } from './transaction/view-transaction/view-transaction.component';
+import {TabViewModule} from 'primeng/tabview';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import { ViewTransactionComponent } from './transaction/view-transaction/view-tr
     InputNumberModule,
     KeyFilterModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    TabViewModule,
   ],
 
   providers: [],
