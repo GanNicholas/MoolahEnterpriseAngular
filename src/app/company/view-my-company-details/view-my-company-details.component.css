@@ -24,14 +24,28 @@
 }
 
 .inputWidth {
-  width: 66.5%!important;
+  width: 66.5% !important;
 }
 
 th {
-  border : none!important;
+  border: none !important;
 }
 
 td {
-  border : none!important;
+  border: none !important;
 }
 
+.p-fileupload-buttonbar {
+  background: #f4f4f4;
+  color: #333333;
+  border-bottom: 0 none;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  text-align: center;
+}
+
+.p-button-danger {
+  background: #be212e;
+  color: #ffffff;
+  border-color: #c01120;
+}
