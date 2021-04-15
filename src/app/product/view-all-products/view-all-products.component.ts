@@ -79,25 +79,4 @@ export class ViewAllProductsComponent implements OnInit {
     return tempDate;
   }
 
-
-  onDateSelect(event: any, table: Table) {
-    console.log("Enter DateSelect: " + event.target.value);
-    table.filter(this.formatDate(event.target.value), 'date', 'equals')
-  }
-
-  formatDate(date : Date) {
-    let month = date.getMonth() + 1;
-    let day = date.getDay();
-
-    if (month < 10) {
-      month = 0 + month;
-    }
-
-    if (day < 10) {
-      day = 0 + day;
-    }
-
-    return date.getFullYear() + '-' + month + '-' + day;
-  }
-
 }

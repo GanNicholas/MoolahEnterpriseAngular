@@ -30,16 +30,16 @@ export class KeyNewPasswordComponent implements OnInit {
   keyNewPassword(enterPasswordForm: NgForm){
 
     if(this.email==""){
-      this.messageService.add({ severity: 'error', summary: "Email is cannot be empty!", detail: 'Via MessageService' });
+      this.messageService.add({ severity: 'error', summary: "Email is cannot be empty!"});
       return;
     } else if(this.otp == 0){
-      this.messageService.add({ severity: 'error', summary: "Please enter your given OTP!", detail: 'Via MessageService' });
+      this.messageService.add({ severity: 'error', summary: "Please enter your given OTP!" });
       return;
     } else if(this.newPassword == ""){
-      this.messageService.add({ severity: 'error', summary: "Password cannot be empty!", detail: 'Via MessageService' });
+      this.messageService.add({ severity: 'error', summary: "Password cannot be empty!"});
       return;
     } else if(this.repeatNewPassword == ""){
-      this.messageService.add({ severity: 'error', summary: "Enter your password again!", detail: 'Via MessageService' });
+      this.messageService.add({ severity: 'error', summary: "Enter your password again!"});
       return;
     }
  
@@ -47,14 +47,14 @@ export class KeyNewPasswordComponent implements OnInit {
     this.companyService.resetCompanyPassword(this.email, this.otp, this.newPassword, this.repeatNewPassword).subscribe(
         response => {
           this.message = "Password has successfully been reset!";
-          this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+          this.messageService.add({ severity: 'success', summary: this.message });
           this.submitted = true;
 
         },
         error => {
           this.message = "Password has failed to update! Please check your details!";
           console.log(error);
-          this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+          this.messageService.add({ severity: 'error', summary: this.message});
         }
       );
     
