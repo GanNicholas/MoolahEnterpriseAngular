@@ -28,7 +28,7 @@
 }
 
 .inputWidth {
-  width: 66.5%;
+  width: 70%;
 }
 
 .tableHeader {
@@ -44,4 +44,6 @@ th {
 
 td {
   border : none!important;
+  text-align:center!important;
 }
+

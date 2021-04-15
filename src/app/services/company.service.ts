@@ -25,13 +25,21 @@ export class CompanyService {
   constructor(private httpClient: HttpClient, private sessionService: SessionService) { }
 
   createNewCompany(newCompany: CreateCompanyEntityReq): Observable<number> {
-
-    console.log(JSON.stringify(newCompany))
-    return this.httpClient.put<number>(this.baseUrl, newCompany, httpOptions).pipe(
+    return this.httpClient.put<number>(this.baseUrl + "/createNewRecord", newCompany, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
+  uploadCompanyImage(file: File): Observable<UploadPath> {
+    console.log("uploadCompanyImage");
+    let formData: FormData = new FormData()
+    formData.append('json', JSON.stringify(file));
+    //  formData.append('json', file, file.name);
+    console.log("formData = " + JSON.stringify(file));
+    return this.httpClient.post<UploadPath>("/api/File/upload", formData, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   login(companyEmail: string | undefined, password: string | undefined): Observable<CompanyEntity> {
     return this.httpClient.get<CompanyEntity>(this.baseUrl + "/login?email=" + companyEmail + "&password=" + password).pipe(

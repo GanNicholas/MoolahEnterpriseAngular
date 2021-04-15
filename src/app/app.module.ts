@@ -43,6 +43,13 @@ import { ViewTransactionComponent } from './transaction/view-transaction/view-tr
 import {TabViewModule} from 'primeng/tabview';
 
 
+import {DropdownModule} from 'primeng/dropdown';
+import { DatePipe } from '@angular/common';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +86,7 @@ import {TabViewModule} from 'primeng/tabview';
     DialogModule,
     SplitButtonModule,
     BadgeModule,
-    CalendarModule, 
+    CalendarModule,
     CalendarModule,
     CheckboxModule,
     InputNumberModule,
@@ -87,9 +94,14 @@ import {TabViewModule} from 'primeng/tabview';
     MessageModule,
     MessagesModule,
     TabViewModule,
+    DropdownModule,
+    AvatarGroupModule,
+    AvatarModule,
+    OverlayPanelModule,
+    MenuModule
   ],
 
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

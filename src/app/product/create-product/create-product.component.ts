@@ -24,6 +24,7 @@ import { PremiumEntity } from 'src/app/models/premium-entity';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
+
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
@@ -44,6 +45,11 @@ export class CreateProductComponent implements OnInit {
   isTermLife: boolean = false;
   isWholeLife: boolean = false;
   isEndowment: boolean = false;
+  isSmoker: boolean = false;
+  assuredSumTouched: boolean = false;
+  averageInterestTouched: boolean = false;
+  canContinue: boolean = true;
+
 
   constructor(private sessionService: SessionService,
     private productService: ProductService,
@@ -70,46 +76,115 @@ export class CreateProductComponent implements OnInit {
     this.product.productCategoryPricing = null;
     this.product.clickThroughInfo = new ClickThroughEntity();
     this.product.productCategoryPricing = null;
-    this.product.isAvailableToSmoker = false;
     this.productType = "";
+
   }
 
   ngOnInit(): void {
   }
 
   createProduct(createProductForm: NgForm): void {
-    this.submitted = true;
-    if (createProductForm.valid) {
+    console.log((this.product.assuredSum));
+    this.canContinue = true;
+
+    if (this.product.productName === undefined || this.product.productName == "") {
+      this.messageService.add({ severity: 'error', summary: "Product Name Cannot Be Empty!" });
+      return;
+
+    } else if (this.product.description === undefined || this.product.description == "") {
+      this.messageService.add({ severity: 'error', summary: "Product Description Cannot Be Empty!" });
+      return;
+
+    } else if (this.product.coverageTerm <= 0 || this.product.coverageTerm > 100) {
+      this.messageService.add({ severity: 'error', summary: "Product Coverage Term Is not valid!" });
+      return;
+
+    } else if (this.product.assuredSum < 0 || (this.assuredSumTouched == true && this.product.assuredSum == null)) {
+      this.messageService.add({ severity: 'error', summary: "Product Assured Sum is not valid!" });
+      return;
+
+    } else if (this.product.premiumTerm <= 0) {
+      this.messageService.add({ severity: 'error', summary: "Product Premium Term is not valid!" });
+      return;
+
+    } else if (this.product.averageInterestRate < 0 || this.product.averageInterestRate == null) {
+      this.messageService.add({ severity: 'error', summary: "Average Interest Rate is not valid!" });
+      return;
+
+    } else if (this.product.policyCurrency === undefined) {
+      this.messageService.add({ severity: 'error', summary: "Policy Currency Rate is needed!" });
+      return;
+
+    } else if (this.product.isAvailableToSmoker === undefined) {
+      this.messageService.add({ severity: 'error', summary: "Indicate if it is available to smoker!" });
+      return;
+
+    } else if (this.productType == "") {
+      this.messageService.add({ severity: 'error', summary: "Product Category has to be selected!" });
+      return;
+
+    } else if (this.termLifeEnum === undefined && this.endowmentEnum === undefined && this.wholeLifeEnum === undefined) {
+      this.messageService.add({ severity: 'error', summary: "Type of Product has to be selected!" });
+      return;
+    } else if (this.product.listOfPremium.length <= 0) {
+      this.messageService.add({ severity: 'error', summary: "Please enter product premium" });
+      return;
+    } else if (this.product.listOfPremium.length > 0) {
+      this.product.listOfPremium.forEach(premium => this.checkThroughPremium(premium));
+    }
+
+    if (this.product.isAvailableToSmoker == true && this.product.listOfSmokerPremium.length <= 0) {
+      this.messageService.add({ severity: 'error', summary: "Please enter smoker's premium" });
+      return;
+
+    } else if (this.product.isAvailableToSmoker == true && this.product.listOfSmokerPremium.length > 0) {
+      this.product.listOfSmokerPremium.forEach(premium => this.checkThroughPremium(premium));
+    }
+
+    if (this.product.listOfAdditionalFeatures.length > 0) {
+      this.product.listOfAdditionalFeatures.forEach(feature => this.checkThroughFeatures(feature));
+    }
+
+    if (this.product.listOfRiders.length > 0) {
+      this.product.listOfRiders.forEach(rider => this.checkThroughRiders(rider));
+    }
+
+
+    if (this.canContinue == true) {
+      this.submitted = true;
       if (this.wholeLifeEnum != undefined) {
         let wholeLifeProd = new WholeLifeProductEntity(this.product.listOfAdditionalFeatures, this.product.listOfRiders, this.product.listOfPremium, this.product.listOfSmokerPremium, this.product.coverageTerm, this.product.assuredSum, this.product.premiumTerm, this.product.averageInterestRate, this.product.productName, this.product.description,
           this.product.policyCurrency, this.wholeLifeEnum, this.product.isAvailableToSmoker, this.product.clickThroughInfo, this.product.company);
 
         console.log(wholeLifeProd);
+        if (this.product.isAvailableToSmoker == true) {
+          this.isSmoker = true;
+        } else {
+          this.isSmoker = false;
+        }
 
-        this.productService.createProductForWholeLife(wholeLifeProd).subscribe(
+        this.productService.createProductForWholeLife(wholeLifeProd, this.isSmoker).subscribe(
           response => {
             let productId: number = response;
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message = "Product " + productId + " created successfully";
-            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+            this.message = "Whole life Product has been created successfully";
+            this.messageService.add({ severity: 'success', summary: this.message });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
+                this.clear();
               },
               error => {
-                this.message = "Error updating company: " + error;
-                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+                console.log("Error update company: " + error); //Just for referencing, company don't need to know
+
               }
             );
           },
           error => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message = "An error occured while created product: " + error;
-            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+            this.message = "An error occured while creating the Whole Life Product ";
+            console.log("The error: " + error);
+            this.messageService.add({ severity: 'error', summary: this.message });
           }
         );
 
@@ -120,30 +195,33 @@ export class CreateProductComponent implements OnInit {
 
         console.log(termLifeProd);
 
-        this.productService.createProductForTermLife(termLifeProd).subscribe(
+        if (this.product.isAvailableToSmoker == true) {
+          this.isSmoker = true;
+        } else {
+          this.isSmoker = false;
+        }
+
+        this.productService.createProductForTermLife(termLifeProd, this.isSmoker).subscribe(
           response => {
             let productId: number = response;
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message = "Product " + productId + " created successfully";
-            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+            this.message = "Term Life Product has been created successfully";
+            this.messageService.add({ severity: 'success', summary: this.message });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
+                this.clear();
               },
               error => {
-                this.message = "Error updating company: " + error;
-                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+                console.log("Error update company: " + error); //Just for referencing, company don't need to know
               }
             );
           },
           error => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message = "An error occured while created product: " + error;
-            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+            this.message = "An error occured while creating the Term Life Product ";
+            console.log("The error: " + error);
+            this.messageService.add({ severity: 'error', summary: this.message });
           }
         );
 
@@ -153,46 +231,52 @@ export class CreateProductComponent implements OnInit {
 
         console.log(endowmentProd);
 
-        this.productService.createProductForEndowment(endowmentProd).subscribe(
+        if (this.product.isAvailableToSmoker == true) {
+          this.isSmoker = true;
+        } else {
+          this.isSmoker = false;
+        }
+
+        this.productService.createProductForEndowment(endowmentProd, this.isSmoker).subscribe(
           response => {
             let productId: number = response;
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message = "Product " + productId + " created successfully";
-            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+            this.message = "Endowment Product has been created successfully";
+            this.messageService.add({ severity: 'success', summary: this.message });
 
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
+                this.clear();
               },
               error => {
-                this.message = "Error updating company: " + error;
-                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+                console.log("Error update company: " + error); //Just for referencing, company don't need to know
               }
             );
           },
           error => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message = "An error occured while created product: " + error;
-            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+            this.message = "An error occured while creating the Endowment Product ";
+            console.log("The error: " + error);
+            this.messageService.add({ severity: 'error', summary: this.message });
           }
         );
 
 
       } else {
         this.message = "An error occured while created product! Invalid product type!";
-        this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+        this.messageService.add({ severity: 'error', summary: this.message });
       }
 
+    } else {
+      this.message = "An error occured while created product! Invalid product type!";
+      this.messageService.add({ severity: 'error', summary: this.message });
+
     }
-    this.message = "An error occured while created product! Invalid Form submission!";
-    this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
-
-
   }
+
+
+
 
   selectChangeHandlerSmoker(event: any) {
     //update the ui
@@ -268,6 +352,18 @@ export class CreateProductComponent implements OnInit {
 
   clear(): void {
     this.product = new ProductEntity(new Array(), new Array(), new Array(), new Array(), -1, -1, -1, -1);
+    // this.router.navigate(["/product/createProduct"]);
+    this.product.productId = null;
+    this.product.productImage = null;
+    this.product.productDateCreated = new Date();
+    this.product.listOfAdditionalFeatures = new Array();
+    this.product.listOfRiders = new Array();
+    this.product.listOfPremium = new Array();
+    this.product.listOfSmokerPremium = new Array();
+    this.product.productCategoryPricing = null;
+    this.product.clickThroughInfo = new ClickThroughEntity();
+    this.product.productCategoryPricing = null;
+    this.productType = "";
   }
 
   chooseEnum(event: any): void {
@@ -285,6 +381,79 @@ export class CreateProductComponent implements OnInit {
       this.isWholeLife = false;
 
     }
+  }
+
+  checkAssuredTouch() {
+    this.assuredSumTouched = true;
+  }
+
+  averageInterestTouch() {
+    this.averageInterestTouched = true;
+  }
+
+  checkThroughFeatures(feature: FeatureEntity) {
+    if (feature.featureName === undefined || feature.featureName === null) {
+      this.messageService.add({ severity: 'error', summary: "Feature Name is required!" });
+      this.canContinue = false;
+      return;
+    } else if (feature.featureDescription === undefined || feature.featureDescription === null) {
+      this.messageService.add({ severity: 'error', summary: "Feature description is required!" });
+      this.canContinue = false;
+      return;
+    }
+
+  }
+
+
+  checkThroughRiders(rider: RiderEntity) {
+    if (rider.riderName === undefined || rider.riderName == null) {
+      this.messageService.add({ severity: 'error', summary: "Rider Name is required!" });
+      this.canContinue = false;
+      return;
+    } else if (rider.riderPremiumValue === undefined || rider.riderPremiumValue == null) {
+      this.messageService.add({ severity: 'error', summary: "Rider Premium Value is required!" });
+      this.canContinue = false;
+      return;
+    } else if (rider.riderPremiumValue < 0) {
+      this.messageService.add({ severity: 'error', summary: "Rider Premium Value is invalid!" });
+      this.canContinue = false;
+      return;
+    } else if (rider.riderDescription === undefined || rider.riderDescription == null) {
+      this.messageService.add({ severity: 'error', summary: "Rider Description is required!" });
+      this.canContinue = false;
+      return;
+    }
+
+  }
+
+
+  checkThroughPremium(premium: PremiumEntity): void {
+    if (premium.minAgeGroup === undefined || premium.minAgeGroup == null) {
+      this.messageService.add({ severity: 'error', summary: "Minimum age is required!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.minAgeGroup < 0) {
+      this.messageService.add({ severity: 'error', summary: "Invalid minimum age!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.maxAgeGroup === undefined || premium.maxAgeGroup == null) {
+      this.messageService.add({ severity: 'error', summary: "Maximum Age is required!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.maxAgeGroup < 0) {
+      this.messageService.add({ severity: 'error', summary: "Invalid maximum age!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.premiumValue === undefined || premium.premiumValue == null) {
+      this.messageService.add({ severity: 'error', summary: "Premium Value is needed!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.premiumValue < 0) {
+      this.messageService.add({ severity: 'error', summary: "Invalid premium value!" });
+      this.canContinue = false;
+      return;
+    }
+
   }
 
 }

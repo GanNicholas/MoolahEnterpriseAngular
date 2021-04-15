@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { Table, TableModule } from 'primeng/table';
 import { ProductEntity } from '../../models/product-entity';
 import { ProductService } from '../../services/product.service';
-import {FilterService} from 'primeng/api';
+import { FilterService } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-view-all-products',
@@ -18,10 +20,12 @@ export class ViewAllProductsComponent implements OnInit {
 
   loading: boolean = true;
 
+  categoryTypes: any[];
 
 
-  constructor(private productService: ProductService, private filterService : FilterService) {
+  constructor(private productService: ProductService, private filterService: FilterService, private datepipe: DatePipe) {
     this.products = new Array();
+    this.categoryTypes = new Array();
   }
 
   ngOnInit(): void {
@@ -39,6 +43,12 @@ export class ViewAllProductsComponent implements OnInit {
 
     this.totalRecords = this.products.length;
 
+    this.categoryTypes = [
+      { label: "ENDOWMENT", value: "ENDOWMENT" },
+      { label: "TERMLIFE", value: "TERMLIFE" },
+      { label: "WHOLELIFE", value: "WHOLELIFE" }
+    ];
+
 
   }
 
@@ -50,9 +60,23 @@ export class ViewAllProductsComponent implements OnInit {
   }
 
 
+  getDateString(dateToTransform: Date): Date {
+    var temp = dateToTransform.toString();
+    temp = temp.substring(0, 9);
+    var tempDate = new Date(temp);
+    console.log(tempDate);
+    return this.getDate(formatDate(tempDate, "mediumDate", "en-US"));
+
+  }
 
 
-
-
+  getDate(dateToTransform: string): Date {
+    var temp = dateToTransform.toString();
+    temp = temp.substring(0, 9);
+    console.log("String date: " + temp);
+    let tempDate: Date = new Date(temp);
+    console.log(tempDate + " Date Type: " + typeof (tempDate));
+    return tempDate;
+  }
 
 }

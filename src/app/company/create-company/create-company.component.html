@@ -3,14 +3,6 @@
 <h2 style="text-align: center" class="pageHeader">Create New Company</h2>
 <br />
 
-<div *ngIf="resultSuccess == true" style="color: blue">
-  {{ message }}
-</div>
-
-<div *ngIf="resultError == true" style="color: red">
-  {{ message }}
-</div>
-
 <h2 style="text-align: center" class="secondaryHeader">Company Information</h2>
 <form
   #createCompanyForm="ngForm"
@@ -18,7 +10,7 @@
   style="height: 10%"
 >
   <div style="text-align: center">
-    <table width="60%" style="margin-left: 30%; border-spacing: 0 23px">
+    <table width="30%" style="margin-left: 35%; border-spacing: 0 23px">
       <tr>
         <td width="20%" style="font-weight: bold" class="bodyText">
           Company Name
@@ -34,21 +26,6 @@
             required="true"
             class="bodyText, inputWidth"
           />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              companyName.invalid &&
-              (companyName.dirty || companyName.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="companyName.errors != null && companyName.errors.required"
-            >
-              Company Name is required.
-            </div>
-          </div>
         </td>
       </tr>
 
@@ -68,23 +45,6 @@
             class="bodyText, inputWidth"
           />
         </td>
-        <td>
-          <div
-            *ngIf="
-              companyEmail.invalid &&
-              (companyEmail.dirty || companyEmail.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="
-                companyEmail.errors != null && companyEmail.errors.required
-              "
-            >
-              Company Email is required.
-            </div>
-          </div>
-        </td>
       </tr>
 
       <tr>
@@ -102,26 +62,6 @@
             required="true"
             class="bodyText, inputWidth"
           />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              businessRegNumber.invalid &&
-              (businessRegNumber.dirty ||
-                businessRegNumber.touched ||
-                submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="
-                businessRegNumber.errors != null &&
-                businessRegNumber.errors.required
-              "
-            >
-              Business Registration Number is required.
-            </div>
-          </div>
         </td>
       </tr>
 
@@ -143,26 +83,6 @@
             class="bodyText, inputWidth"
           />
         </td>
-        <td>
-          <div
-            *ngIf="
-              companyContactNumber.invalid &&
-              (companyContactNumber.dirty ||
-                companyContactNumber.touched ||
-                submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="
-                companyContactNumber.errors != null &&
-                companyContactNumber.errors.required
-              "
-            >
-              Company Contact Number is required.
-            </div>
-          </div>
-        </td>
       </tr>
 
       <tr>
@@ -181,21 +101,6 @@
             class="bodyText, inputWidth"
           />
         </td>
-        <td>
-          <div
-            *ngIf="
-              companyUrl.invalid &&
-              (companyUrl.dirty || companyUrl.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="companyUrl.errors != null && companyUrl.errors.required"
-            >
-              Company URL is required.
-            </div>
-          </div>
-        </td>
       </tr>
 
       <tr>
@@ -209,187 +114,120 @@
             [(ngModel)]="createCompanyEntityReq.companyEntity.password"
             required="true"
             [toggleMask]="true"
-            class="bodyText, inputWidth"
+            class="bodyText"
           ></p-password>
-        </td>
-        <td>
-          <div
-            *ngIf="
-              password.invalid &&
-              (password.dirty || password.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div *ngIf="password.errors != null && password.errors.required">
-              Password is required.
-            </div>
-          </div>
         </td>
       </tr>
     </table>
-
   </div>
+  <br />
 
+  <hr />
+  <br />
   <h2 class="secondaryHeader">Point Of Contact</h2>
   <div style="text-align: center">
-    <p-button
+    <button
+    pButton
       label="Add Point of Contact"
       type="button"
       (click)="handleClickAdd()"
-    ></p-button>
+      icon="pi pi-plus"
+      class="p-button-raised"
+    ></button>
   </div>
-  <p-table
-    id="tablePointOfContact"
-    [value]="createCompanyEntityReq.listOfPointOfContacts"
-    class=".ui-datatable"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th class="p-datatable-thead" style="width: 7%; text-align: center">
-          S/N
-        </th>
-        <th style="text-align: center" colspan="2">Point Of Contact Name</th>
-        <th style="text-align: center" colspan="2">
-          Point Of Contact Mobile Number
-        </th>
-        <th style="text-align: center" colspan="2">
-          Point Of Contact Office Number
-        </th>
-        <th style="text-align: center" colspan="2">Point Of Contact Email</th>
-        <th style="width: 7%; text-align: center">Action</th>
-      </tr>
-    </ng-template>
+  <br/>
 
-    <ng-template pTemplate="body" let-poc let-rowIndex="rowIndex">
-      <tr>
-        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+  <div style="margin-left: 17%">
+    <p-table
+      id="tablePointOfContact"
+      [value]="createCompanyEntityReq.listOfPointOfContacts"
+      class=".ui-datatable"
+      [style]="{ width: '80%' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="p-datatable-thead" style="width: 7%; text-align: center">
+            S/N
+          </th>
+          <th style="text-align: center">Point Of Contact Name</th>
+          <th style="text-align: center">Point Of Contact Mobile Number</th>
+          <th style="text-align: center">Point Of Contact Office Number</th>
+          <th style="text-align: center">Point Of Contact Email</th>
+          <th style="width: 7%; text-align: center">Action</th>
+        </tr>
+      </ng-template>
 
-        <td>
-          <input
-            pInputText
-            id="pocName"
-            name="pocName_{{rowIndex}}"
-            #pocName="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocName"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocName.invalid && (pocName.dirty || pocName.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div *ngIf="pocName.errors != null && pocName.errors.required">
-              POC Name is required.
-            </div>
-          </div>
-        </td>
+      <ng-template pTemplate="body" let-poc let-rowIndex="rowIndex">
+        <tr>
+          <td style="text-align: center">{{ rowIndex + 1 }}</td>
 
-        <td>
-          <input
-            pInputText
-            id="pocMobileNumber"
-            name="pocMobileNumber_{{rowIndex}}"
-            #pocMobileNumber="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocMobileNumber"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocMobileNumber.invalid &&
-              (pocMobileNumber.dirty || pocMobileNumber.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="
-                pocMobileNumber.errors != null &&
-                pocMobileNumber.errors.required
-              "
-            >
-              POC Mobile Number is required.
-            </div>
-          </div>
-        </td>
+          <td>
+            <input
+              pInputText
+              id="pocName"
+              name="pocName_{{ rowIndex }}"
+              #pocName="ngModel"
+              type="text"
+              [(ngModel)]="poc.pocName"
+              required="true"
+            />
+          </td>
 
-        <td>
-          <input
-            pInputText
-            id="pocOfficeNumber"
-            name="pocOfficeNumber_{{rowIndex}}"
-            #pocOfficeNumber="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocOfficeNumber"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocOfficeNumber.invalid &&
-              (pocOfficeNumber.dirty || pocOfficeNumber.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div
-              *ngIf="
-                pocOfficeNumber.errors != null &&
-                pocOfficeNumber.errors.required
-              "
-            >
-              POC Office Number is required.
-            </div>
-          </div>
-        </td>
+          <td>
+            <input
+              pInputText
+              id="pocMobileNumber"
+              name="pocMobileNumber_{{ rowIndex }}"
+              #pocMobileNumber="ngModel"
+              type="text"
+              [(ngModel)]="poc.pocMobileNumber"
+              required="true"
+            />
+          </td>
 
-        <td>
-          <input
-            pInputText
-            id="pocEmail"
-            name="pocEmail_{{rowIndex}}"
-            #pocEmail="ngModel"
-            type="text"
-            [(ngModel)]="poc.pocEmail"
-            required="true"
-          />
-        </td>
-        <td>
-          <div
-            *ngIf="
-              pocEmail.invalid &&
-              (pocEmail.dirty || pocEmail.touched || submitted)
-            "
-            class="errorText"
-          >
-            <div *ngIf="pocEmail.errors != null && pocEmail.errors.required">
-              POC Email is required.
-            </div>
-          </div>
-        </td>
+          <td>
+            <input
+              pInputText
+              id="pocOfficeNumber"
+              name="pocOfficeNumber_{{ rowIndex }}"
+              #pocOfficeNumber="ngModel"
+              type="text"
+              [(ngModel)]="poc.pocOfficeNumber"
+              required="true"
+            />
+          </td>
 
-        <td>
-          <p-button
-            label="Delete"
-            type="button"
-            (click)="handleClickRemove(rowIndex)"
-          ></p-button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+          <td>
+            <input
+              pInputText
+              id="pocEmail"
+              name="pocEmail_{{ rowIndex }}"
+              #pocEmail="ngModel"
+              type="text"
+              [(ngModel)]="poc.pocEmail"
+              required="true"
+            />
+          </td>
+
+          <td>
+            <button
+              pButton
+              pRipple
+              (click)="handleClickRemove(rowIndex)"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger p-button-text"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
   <br />
   <div style="text-align: center">
-    <p-button (click)="clear()">Clear</p-button>
+    <button pButton (click)="clear()" class="p-button-raised p-button-secondary">Clear</button>
     &nbsp;
-    <input pInputText type="submit" value="Create" />
+    <input type="submit" value="Create" pButton class="p-button-raised"/>
   </div>
-
 </form>
 <br />
 <br />

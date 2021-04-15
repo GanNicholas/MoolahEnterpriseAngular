@@ -1,3 +1,4 @@
+import { FileUploadService } from '../../services/fileuploadservice.service';
 import { UploadPath } from './../../models/upload-path';
 import { FileUploadModule } from 'primeng/fileupload';
 import { Router } from '@angular/router';
@@ -18,6 +19,7 @@ import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-my-company-details',
@@ -47,12 +49,14 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   dialogDeactivateAccount: boolean = false;
 
   uploadPath: UploadPath = new UploadPath();
+  file: File = new File(new Array(), "");
 
   constructor(private sessionService: SessionService,
     private companyService: CompanyService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router) {
+    private router: Router,
+    private fileUploadService: FileUploadService) {
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
     }
@@ -250,4 +254,19 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
     );
 
   }
+
+  onUpload(event: any) {
+    console.log("onUpload()");
+    this.file = event.files[0];
+
+    this.fileUploadService.uploadFile(this.file).subscribe(
+      response => {
+        console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+      },
+      error => {
+        console.log('********** FileUploadComponent.ts: ' + error);
+      }
+    );
+  }
+
 }
