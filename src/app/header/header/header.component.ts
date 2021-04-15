@@ -8,9 +8,10 @@ import { CompanyService } from 'src/app/services/company.service';
 
 import { CompanyEntity } from '../../models/company-entity';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import {AvatarModule} from 'primeng/avatar';
-import {AvatarGroupModule} from 'primeng/avatargroup';
-
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import {MenuModule} from 'primeng/menu';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   items: MenuItem[];
   accounts: MenuItem[];
-
+  display: boolean = false;
 
 
   constructor(private router: Router,
@@ -202,4 +203,7 @@ export class HeaderComponent implements OnInit {
     return this.items;
   }
 
+  handleOnClick($event: any) {
+    this.display = true;
+  }
 }

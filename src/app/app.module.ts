@@ -43,7 +43,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import { DatePipe } from '@angular/common';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
-
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +90,9 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
     MessagesModule,
     DropdownModule,
     AvatarGroupModule,
-    AvatarModule
+    AvatarModule,
+    OverlayPanelModule,
+    MenuModule
   ],
 
   providers: [DatePipe],
