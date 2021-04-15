@@ -1,6 +1,6 @@
 export class UploadPath {
 
-  uploadPath: String = "";
+  uploadPath: string = "";
 
   constructor() {
 

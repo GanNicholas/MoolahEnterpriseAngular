@@ -1,6 +1,6 @@
 import { UploadPath } from './../../models/upload-path';
 import { ToastModule } from 'primeng/toast';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { FooterComponent } from './../../footer/footer/footer.component';
 import { HeaderComponent } from './../../header/header/header.component';
 import { CreateCompanyEntityReq } from './../../models/create-company-entity-req';
@@ -29,7 +29,6 @@ export class CreateCompanyComponent implements OnInit {
   submitted: boolean = true;
   message: string | undefined;
   createCompanyEntityReq: CreateCompanyEntityReq;
-  uploadPath: UploadPath = new UploadPath();
 
   constructor(private router: Router,
     private browserAnimationsModule: BrowserAnimationsModule,
@@ -39,26 +38,43 @@ export class CreateCompanyComponent implements OnInit {
     private inputTextModule: InputTextModule,
     private fileUploadModule: FileUploadModule,
     private messageService: MessageService) {
-    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity(), new Array());
+    this.createCompanyEntityReq = new CreateCompanyEntityReq();
   }
 
   ngOnInit(): void {
-    this.companyService.retrieveUploadPath().subscribe(
-      response => {
-        this.uploadPath = response;
-      },
-      error => {
-        this.resultError = true;
-        this.resultSuccess = false;
-        this.message = "An error has occurred while retrieving file upload path: " + error;
-        this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
-
-        console.log('********** CreateCompanyComponent.ts: ' + error);
-      }
-    );
   }
 
   create(createCompanyForm: NgForm) {
+
+    if (this.createCompanyEntityReq.companyEntity.companyName == "" || this.createCompanyEntityReq.companyEntity.companyName.length < 3) {
+      this.messageService.add({ severity: 'error', summary: "Company name must not be empty!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.companyEntity.companyEmail == "") {
+      this.messageService.add({ severity: 'error', summary: "Company email must not be empty!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.companyEntity.businessRegNumber == "") {
+      this.messageService.add({ severity: 'error', summary: "Business Registration Number must not be empty!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.companyEntity.companyContactNumber == "" || this.createCompanyEntityReq.companyEntity.companyContactNumber.length != 8) {
+      this.messageService.add({ severity: 'error', summary: "Company contact number must not be empty!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.companyEntity.companyUrl == "") {
+      this.messageService.add({ severity: 'error', summary: "Company url must not be empty!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.companyEntity.password === undefined || this.createCompanyEntityReq.companyEntity.password == "") {
+      this.messageService.add({ severity: 'error', summary: "Password must not be empty!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.listOfPointOfContacts.length <= 0) {
+      this.messageService.add({ severity: 'error', summary: "You need to input at least one point of contact!", detail: 'Via MessageService' });
+      return;
+    } else if (this.createCompanyEntityReq.listOfPointOfContacts.length > 0) {
+      this.createCompanyEntityReq.listOfPointOfContacts.forEach(poc => {
+        if (!this.checkPOC(poc)) {
+          return;
+        }
+      });
+    }
+
 
     this.submitted = true;
     if (createCompanyForm.valid) {
@@ -82,23 +98,38 @@ export class CreateCompanyComponent implements OnInit {
     }
   }
 
+  checkPOC(poc: PointOfContactEntity): Boolean {
+    if (poc !== undefined || poc !== null) {
+      if ((poc.pocName !== undefined && poc.pocName?.length < 3) || poc.pocName === undefined) {
+        this.messageService.add({ severity: 'error', summary: "Point of Contact Name is lesser than 3 characters", detail: 'Via MessageService' });
+        return false;
+      } else if (poc.pocMobileNumber?.length != 8 || poc.pocOfficeNumber?.length != 8) {
+        this.messageService.add({ severity: 'error', summary: "Point of Contact Contact Informations are invalid", detail: 'Via MessageService' });
+        return false;
+      } else if (poc.pocEmail == "") {
+        this.messageService.add({ severity: 'error', summary: "Point of Contact Email is empty", detail: 'Via MessageService' });
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
   handleClickAdd() {
-    this.createCompanyEntityReq.listOfPointOfContacts.push(new PointOfContactEntity());
+    if (this.createCompanyEntityReq.listOfPointOfContacts.length + 1 > 4) {
+      this.messageService.add({ severity: 'error', summary: "You can only add up to 4 point of contacts", detail: 'Via MessageService' });
+    } else {
+      this.createCompanyEntityReq.listOfPointOfContacts.push(new PointOfContactEntity());
+    }
   }
 
   handleClickRemove(index: number) {
     this.createCompanyEntityReq.listOfPointOfContacts.splice(index, 1);
   }
 
-  onUpload(event: { files: any; }) {
-    for (let file of event.files) {
-
-    }
-
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-  }
-
   clear() {
-    this.createCompanyEntityReq = new CreateCompanyEntityReq(new CompanyEntity, new Array());
+    this.createCompanyEntityReq = new CreateCompanyEntityReq();
   }
 }

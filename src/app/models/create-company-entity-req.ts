@@ -5,10 +5,9 @@ export class CreateCompanyEntityReq {
     companyEntity: CompanyEntity = new CompanyEntity();
     listOfPointOfContacts: PointOfContactEntity[] = new Array();
 
-    constructor(companyEntity: CompanyEntity, listOfPointOfContacts: PointOfContactEntity[]) {
-        this.companyEntity = companyEntity;
-        this.listOfPointOfContacts = listOfPointOfContacts;
+    constructor() {
+
     }
 
-    
+
 }
