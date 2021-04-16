@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'aboutus/aboutUs', component: AboutUsComponent },
   { path: 'product/viewAllProducts', component: ViewAllProductsComponent},
   { path: 'password/forgetPassword', component: ForgetPasswordComponent},
-  { path: 'password/keyNewPassword', component: KeyNewPasswordComponent}
+  { path: 'password/keyNewPassword', component: KeyNewPasswordComponent},
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
   { path: 'makePayment', component: MakePaymentComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
