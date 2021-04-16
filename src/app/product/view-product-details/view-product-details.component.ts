@@ -8,7 +8,7 @@ import { ProductEntity } from 'src/app/models/product-entity';
 import { SessionService } from 'src/app/services/session.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CompanyService } from 'src/app/services/company.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { PolicyCurrencyEnum } from 'src/app/models/enums/policy-currency-enum.enum';
 import { EndowmentEntity } from 'src/app/models/endowment-entity';
 import { WholeLifeProductEntity } from 'src/app/models/whole-life-product-entity';
@@ -28,7 +28,7 @@ import { CheckboxModule } from 'primeng/checkbox';
   selector: 'app-view-product-details',
   templateUrl: './view-product-details.component.html',
   styleUrls: ['./view-product-details.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class ViewProductDetailsComponent implements OnInit {
   submitted: boolean = true;
@@ -69,7 +69,8 @@ export class ViewProductDetailsComponent implements OnInit {
     private companyService: CompanyService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) {
 
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
@@ -500,4 +501,12 @@ export class ViewProductDetailsComponent implements OnInit {
   }
 
 
+    confirmDeleteProduct() {
+      this.confirmationService.confirm({
+        message: 'Are you sure you wish to delete this product: ' + this.productToView.productName,
+        accept: () => {
+          this.deleteProduct();
+        }
+      });
+    }
 }
