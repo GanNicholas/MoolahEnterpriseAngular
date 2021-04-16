@@ -7,6 +7,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { PaymentEntity } from '../models/payment-entity';
+import { PaymentWrapper } from '../models/payment-wrapper';
+import { CreditPaymentEntity } from '../models/credit-payment-entity';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -36,11 +38,6 @@ export class PaymentService {
     );
   }
 
-  retrieveSpecificHistoricalTransactions(startDate: string, endDate: string): Observable<PaymentEntity[]> {
-    return this.httpClient.get<PaymentEntity[]>(this.baseUrl + "/retrieveSpecificHistoricalTransactions?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
-      catchError(this.handleError)
-    );
-  }
 
   retrieveAllUnpaidMonthlyPayment(): Observable<MonthlyPaymentEntity[]> {
     return this.httpClient.get<MonthlyPaymentEntity[]>(this.baseUrl + "/retrieveAllUnpaidMonthlyPayment?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe(
@@ -51,8 +48,33 @@ export class PaymentService {
   retrieveMonthlyPaymentById(id: number): Observable<MonthlyPaymentEntity> {
     return this.httpClient.get<MonthlyPaymentEntity>(this.baseUrl + "/retrieveMonthlyPaymentById?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&id=" + id).pipe(
       catchError(this.handleError)
-    );  }
+    );  
+  }
 
+  retrieveSpecificHistoricalTransactions(startDate: Date, endDate: Date): Observable<PaymentWrapper[]> {
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword() + "&startDate=" +startDate +"&endDate=" + endDate ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  retrieveAllSpecificHistoricalTransaction(): Observable<PaymentWrapper[]> {
+    console.log("/retrieveSpecificHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword()+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
+      catchError(this.handleError)
+    );  
+  }
+  retrieveAllSpecificCreditHistoricalTransaction(startDate:Date, endDate:Date): Observable<PaymentWrapper[]> {
+    console.log("/retrieveSpecificMonthlyCreditHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyCreditHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword()+ "&startDate=" +startDate +"&endDate=" + endDate).pipe(
+      catchError(this.handleError)
+    );  
+  }
+  retrieveAllSpecificMonthlyCreditHistoricalTransaction(): Observable<PaymentWrapper[]> {
+    console.log("/retrieveSpecificMonthlyCreditHistoricalTransactions?email=");
+    return this.httpClient.get<PaymentWrapper[]>(this.baseUrl + "/retrieveSpecificMonthlyCreditHistoricalTransactions?email=" + this.sessionService.getCompany().companyEmail + "&password=" + this.sessionService.getPassword()+ "&startDate=1990-01-01&endDate=2025-01-01").pipe(
+      catchError(this.handleError)
+    );  
+  }
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
 
@@ -73,4 +95,6 @@ export class PaymentService {
       catchError(this.handleError)
     );
   }
+
+  
 }

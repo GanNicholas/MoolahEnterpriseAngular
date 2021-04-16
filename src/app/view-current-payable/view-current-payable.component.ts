@@ -125,7 +125,7 @@ export class ViewCurrentPayableComponent implements OnInit {
   getDateString(dateToTransform: Date | null): string {
     if (dateToTransform != null) {
       var temp = dateToTransform.toString();
-      temp = temp.substring(0, 9);
+      temp = temp.substring(0, 8);
       var tempDate = new Date(temp);
       console.log(tempDate);
       return formatDate(tempDate, "mediumDate", "en-US");
