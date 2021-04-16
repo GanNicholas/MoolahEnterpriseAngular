@@ -8,7 +8,7 @@ import { ProductEntity } from 'src/app/models/product-entity';
 import { SessionService } from 'src/app/services/session.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CompanyService } from 'src/app/services/company.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { PolicyCurrencyEnum } from 'src/app/models/enums/policy-currency-enum.enum';
 import { EndowmentEntity } from 'src/app/models/endowment-entity';
 import { WholeLifeProductEntity } from 'src/app/models/whole-life-product-entity';
@@ -28,11 +28,9 @@ import { CheckboxModule } from 'primeng/checkbox';
   selector: 'app-view-product-details',
   templateUrl: './view-product-details.component.html',
   styleUrls: ['./view-product-details.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class ViewProductDetailsComponent implements OnInit {
-  resultSuccess: boolean = false;
-  resultError: boolean = false;
   submitted: boolean = true;
   message: string | undefined;
 
@@ -43,6 +41,9 @@ export class ViewProductDetailsComponent implements OnInit {
   retrieveProductError: boolean;
   isDeleted: boolean = false;
   isSmoker: boolean = false;
+  assuredSumTouched: boolean = false;
+  averageInterestTouched: boolean = false;
+  canContinue: boolean = true;
 
 
   toggleProductName: boolean = true;
@@ -68,7 +69,8 @@ export class ViewProductDetailsComponent implements OnInit {
     private companyService: CompanyService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) {
 
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
@@ -119,11 +121,11 @@ export class ViewProductDetailsComponent implements OnInit {
       response => {
         this.isDeleted = true;
         this.message = "Product has been successfully deleted!";
-        this.messageService.add({ severity: 'success', summary: this.message, detail: 'From Moolah Enterprise' });
+        this.messageService.add({ severity: 'success', summary: this.message });
       },
       error => {
         this.message = "Error deleting product! Err: " + error;
-        this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
+        this.messageService.add({ severity: 'error', summary: this.message });
       }
     );
   }
@@ -134,9 +136,67 @@ export class ViewProductDetailsComponent implements OnInit {
 
 
   updateProduct(updateProductForm: NgForm) {
-    console.log("Entered Here");
-    if (updateProductForm.valid) {
-      console.log("Check form valid");
+
+    this.canContinue = true;
+
+    if (this.productToView.productName === undefined || this.productToView.productName == "") {
+      this.messageService.add({ severity: 'error', summary: "Product Name Cannot Be Empty!" });
+      return;
+
+    } else if (this.productToView.description === undefined || this.productToView.description == "") {
+      this.messageService.add({ severity: 'error', summary: "Product Description Cannot Be Empty!" });
+      return;
+
+    } else if (this.productToView.coverageTerm <= 0 || this.productToView.coverageTerm > 200) {
+      this.messageService.add({ severity: 'error', summary: "Product Coverage Term Is not valid!" });
+      return;
+
+    } else if (this.productToView.assuredSum < 0 || (this.assuredSumTouched == true && this.productToView.assuredSum == null)) {
+      this.messageService.add({ severity: 'error', summary: "Product Assured Sum is not valid!" });
+      return;
+
+    } else if (this.productToView.premiumTerm <= 0) {
+      this.messageService.add({ severity: 'error', summary: "Product Premium Term is not valid!" });
+      return;
+
+    } else if (this.productToView.averageInterestRate < 0 || this.productToView.averageInterestRate == null) {
+      this.messageService.add({ severity: 'error', summary: "Average Interest Rate is not valid!" });
+      return;
+
+    } else if (this.productToView.policyCurrency === undefined) {
+      this.messageService.add({ severity: 'error', summary: "Policy Currency Rate is needed!" });
+      return;
+
+    } else if (this.productToView.isAvailableToSmoker === undefined) {
+      this.messageService.add({ severity: 'error', summary: "Indicate if it is available to smoker!" });
+      return;
+
+    } else if (this.productToView.listOfPremium.length <= 0) {
+      this.messageService.add({ severity: 'error', summary: "Please enter product premium" });
+      return;
+    } else if (this.productToView.listOfPremium.length > 0) {
+      this.productToView.listOfPremium.forEach(premium => this.checkThroughPremium(premium));
+    }
+
+    if (this.productToView.isAvailableToSmoker == true && this.productToView.listOfSmokerPremium.length <= 0) {
+      this.messageService.add({ severity: 'error', summary: "Please enter smoker's premium" });
+      return;
+
+    } else if (this.productToView.isAvailableToSmoker == true && this.productToView.listOfSmokerPremium.length > 0) {
+      this.productToView.listOfSmokerPremium.forEach(premium => this.checkThroughPremium(premium));
+    }
+
+    if (this.productToView.listOfAdditionalFeatures.length > 0) {
+      this.productToView.listOfAdditionalFeatures.forEach(feature => this.checkThroughFeatures(feature));
+    }
+
+    if (this.productToView.listOfRiders.length > 0) {
+      this.productToView.listOfRiders.forEach(rider => this.checkThroughRiders(rider));
+    }
+
+
+    if (this.canContinue == true && updateProductForm.valid) {
+
       if (this.productType == "ENDOWMENT") {
         let endowmentProd: EndowmentEntity = new EndowmentEntity(new Array(), new Array(), new Array(), new Array(), 0, 0, 0, 0);
         if (this.productToView.isAvailableToSmoker == true) {
@@ -158,24 +218,22 @@ export class ViewProductDetailsComponent implements OnInit {
         this.productService.updateEndowmentProduct(endowmentProd, this.isSmoker).subscribe(
           response => {
             this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
-            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+            this.messageService.add({ severity: 'success', summary: this.message });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
-                this.message = "Company has been successfully retrieved!";
-                this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
               },
               error => {
-                this.message = "Error updating company: " + error;
-                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+                console.log("Error update company: " + error); //Just for referencing, company don't need to know
               }
             );
           },
           error => {
-            this.message = "An error has occurred while updating your product: " + error;
-            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+            this.message = "An error has occurred while updating your product! ";
+            console.log("The error: " + error);
+            this.messageService.add({ severity: 'error', summary: this.message });
 
           }
         )
@@ -202,24 +260,22 @@ export class ViewProductDetailsComponent implements OnInit {
             console.log(JSON.stringify(wholeLifeProd));
             console.log("Whole life entry successful");
             this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
-            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+            this.messageService.add({ severity: 'success', summary: this.message });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
-                this.message = "Company has been successfully retrieved!";
-                this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
               },
               error => {
-                this.message = "Error updating company: " + error;
-                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+                console.log("Error update company: " + error);
               }
             );
           },
           error => {
-            this.message = "An error has occurred while updating your product: " + error;
-            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+            this.message = "An error has occurred while updating your product! ";
+            console.log("The error: " + error);
+            this.messageService.add({ severity: 'error', summary: this.message });
 
           }
         )
@@ -246,32 +302,33 @@ export class ViewProductDetailsComponent implements OnInit {
         this.productService.updateTermLifeProduct(termLifeProd, this.isSmoker).subscribe(
           response => {
             this.message = "Product has been successfully updated! Product: " + this.productToView.productName;
-            this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+            this.messageService.add({ severity: 'success', summary: this.message });
 
             this.companyService.retrieveCompany().subscribe(
               responseInner => {
                 let company: CompanyEntity = responseInner;
                 this.sessionService.setCompany(company);
-                this.message = "Company has been successfully retrieved!";
-                this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
               },
               error => {
-                this.message = "Error updating company: " + error;
-                this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+                console.log("Error update company: " + error); //Just for referencing, company don't need to know
               }
             );
           },
           error => {
-            this.message = "An error has occurred while updating your product: " + error;
-            this.messageService.add({ severity: 'error', summary: this.message, detail: 'Via MessageService' });
+            this.message = "An error has occurred while updating your product! ";
+            console.log("The error: " + error);
+            this.messageService.add({ severity: 'error', summary: this.message });
 
-          }
-        )
+          });
+      } else {
+        this.message = "An error occured while update product! Invalid Form submission!";
+        this.messageService.add({ severity: 'error', summary: this.message });
       }
 
+
     } else {
-      this.message = "An error occured while creating product! Invalid Form submission!";
-      this.messageService.add({ severity: 'error', summary: this.message, detail: 'From Moolah Enterprise' });
+      this.message = "An error occured while update product! Invalid Form submission!";
+      this.messageService.add({ severity: 'error', summary: this.message });
     }
   }
 
@@ -378,4 +435,78 @@ export class ViewProductDetailsComponent implements OnInit {
 
 
 
+  checkThroughFeatures(feature: FeatureEntity) {
+    if (feature.featureName === undefined || feature.featureName === null) {
+      this.messageService.add({ severity: 'error', summary: "Feature Name is required!" });
+      this.canContinue = false;
+      return;
+    } else if (feature.featureDescription === undefined || feature.featureDescription === null) {
+      this.messageService.add({ severity: 'error', summary: "Feature description is required!" });
+      this.canContinue = false;
+      return;
+    }
+
+  }
+
+
+  checkThroughRiders(rider: RiderEntity) {
+    if (rider.riderName === undefined || rider.riderName == null) {
+      this.messageService.add({ severity: 'error', summary: "Rider Name is required!" });
+      this.canContinue = false;
+      return;
+    } else if (rider.riderPremiumValue === undefined || rider.riderPremiumValue == null) {
+      this.messageService.add({ severity: 'error', summary: "Rider Premium Value is required!" });
+      this.canContinue = false;
+      return;
+    } else if (rider.riderPremiumValue < 0) {
+      this.messageService.add({ severity: 'error', summary: "Rider Premium Value is invalid!" });
+      this.canContinue = false;
+      return;
+    } else if (rider.riderDescription === undefined || rider.riderDescription == null) {
+      this.messageService.add({ severity: 'error', summary: "Rider Description is required!" });
+      this.canContinue = false;
+      return;
+    }
+
+  }
+
+
+  checkThroughPremium(premium: PremiumEntity): void {
+    if (premium.minAgeGroup === undefined || premium.minAgeGroup == null) {
+      this.messageService.add({ severity: 'error', summary: "Minimum age is required!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.minAgeGroup < 0) {
+      this.messageService.add({ severity: 'error', summary: "Invalid minimum age!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.maxAgeGroup === undefined || premium.maxAgeGroup == null) {
+      this.messageService.add({ severity: 'error', summary: "Maximum Age is required!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.maxAgeGroup < 0) {
+      this.messageService.add({ severity: 'error', summary: "Invalid maximum age!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.premiumValue === undefined || premium.premiumValue == null) {
+      this.messageService.add({ severity: 'error', summary: "Premium Value is needed!" });
+      this.canContinue = false;
+      return;
+    } else if (premium.premiumValue < 0) {
+      this.messageService.add({ severity: 'error', summary: "Invalid premium value!" });
+      this.canContinue = false;
+      return;
+    }
+
+  }
+
+
+    confirmDeleteProduct() {
+      this.confirmationService.confirm({
+        message: 'Are you sure you wish to delete this product: ' + this.productToView.productName,
+        accept: () => {
+          this.deleteProduct();
+        }
+      });
+    }
 }
