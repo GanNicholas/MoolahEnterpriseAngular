@@ -165,6 +165,11 @@ export class HeaderComponent implements OnInit {
 
           this.accounts = [
             {
+              label: 'Top up Credit',
+              icon: 'pi pi-credit-card',
+              routerLink: '/makePayment'
+            },
+            {
               label: 'View My Profile',
               icon: 'pi pi-user-edit',
               routerLink: '/company/viewMyCompanyDetails'
