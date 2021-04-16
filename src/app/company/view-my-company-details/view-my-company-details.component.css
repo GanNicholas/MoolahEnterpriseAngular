@@ -35,9 +35,10 @@ td {
   border: none !important;
 }
 
-.p-fileupload-buttonbar {
-  background: #f4f4f4;
-  color: #333333;
+:host >>> .p-fileupload .p-fileupload-buttonbar {
+  background: transparent;
+  color: none;
+  border: none;
   border-bottom: 0 none;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
@@ -48,4 +49,21 @@ td {
   background: #be212e;
   color: #ffffff;
   border-color: #c01120;
+}
+
+:host >>> .p-fileupload .p-fileupload-content {
+  background: transparent;
+  padding: 0.571rem 1rem;
+  border: none;
+  color: none;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+:host >>> #fileUpload .p-button.p-fileupload-choose {
+  overflow: hidden;
+  position: relative;
+  background: transparent;
+  border: none;
+  color: #007ad9;
 }

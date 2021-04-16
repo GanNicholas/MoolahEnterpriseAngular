@@ -1,3 +1,4 @@
+import { CompanyEntity } from './../models/company-entity';
 import { SessionService } from 'src/app/services/session.service';
 import { Injectable } from '@angular/core';
 
@@ -24,11 +25,11 @@ export class FileUploadService {
     private sessionService: SessionService) { }
 
 
-  uploadFile(fileToUpload: File): Observable<any> {
+  uploadFile(fileToUpload: File): Observable<CompanyEntity> {
     let formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
 
-    return this.httpClient.post<any>(this.baseUrl + "/upload?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), formData).pipe
+    return this.httpClient.post<CompanyEntity>(this.baseUrl + "/upload?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword(), formData).pipe
       (
         catchError(this.handleError)
       );
