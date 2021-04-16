@@ -22,6 +22,10 @@ export class ViewAllProductsComponent implements OnInit {
 
   categoryTypes: any[];
 
+  startFilterDate: string =""; 
+
+  endFilterDate: string ="";
+
 
   constructor(private productService: ProductService, private filterService: FilterService, private datepipe: DatePipe) {
     this.products = new Array();

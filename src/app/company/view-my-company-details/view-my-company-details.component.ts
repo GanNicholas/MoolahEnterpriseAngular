@@ -231,10 +231,17 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   deactiveAccount() {
     this.companyService.deactivateCompany().subscribe(
       response => {
+        let refundAmt : any  = response; 
         this.resultSuccess = true;
         this.resultError = false;
-        this.messageService.add({ severity: 'success', summary: "You have successfully deactivated your account", detail: 'Via MessageService' });
         this.dialogDeactivateAccount = false;
+
+        this.sessionService.setIsLogin(false);
+        this.sessionService.setCompany(null);
+        this.sessionService.setEmail("");
+        this.sessionService.setPassword("");
+        sessionStorage.clear();
+        this.router.navigate(["../deactivate/deactivateAccount"]);
       },
       error => {
         this.resultError = true;
@@ -245,6 +252,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
         console.log('********** UpdateCompanyComponent.ts: ' + error);
       }
     );
+
   }
 
   onUpload(event: any) {
@@ -264,5 +272,6 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
       }
     );
   }
+
 
 }
