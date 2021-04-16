@@ -233,7 +233,6 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
         let refundAmt : any  = response; 
         this.resultSuccess = true;
         this.resultError = false;
-        this.messageService.add({ severity: 'success', summary: "You have successfully deactivated your account. We will refund " + refundAmt +" within 5 business days.", detail: 'Via MessageService' });
         this.dialogDeactivateAccount = false;
 
         this.sessionService.setIsLogin(false);
@@ -241,7 +240,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
         this.sessionService.setEmail("");
         this.sessionService.setPassword("");
         sessionStorage.clear();
-        this.router.navigate(["/index"]);
+        this.router.navigate(["../deactivate/deactivateAccount"]);
       },
       error => {
         this.resultError = true;
@@ -268,5 +267,6 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
       }
     );
   }
+
 
 }

@@ -50,6 +50,7 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {MenuModule} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
+import { DeactivateAccountComponent } from './deactivate/deactivate-account/deactivate-account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +69,7 @@ import {MenuItem} from 'primeng/api';
     MakePaymentComponent,
     AboutUsComponent,
     ViewTransactionComponent,
+    DeactivateAccountComponent,
   ],
   imports: [
     BrowserModule,

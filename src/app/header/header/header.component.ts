@@ -98,6 +98,11 @@ export class HeaderComponent implements OnInit {
           icon: 'pi pi-user-edit',
           routerLink: '/viewCurrentPayable'
 
+        },{
+          label: 'View Transaction',
+          icon: 'pi pi-user-edit',
+          routerLink: '/transaction/view'
+
         },
         {
           label: 'Logout',
@@ -162,6 +167,11 @@ export class HeaderComponent implements OnInit {
               label: 'My Oustanding Bills',
               icon: 'pi pi-user-edit',
               routerLink: '/viewCurrentPayable'
+            },
+            {
+              label: 'View Transaction',
+              icon: 'pi pi-plus',
+              routerLink: '/transaction/view'
             },
             {
               label: 'Logout',
