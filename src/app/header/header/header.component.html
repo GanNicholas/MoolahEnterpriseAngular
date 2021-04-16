@@ -1,6 +1,14 @@
 <header class="header">
-  <p-menubar [model]="items">
-    <aside id="loginbox" class="loginbox">
+  <a href="/index"><img
+    src="http://localhost:8080/MoolahEnterprise-war/resources/images/Moolah%20Enterprise%20(2).png"
+    style="margin-top:10% object-fit: cover"
+    width="24%"
+  /></a>
+  <p-menubar
+    [model]="items"
+    [style]="{ border: 'none', 'margin-top': '-7%', 'margin-left': '27%' }"
+  >
+    <aside id="loginbox" class="loginbox" style="margin-top: -2%">
       <div *ngIf="sessionService.getIsLogin() == false">
         <label for="username">Username </label>
         <input
@@ -20,27 +28,47 @@
           maxlength="32"
         />
         &nbsp;
-        <p-button
+        <button
           label="Login"
-          type="button"
+          pButton
+          class="p-button-raised p-button-info"
           (click)="companyLogin()"
-        ></p-button>
+        ></button>
 
         &nbsp;
-        <p-button
+        <button
           label="Forget Password"
-          type="button"
+          pButton
+          class="p-button-raised p-button-primary"
           routerLink="/password/forgetPassword"
-        ></p-button>
+        ></button>
       </div>
 
-      <div *ngIf="loginError == true" style="text-align: right; color: red">
-        {{ errorMessage }}
-      </div>
-
-      <div *ngIf="sessionService.getIsLogin() == true">
-        <div class="p-col-12 p-md-4">
-          <div #actualTarget class="card" name="actualTarget" id="actualTarget">
+      <div *ngIf="sessionService.getIsLogin() == true" style="">
+        <div>
+          <div #actualTarget name="actualTarget" id="actualTarget">
+            <button
+              *ngIf="sessionService.getCompany().creditOwned < 1000"
+              #buttonCredit
+              pRipple
+              iconPos="left"
+              id="buttonCredit"
+              name="buttonCredit"
+              pButton
+              class="p-button-rounded p-button-danger p-button-outlined"
+              icon="pi pi-exclamation-triangle"
+              style="
+                background: none;
+                border: none;
+                font-color: red;
+                font-size: 16px;
+                font-family: sans-serif;
+                text-align: left;
+                font-weight: normal;
+              "
+              label="Please top up your account immediately"
+              (click)="opCredits.show($event, buttonCredit)"
+            ></button>
             <p-avatar
               styleClass="p-mr-2 p-avatar p-component p-avatar-circle p-avatar-lg"
               size="xlarge"
@@ -49,11 +77,15 @@
                 'background-color': 'rgb(33, 150, 243)',
                 color: 'rgb(255, 255, 255)',
                 border: '0.5px solid black',
-                'margin-left': '-200%'
+                'margin-left': '0'
               }"
               (click)="op.show($event, actualTarget)"
               ><img
-                src="https://primefaces.org/primeng/showcase/assets/showcase/images/primeng-logo-dark.svg"
+                src="{{
+                  sessionService.getImageURLFromServer(
+                    this.sessionService.getCompany()
+                  )
+                }}"
             /></p-avatar>
           </div>
         </div>
@@ -74,7 +106,11 @@
           'margin-left': '42%'
         }"
         ><img
-          src="https://primefaces.org/primeng/showcase/assets/showcase/images/primeng-logo-dark.svg"
+          src="{{
+            sessionService.getImageURLFromServer(
+              this.sessionService.getCompany()
+            )
+          }}"
         />
       </p-avatar>
       <br />
@@ -85,15 +121,31 @@
       <p style="text-align: center">
         You are logged in as {{ sessionService.getEmail() }}
       </p>
+      <p style="width: 100%; text-align: center">
+        You have <b>{{ sessionService.getCompany().creditOwned }}</b> credits in
+        your account
+      </p>
       <div style="margin-left: 0%">
         <p-menu
           id="accountMenu"
           styleClass="p-menuitem-text"
           [model]="accounts"
-          [style]="{ width: '100%', border: 'none'}"
+          [style]="{ width: '100%', border: 'none' }"
+          (click)="op.hide()"
         >
         </p-menu>
       </div>
     </ng-template>
   </p-overlayPanel>
+
+  <p-overlayPanel #opCredits [dismissable]="true">
+    <ng-template pTemplate>
+      <p>You have less than 1000 credits in your account!</p>
+      <p>
+        Please top up to ensure that you have at least 1000 credits in your
+        account to avoid deactivation of account
+      </p>
+    </ng-template>
+  </p-overlayPanel>
+  <br/>
 </header>

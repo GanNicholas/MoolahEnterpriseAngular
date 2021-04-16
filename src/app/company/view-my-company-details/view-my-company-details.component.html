@@ -4,23 +4,37 @@
 <h1 style="text-align: center" class="pageHeader">View my Profile</h1>
 <br />
 
-<h2 style="text-align: center" class="secondaryHeader">Company Picture</h2>
+<table style="text-align: center; margin: 0 auto">
+  <td>
+    <p style="text-align: center" class="secondaryHeader">Company Picture</p>
+  </td>
 
-<div style="margin-left: 34%">
-  <p-fileUpload
-    #form
-    name="myfile[]"
-    [customUpload]="true"
-    accept="image/*"
-    [maxFileSize]="1000000"
-    (onSelect)="onUpload($event)"
-    [style]="{ width: '50%' }"
-    class="p-fileupload-buttonbar"
-    [showCancelButton]="false"
-  ></p-fileUpload>
+  <td style="width: 25%; vertical-align: middle">
+    <p-fileUpload
+      type="basic"
+      id="fileUpload"
+      #form
+      chooseIcon="pi pi-pencil"
+      mode="basic"
+      [auto]="true"
+      name="myfile"
+      [customUpload]="true"
+      accept="image/*"
+      [maxFileSize]="5000000"
+      (onSelect)="onUpload($event)"
+      [style]="{ width: '50%' }"
+    ></p-fileUpload>
+  </td>
+</table>
+<div style="text-align: center">
+  <img
+    width="300"
+    height="300"
+    src="{{ sessionService.getImageURLFromServer(company) }}"
+  />
 </div>
 
-<br/>
+<br />
 <h2 style="text-align: center" class="secondaryHeader">Company Information</h2>
 
 <form
@@ -338,21 +352,35 @@
 <br />
 <p-toast></p-toast>
 <p-dialog
-  header="Deactive Account"
+  header="Deactivate Account"
   [(visible)]="dialogDeactivateAccount"
   [closable]="true"
   [resizable]="false"
   [draggable]="false"
   [dismissableMask]="true"
 >
-  <p>Are you sure that you want to deactivate your account?</p>
-  <button type="button" (click)="hideDeactiveDialog()" icon="pi pi-info-circle">
-    Cancel
-  </button>
-  &nbsp;
-  <button type="button" (click)="deactiveAccount()" icon="pi pi-info-circle">
-    Deactive your account
-  </button>
+  <div style="text-align:center">
+    <p style="text-align: center">Are you sure that you want to deactivate your account?</p>
+    <button
+      pButton
+      class="p-button-raised p-button-secondary"
+      style="width: 45%"
+      type="button"
+      (click)="hideDeactiveDialog()"
+      label="Cancel"
+    >
+    </button>
+    &nbsp;
+    <button
+      pButton
+      class="p-button-raised p-button-danger"
+      style="width: 45%"
+      type="button"
+      (click)="deactiveAccount()"
+      label="Deactivate"
+    >
+    </button>
+  </div>
 </p-dialog>
 <p-dialog
   id="changePasswordDialog"

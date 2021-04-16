@@ -119,7 +119,7 @@ export class ViewCurrentPayableComponent implements OnInit {
   }
 
   redirectToTopUp() {
-    this.router.navigate([""]);
+    this.router.navigate(["makePayment"]);
   }
 
   getDateString(dateToTransform: Date | null): string {

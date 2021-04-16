@@ -11,7 +11,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import {MenuModule} from 'primeng/menu';
+import { MenuModule } from 'primeng/menu';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
   accounts: MenuItem[];
   display: boolean = false;
-
+  displayDialog: boolean = false;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit {
         {
           label: 'About Us',
           icon: 'pi pi-info-circle',
-          routerLink: 'aboutus/aboutUs'
+          routerLink: '/aboutus/aboutUs'
         },
         {
           label: 'View My Products',
@@ -89,6 +89,11 @@ export class HeaderComponent implements OnInit {
       ];
 
       this.accounts = [
+        {
+          label: 'Top up Credit',
+          icon: 'pi pi-credit-card',
+          routerLink: '/makePayment'
+        },
         {
           label: 'View My Profile',
           icon: 'pi pi-user-edit',
@@ -120,6 +125,7 @@ export class HeaderComponent implements OnInit {
     this.companyService.login(this.email, this.password).subscribe(
       response => {
         let company: CompanyEntity = response;
+        this.ngOnInit();
 
         if (company != null) {
           this.sessionService.setIsLogin(true);
