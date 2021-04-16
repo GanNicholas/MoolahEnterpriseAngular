@@ -170,7 +170,7 @@ export class HeaderComponent implements OnInit {
             },
             {
               label: 'View Transaction',
-              icon: 'pi pi-plus',
+              icon: 'pi pi-user-edit',
               routerLink: '/transaction/view'
             },
             {
