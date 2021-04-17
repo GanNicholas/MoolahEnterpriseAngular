@@ -19,18 +19,19 @@ const routes: Routes = [
   { path: 'company/createCompany', component: CreateCompanyComponent },
   { path: 'company/viewMyCompanyDetails', component: ViewMyCompanyDetailsComponent },
   { path: 'product/createProduct', component: CreateProductComponent },
-  { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent},
-  { path: 'makePayment', component: MakePaymentComponent},
-  { path: 'makePayment/:id', component: MakePaymentComponent},
+  { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
+  { path: 'makePayment', component: MakePaymentComponent },
+  { path: 'makePayment/:id', component: MakePaymentComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
   { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },
   { path: 'aboutus/aboutUs', component: AboutUsComponent },
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
   { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
   { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },
-  { path: 'product/viewAllProducts', component: ViewAllProductsComponent},
-  { path: 'password/forgetPassword', component: ForgetPasswordComponent},
-  { path: 'password/keyNewPassword', component: KeyNewPasswordComponent}
+  { path: 'product/viewAllProducts', component: ViewAllProductsComponent },
+  { path: 'password/forgetPassword', component: ForgetPasswordComponent },
+  { path: 'password/keyNewPassword', component: KeyNewPasswordComponent },
+  { path: 'aboutUs', component: AboutUsComponent }
 ];
 
 @NgModule({
