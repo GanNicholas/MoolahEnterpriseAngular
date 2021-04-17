@@ -94,6 +94,23 @@ export class ViewCurrentPayableComponent implements OnInit {
     }
   }
 
+  checkForPaid(): boolean {
+    if (this.monthlyPayments !== undefined && this.monthlyPayments[this.selected] != undefined) {
+      if (this.monthlyPayments[this.selected].paid != undefined) {
+        if (this.monthlyPayments[this.selected].paid == true) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+
   payNow() {
     var balance = this.company.creditOwned - Number(this.monthlyPayments[this.selected].totalPayable);
     this.confirmationService.confirm({

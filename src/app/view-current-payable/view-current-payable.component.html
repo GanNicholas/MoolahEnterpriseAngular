@@ -101,6 +101,7 @@
       icon="pi pi-credit-card"
       label="Pay Now"
       (click)="payNow()"
+      [disabled]="checkForPaid()"
     ></button>
   </div>
 
@@ -115,6 +116,10 @@
       label="Top up now"
       (click)="redirectToTopUp()"
     ></button>
+  </div>
+
+  <div style="text-align: center" *ngIf="checkForPaid()">
+    <p>You have already paid for this bill!</p>
   </div>
 </p-dialog>
 
