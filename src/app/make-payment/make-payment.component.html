@@ -123,17 +123,17 @@
     </table>
 
     <div style="text-align: center"  class="classBody">
-      <p-button (click)="goBack()" label="Back"> &nbsp;</p-button> &nbsp;
-      <input pInputText type="submit" value="Make Payment" />
+      <button (click)="goBack()" pButton class="p-button-raised p-button-secondary" label="Back"> &nbsp;</button> &nbsp;
+      <button pButton label="Purchase" class="p-button-raised p-button-primary" pInputText type="submit" value="Make Payment"></button>
     </div>
   </div>
 </form>
 
 <div *ngIf="success" style="text-align: center" ng-class="classBody">
-  <p>
+  <p class="classBody">
     You have successfully purchased {{ creditToBuy }} credits for ${{ getAmountPayable() }}
   </p>
-  <p-button (click)="backToHome()">Back to Home</p-button>
+  <button pButton class="p-button-raised p-button-primary" (click)="backToHome()">Back to Home</button>
 </div>
 <br/>
 <p-toast></p-toast>
