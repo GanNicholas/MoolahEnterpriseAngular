@@ -1,8 +1,9 @@
 <header class="header">
-  <a href="/index"><img
-    src="http://localhost:8080/MoolahEnterprise-war/resources/images/Moolah%20Enterprise%20(2).png"
-    style="margin-top:10% object-fit: cover"
-    width="24%"
+  <a href="/index"
+    ><img
+      src="http://localhost:8080/MoolahEnterprise-war/resources/images/Moolah%20Enterprise%20(2).png"
+      style="margin-top:10% object-fit: cover"
+      width="24%"
   /></a>
   <p-menubar
     [model]="items"
@@ -48,7 +49,7 @@
         <div>
           <div #actualTarget name="actualTarget" id="actualTarget">
             <button
-              *ngIf="sessionService.getCompany().creditOwned < 1000"
+              *ngIf="sessionService.checkCreditOwned()"
               #buttonCredit
               pRipple
               iconPos="left"
@@ -67,7 +68,7 @@
                 font-weight: normal;
               "
               label="Please top up your account immediately"
-              (click)="opCredits.show($event, buttonCredit)"
+              (click)="op.hide(); opCredits.show($event, buttonCredit)"
             ></button>
             <p-avatar
               styleClass="p-mr-2 p-avatar p-component p-avatar-circle p-avatar-lg"
@@ -79,7 +80,7 @@
                 border: '0.5px solid black',
                 'margin-left': '0'
               }"
-              (click)="op.show($event, actualTarget)"
+              (click)="opCredits.hide(); op.show($event, actualTarget)"
               ><img
                 src="{{
                   sessionService.getImageURLFromServer(
@@ -138,14 +139,30 @@
     </ng-template>
   </p-overlayPanel>
 
-  <p-overlayPanel #opCredits [dismissable]="true">
+  <p-overlayPanel
+    id="creditPanel"
+    name="creditPanel"
+    #opCredits
+    [dismissable]="true"
+  >
     <ng-template pTemplate>
-      <p>You have less than 1000 credits in your account!</p>
-      <p>
-        Please top up to ensure that you have at least 1000 credits in your
-        account to avoid deactivation of account
-      </p>
+      <div style="text-align: center">
+        <p
+          style="
+            color: red;
+            font-weight: bold;
+            font-size: 16px;
+            font-family: sans-serif;
+          "
+        >
+          You have less than 1000 credits in your account!
+        </p>
+        <p>
+          Please <a href="/makePayment"><b>top up</b></a> to ensure that you have <b>at least 1000 credits</b> in your
+          account to avoid the deactivation of your account
+        </p>
+      </div>
     </ng-template>
   </p-overlayPanel>
-  <br/>
+  <br />
 </header>

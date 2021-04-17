@@ -53,6 +53,7 @@ td {
 
 :host >>> .p-fileupload .p-fileupload-content {
   background: transparent;
+  display: none;
   padding: 0.571rem 1rem;
   border: none;
   color: none;

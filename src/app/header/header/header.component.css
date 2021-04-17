@@ -43,3 +43,7 @@
   text-align:center!important;
 }
 
+:host >>> #creditPanel .p-overlaypanel .p-overlaypanel-content {
+  padding: 0.571rem 1rem;
+  width: 300px;
+}

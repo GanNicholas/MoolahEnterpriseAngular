@@ -63,4 +63,8 @@ export class SessionService {
       return false;
     }
   }
+
+  checkCreditOwned(): boolean{
+    return this.getCompany().creditOwned < 1000;
+  }
 }

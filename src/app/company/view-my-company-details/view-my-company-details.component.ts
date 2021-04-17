@@ -231,7 +231,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   deactiveAccount() {
     this.companyService.deactivateCompany().subscribe(
       response => {
-        let refundAmt : any  = response; 
+        let refundAmt: any = response;
         this.resultSuccess = true;
         this.resultError = false;
         this.dialogDeactivateAccount = false;
@@ -261,11 +261,14 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
 
     this.fileUploadService.uploadFile(this.file).subscribe(
       response => {
-        this.company = response;
-        this.sessionService.setCompany(this.company);
-        this.messageService.add({ severity: 'success', summary: "Your profile has been successfully updated", detail: 'Via MessageService' });
-        this.file = new File(new Array(), "");
-        console.log('********** FileUploadComponent.ts: File uploaded successfully');
+        setTimeout(() => {
+          this.company = response;
+          this.sessionService.setCompany(this.company);
+          this.messageService.add({ severity: 'success', summary: "Your profile has been successfully updated", detail: 'Via MessageService' });
+          this.file = new File(new Array(), "");
+          console.log('********** FileUploadComponent.ts: File uploaded successfully');
+        }, 2000);
+
       },
       error => {
         console.log('********** FileUploadComponent.ts: ' + error);

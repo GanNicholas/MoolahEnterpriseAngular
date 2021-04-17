@@ -4,25 +4,23 @@
 <h1 style="text-align: center" class="pageHeader">View my Profile</h1>
 <br />
 
-<table style="text-align: center; margin: 0 auto">
+<table style="margin-left: 45%">
   <td>
     <p style="text-align: center" class="secondaryHeader">Company Picture</p>
   </td>
 
-  <td style="width: 25%; vertical-align: middle">
+  <td style="width: 50%; vertical-align: middle">
     <p-fileUpload
-      type="basic"
       id="fileUpload"
       #form
       chooseIcon="pi pi-pencil"
-      mode="basic"
-      [auto]="true"
       name="myfile"
-      [customUpload]="true"
-      accept="image/*"
       [maxFileSize]="5000000"
       (onSelect)="onUpload($event)"
-      [style]="{ width: '50%' }"
+      [multiple]="true"
+      accept="image/*"
+      [auto]="true"
+      chooseLabel = " "
     ></p-fileUpload>
   </td>
 </table>
@@ -359,8 +357,10 @@
   [draggable]="false"
   [dismissableMask]="true"
 >
-  <div style="text-align:center">
-    <p style="text-align: center">Are you sure that you want to deactivate your account?</p>
+  <div style="text-align: center">
+    <p style="text-align: center">
+      Are you sure that you want to deactivate your account?
+    </p>
     <button
       pButton
       class="p-button-raised p-button-secondary"
@@ -368,8 +368,7 @@
       type="button"
       (click)="hideDeactiveDialog()"
       label="Cancel"
-    >
-    </button>
+    ></button>
     &nbsp;
     <button
       pButton
@@ -378,8 +377,7 @@
       type="button"
       (click)="deactiveAccount()"
       label="Deactivate"
-    >
-    </button>
+    ></button>
   </div>
 </p-dialog>
 <p-dialog
