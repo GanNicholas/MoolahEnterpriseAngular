@@ -65,6 +65,7 @@ export class ViewTransactionComponent implements OnInit {
   searchForTransactionProductListing() {
     var sDate = this.startDateProductListing.toString();
     var eDate = this.endDateProductListing.toString();
+    console.log("sDate"+sDate);
     var sStartYear = sDate.substring(0, 4);
     var sStartMonth = sDate.substring(5, 7);
     var sStartDay = sDate.substring(8, 10);

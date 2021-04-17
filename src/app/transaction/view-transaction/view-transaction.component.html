@@ -11,7 +11,7 @@
                 To :
                 <input pInputText name="endDate" type="date" [(ngModel)]="endDateProductListing" [disabled]="false" min={{startDateProductListing}} max="2022-01-01">
                 &nbsp;
-                <p-button type="button" (click)="searchForTransactionProductListing()">Search</p-button>
+                <button pButton icon="pi pi-search" type="button" (click)="searchForTransactionProductListing()" label="Search"></button>
             </div>
             <br />
             <div id="viewTransactionForBill">
@@ -19,7 +19,7 @@
                 <p-table id="tablePointOfContact" [value]="listOfAllSpecificHistoricalTransaction">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th class="p-datatable-thead" style="width: 7%; text-align: center">
+                            <th class="p-datatable-thead" style="width:5%; text-align: center">
                                 S/N
                             </th>
                             <th style="text-align: center">Monthly Payment ID:</th>
@@ -27,7 +27,7 @@
                             <th style="text-align: center">
                                 Date Transacted
                             </th>
-                            <th style="width: 7%; text-align: center">Payment Number</th>
+                            <th style>Payment Number</th>
 
                             <th style="text-align: center">Date Generated</th>
                             <th style="text-align: center">Total Payable</th>
@@ -35,7 +35,7 @@
                         </tr>
                     </ng-template>
 
-                    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-pw>
+                    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-pw >
                         <tr>
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                             <td>
@@ -62,7 +62,7 @@
                             </td>
 
                             <td>
-                                <p-button label="View" (click)="viewLineItems($event, rowIndex)"></p-button>
+                                <button pButton icon="pi pi-eye" label="View" (click)="viewLineItems($event, rowIndex)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -105,7 +105,7 @@
                 To :
                 <input pInputText name="endDate" type="date" [(ngModel)]="endDateCreditPayment" [disabled]="false"  min={{startDateCreditPayment}} max="2022-01-01">
                 &nbsp;
-                <p-button type="button" (click)="searchForTransactionCreditPayment()">Search</p-button>
+                <button pButton icon="pi pi-search" type="button" (click)="searchForTransactionCreditPayment()">Search</button>
             </div>
             <br />
             <div id="viewTransactionCredit">
@@ -113,7 +113,7 @@
                 <p-table id="tablePointOfContact" [value]="listOfAllSpecificCreditHistoricalTransaction">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th class="p-datatable-thead" style="width: 7%; text-align: center">
+                            <th class="p-datatable-thead" style="width: 5%; text-align: center">
                                 S/N
                             </th>
                             <th style="text-align: center">Payment ID:</th>
@@ -121,7 +121,7 @@
                             <th style="text-align: center">
                                 Date Transacted
                             </th>
-                            <th style="width: 7%; text-align: center">Payment Number</th>
+                            <th style ="text-align: center">Payment Number</th>
 
                             <th style="text-align: center">Credit Purchased</th>
                             <th style="text-align: center">Total Payable</th>

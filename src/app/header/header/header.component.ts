@@ -149,6 +149,7 @@ export class HeaderComponent implements OnInit {
             {
               label: 'About Us',
               icon: 'pi pi-info-circle',
+              routerLink: '/aboutus/aboutUs'
             },
             {
               label: 'View My Products',
