@@ -86,6 +86,7 @@ export class CreateCompanyComponent implements OnInit {
           this.resultError = false;
           this.message = "Company " + newCompanyId + " created successfully";
           this.messageService.add({ severity: 'success', summary: this.message, detail: 'Via MessageService' });
+          this.clear();
         },
         error => {
           this.resultError = true;

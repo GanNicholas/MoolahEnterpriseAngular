@@ -1,5 +1,6 @@
-<app-header></app-header> <br /><br />
-<br /><br />
+<app-header></app-header>
+<br />
+<br />
 
 <div class="bodyContent">
   <div id="tag">
@@ -119,16 +120,16 @@
                 Password
               </td>
               <td>
-                <p-password
+                <input
+                  pInputText
+                  type="password"
                   id="password"
                   name="password"
                   #password="ngModel"
-                  type="text"
                   [(ngModel)]="createCompanyEntityReq.companyEntity.password"
                   required="true"
-                  [toggleMask]="true"
                   class="bodyText, inputWidth"
-                ></p-password>
+                />
               </td>
             </tr>
           </table>
@@ -155,7 +156,7 @@
             id="tablePointOfContact"
             [value]="createCompanyEntityReq.listOfPointOfContacts"
             class=".ui-datatable"
-            [style]="{ width: '80%' }"
+            [style]="{ width: '80%', 'z-index': '0' }"
           >
             <ng-template pTemplate="header">
               <tr>
