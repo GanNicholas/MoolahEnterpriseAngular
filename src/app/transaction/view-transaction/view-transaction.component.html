@@ -105,7 +105,7 @@
                 To :
                 <input pInputText name="endDate" type="date" [(ngModel)]="endDateCreditPayment" [disabled]="false"  min={{startDateCreditPayment}} max="2022-01-01">
                 &nbsp;
-                <button pButton icon="pi pi-search" type="button" (click)="searchForTransactionCreditPayment()">Search</button>
+                <button pButton icon="pi pi-search" type="button" (click)="searchForTransactionCreditPayment()" label="Search"></button>
             </div>
             <br />
             <div id="viewTransactionCredit">

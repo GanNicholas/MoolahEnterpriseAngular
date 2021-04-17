@@ -1,10 +1,16 @@
 <app-header></app-header>
-
-<h2 style="text-align: center" class="secondaryHeader">
+<br/>
+<br/>
+<br/>
+<br/>
+<a href="/index"><img
+  src="http://localhost:8080/MoolahEnterprise-war/resources/images/updated_createCompany.png"
+  width="100%" height="700" style="z-index:-100;" /></a>
+<h2 style="text-align: center" class="secondaryHeader" style="z-index:1;margin-top:-30%;text-align:center;">
   Purchase Moolah Credits
 </h2>
 
-<form #purchaseCreditForm="ngForm" (ngSubmit)="purchaseMoolahCredit()" class="classBody">
+<form #purchaseCreditForm="ngForm" (ngSubmit)="purchaseMoolahCredit()" class="classBody" style="z-index:1">
   <div *ngIf="back && !success">
     <table style="margin: 0 auto" cellspacing="20px">
       <tr>
@@ -129,5 +135,6 @@
   </p>
   <button pButton class="p-button-raised p-button-primary" (click)="backToHome()">Back to Home</button>
 </div>
+<br/>
 <p-toast></p-toast>
 <app-footer></app-footer>

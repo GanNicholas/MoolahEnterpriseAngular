@@ -12,10 +12,12 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MenuModule } from 'primeng/menu';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  providers: [MessageService]
 })
 export class HeaderComponent implements OnInit {
 
@@ -24,8 +26,9 @@ export class HeaderComponent implements OnInit {
 
   email: string | undefined;
   password: string | undefined;
-  loginError: boolean;
+  //loginError: boolean;
   errorMessage: string | undefined;
+  
 
   items: MenuItem[];
   accounts: MenuItem[];
@@ -35,8 +38,9 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
-    private companyService: CompanyService) {
-    this.loginError = false;
+    private companyService: CompanyService,
+    private messageService: MessageService) {
+    //this.loginError = false;
     this.items = new Array();
     this.accounts = new Array();
   }
@@ -133,9 +137,10 @@ export class HeaderComponent implements OnInit {
         this.ngOnInit();
 
         if (company != null) {
+          console.log(JSON.stringify(response));
           this.sessionService.setIsLogin(true);
           this.sessionService.setCompany(company);
-          this.loginError = false;
+         // this.loginError = false;
 
           this.childEvent.emit();
 
@@ -196,12 +201,16 @@ export class HeaderComponent implements OnInit {
           ];
         }
         else {
-          this.loginError = true;
+          this.messageService.add({ severity: 'error', summary: "Invalid login. Please try again", detail: 'Via MessageService' });
+     
+         // this.loginError = true;
         }
       },
       error => {
-        this.loginError = true;
-        this.errorMessage = error
+        this.messageService.add({ severity: 'error', summary: "Something went wrong when retrieving your data :" + error, detail: 'Via MessageService' });
+     
+        //this.loginError = true;
+        //this.errorMessage = error
       }
     );
   }

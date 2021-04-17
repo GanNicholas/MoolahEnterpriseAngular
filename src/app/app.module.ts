@@ -51,6 +51,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {MenuModule} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
 import { DeactivateAccountComponent } from './deactivate/deactivate-account/deactivate-account.component';
+import { BodyComponent } from './body/body/body.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { DeactivateAccountComponent } from './deactivate/deactivate-account/deac
     AboutUsComponent,
     ViewTransactionComponent,
     DeactivateAccountComponent,
+    BodyComponent,
   ],
   imports: [
     BrowserModule,
