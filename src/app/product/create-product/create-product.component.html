@@ -4,6 +4,7 @@
 
 <div id="tag">
   <div>
+    <br />
     <div style="text-align: center; margin-top: 0%">
       <h2 class="pageHeader">Create New Product</h2>
       <br />
@@ -12,9 +13,9 @@
     </div>
     <form
       #createProductForm="ngForm"
-      style="height: 10%; background-color: transparent !important"
+      style="height: 10%; background-color:transparent!important; z-index=1"
     >
-      <table style="border-spacing: 0 23px; margin-left: 26%; width: 70%">
+      <table style="border-spacing: 0 23px; margin-left: 30%; width: 70%">
         <tr>
           <td style="font-weight: bold; width: 20%" class="bodyText">
             Product Name
@@ -265,7 +266,11 @@
       <br />
 
       <div style="margin-left: 10%; width: 80%">
-        <p-table id="tableFeature" [value]="product.listOfAdditionalFeatures">
+        <p-table
+          id="tableFeature"
+          [value]="product.listOfAdditionalFeatures"
+          [style]="{ 'z-index': '0' }"
+        >
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 7%; text-align: center">S/N</th>
@@ -307,15 +312,15 @@
                 />
               </td>
 
-              <td>
-                <div style="text-align: center; padding: 0">
+              <td style="background: white">
+                <div style="text-align: center">
                   <button
                     pButton
                     pRipple
                     icon="pi pi-trash"
-                    style="width: 100%; background-color: white"
-                    class="p-button-text p-button-danger"
+                    class="p-button-danger p-button-text"
                     (click)="handleClickRemoveFeature(rowIndex)"
+                    style="width: 100%"
                   ></button>
                 </div>
               </td>
@@ -340,7 +345,11 @@
       <br />
 
       <div style="margin-left: 10%; width: 80%">
-        <p-table id="tableRider" [value]="product.listOfRiders">
+        <p-table
+          id="tableRider"
+          [value]="product.listOfRiders"
+          [style]="{ 'z-index': '0' }"
+        >
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 7%; text-align: center">S/N</th>
@@ -405,9 +414,9 @@
                     pButton
                     pRipple
                     icon="pi pi-trash"
-                    style="width: 100%; background-color: white"
-                    class="p-button-text p-button-danger"
+                    class="p-button-danger p-button-text"
                     (click)="handleClickRemoveRider(rowIndex)"
+                    style="width: 100%"
                   ></button>
                 </div>
               </td>
@@ -433,7 +442,11 @@
       <br />
 
       <div style="margin-left: 10%; width: 80%">
-        <p-table id="tablePremium" [value]="product.listOfPremium">
+        <p-table
+          id="tablePremium"
+          [value]="product.listOfPremium"
+          [style]="{ 'z-index': '0' }"
+        >
           <ng-template pTemplate="header">
             <tr>
               <th style="text-align: center">S/N</th>
@@ -496,8 +509,8 @@
                     pButton
                     pRipple
                     icon="pi pi-trash"
-                    style="width: 100%; background-color: white"
-                    class="p-button-text p-button-danger"
+                    class="p-button-danger p-button-text"
+                    style="width: 100%"
                     (click)="handleClickRemovePremium(rowIndex)"
                   ></button>
                 </div>
@@ -517,7 +530,6 @@
             type="button"
             icon="pi pi-plus-circle"
             (click)="handleClickAddSmokerPremium()"
-            class="p-button-raised"
             label="Add Premium"
           ></button>
         </div>
@@ -527,6 +539,7 @@
           <p-table
             id="tableSmokerPremium"
             [value]="product.listOfSmokerPremium"
+            [style]="{'z-index':'0'}"
           >
             <ng-template pTemplate="header">
               <tr>
@@ -594,8 +607,8 @@
                       pButton
                       pRipple
                       icon="pi pi-trash"
-                      style="width: 100%; background-color: white"
-                      class="p-button-text p-button-danger"
+                      class="p-button-danger p-button-text"
+                      style="width: 100%"
                       (click)="handleClickRemoveSmokerPremium(rowIndex)"
                     ></button>
                   </div>
@@ -624,16 +637,16 @@
           label="Create"
           badgeClass="p-badge-info"
           icon="pi pi-plus"
-          class="p-button-info p-button-raised"
+          class="p-button-info"
           (click)="createProduct(createProductForm)"
         ></button>
       </div>
     </form>
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </div>
-<br />
-<br />
-<br />
-<br />
 
 <app-footer></app-footer>

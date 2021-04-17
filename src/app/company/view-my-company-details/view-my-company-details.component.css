@@ -24,7 +24,7 @@
 }
 
 .inputWidth {
-  width: 66.5% !important;
+  width: 45% !important;
 }
 
 th {
@@ -33,6 +33,7 @@ th {
 
 td {
   border: none !important;
+  vertical-align: middle;
 }
 
 :host >>> .p-fileupload .p-fileupload-buttonbar {

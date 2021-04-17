@@ -1,248 +1,270 @@
-<app-header></app-header>
-<br/><br/>
-<br/><br/>
-<a href="/index"><img
-  src="http://localhost:8080/MoolahEnterprise-war/resources/images/updated_createCompany.png"
-  width="100%" height="100%" style="z-index:-100;" /></a>
+<app-header></app-header> <br /><br />
+<br /><br />
 
-  <div class="bodyContent" style="z-index:1; margin-top:-66%;
-    color:black;
-     text-shadow: 1px 1px 2px #000000;">
-<h2 style="text-align: center" class="pageHeader">Create New Company</h2>
-<br />
+<div class="bodyContent">
+  <div id="tag">
+    <div>
+      <br />
+      <h2 style="text-align: center" class="pageHeader">Create New Company</h2>
+      <br />
 
-<h2 style="text-align: center" class="secondaryHeader">Company Information</h2>
-<form
-  #createCompanyForm="ngForm"
-  (ngSubmit)="create(createCompanyForm)"
-  style="height: 10%"
->
-  <div style="text-align: center">
-    <table width="30%" style="margin-left: 35%; border-spacing: 0 23px">
-      <tr>
-        <td width="20%" style="font-weight: bold" class="bodyText">
-          Company Name
-        </td>
-        <td>
-          <input
-            pInputText
-            id="companyName"
-            name="companyName"
-            #companyName="ngModel"
-            type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.companyName"
-            required="true"
-            class="bodyText, inputWidth"
-          />
-        </td>
-      </tr>
+      <h2 style="text-align: center" class="secondaryHeader">
+        Company Information
+      </h2>
+      <form
+        #createCompanyForm="ngForm"
+        (ngSubmit)="create(createCompanyForm)"
+        style="height: 10%"
+      >
+        <div style="text-align: center">
+          <table width="30%" style="margin-left: 35%; border-spacing: 0 23px">
+            <tr>
+              <td width="20%" style="font-weight: bold" class="bodyText">
+                Company Name
+              </td>
+              <td>
+                <input
+                  pInputText
+                  id="companyName"
+                  name="companyName"
+                  #companyName="ngModel"
+                  type="text"
+                  [(ngModel)]="createCompanyEntityReq.companyEntity.companyName"
+                  required="true"
+                  class="bodyText, inputWidth"
+                />
+              </td>
+            </tr>
 
-      <tr>
-        <td width="20%" style="font-weight: bold" class="bodyText">
-          Company Email
-        </td>
-        <td>
-          <input
-            pInputText
-            id="companyEmail"
-            name="companyEmail"
-            #companyEmail="ngModel"
-            type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.companyEmail"
-            required="true"
-            class="bodyText, inputWidth"
-          />
-        </td>
-      </tr>
+            <tr>
+              <td width="20%" style="font-weight: bold" class="bodyText">
+                Company Email
+              </td>
+              <td>
+                <input
+                  pInputText
+                  id="companyEmail"
+                  name="companyEmail"
+                  #companyEmail="ngModel"
+                  type="text"
+                  [(ngModel)]="
+                    createCompanyEntityReq.companyEntity.companyEmail
+                  "
+                  required="true"
+                  class="bodyText, inputWidth"
+                />
+              </td>
+            </tr>
 
-      <tr>
-        <td width="20%" style="font-weight: bold" class="bodyText">
-          Business Registration Number
-        </td>
-        <td>
-          <input
-            pInputText
-            id="businessRegNumber"
-            name="businessRegNumber"
-            #businessRegNumber="ngModel"
-            type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.businessRegNumber"
-            required="true"
-            class="bodyText, inputWidth"
-          />
-        </td>
-      </tr>
+            <tr>
+              <td width="20%" style="font-weight: bold" class="bodyText">
+                Business Registration Number
+              </td>
+              <td>
+                <input
+                  pInputText
+                  id="businessRegNumber"
+                  name="businessRegNumber"
+                  #businessRegNumber="ngModel"
+                  type="text"
+                  [(ngModel)]="
+                    createCompanyEntityReq.companyEntity.businessRegNumber
+                  "
+                  required="true"
+                  class="bodyText, inputWidth"
+                />
+              </td>
+            </tr>
 
-      <tr>
-        <td width="20%" style="font-weight: bold" class="bodyText">
-          Company Contact Number
-        </td>
-        <td>
-          <input
-            pInputText
-            id="companyContactNumber"
-            name="companyContactNumber"
-            #companyContactNumber="ngModel"
-            type="text"
-            [(ngModel)]="
-              createCompanyEntityReq.companyEntity.companyContactNumber
-            "
-            required="true"
-            class="bodyText, inputWidth"
-          />
-        </td>
-      </tr>
+            <tr>
+              <td width="20%" style="font-weight: bold" class="bodyText">
+                Company Contact Number
+              </td>
+              <td>
+                <input
+                  pInputText
+                  id="companyContactNumber"
+                  name="companyContactNumber"
+                  #companyContactNumber="ngModel"
+                  type="text"
+                  [(ngModel)]="
+                    createCompanyEntityReq.companyEntity.companyContactNumber
+                  "
+                  required="true"
+                  class="bodyText, inputWidth"
+                />
+              </td>
+            </tr>
 
-      <tr>
-        <td width="20%" style="font-weight: bold" class="bodyText">
-          Company URL
-        </td>
-        <td>
-          <input
-            pInputText
-            id="companyUrl"
-            name="companyUrl"
-            #companyUrl="ngModel"
-            type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.companyUrl"
-            required="true"
-            class="bodyText, inputWidth"
-          />
-        </td>
-      </tr>
+            <tr>
+              <td width="20%" style="font-weight: bold" class="bodyText">
+                Company URL
+              </td>
+              <td>
+                <input
+                  pInputText
+                  id="companyUrl"
+                  name="companyUrl"
+                  #companyUrl="ngModel"
+                  type="text"
+                  [(ngModel)]="createCompanyEntityReq.companyEntity.companyUrl"
+                  required="true"
+                  class="bodyText, inputWidth"
+                />
+              </td>
+            </tr>
 
-      <tr>
-        <td width="20%" style="font-weight: bold" class="bodyText">Password</td>
-        <td>
-          <p-password
-            id="password"
-            name="password"
-            #password="ngModel"
-            type="text"
-            [(ngModel)]="createCompanyEntityReq.companyEntity.password"
-            required="true"
-            [toggleMask]="true"
-            class="bodyText"
-          ></p-password>
-        </td>
-      </tr>
-    </table>
+            <tr>
+              <td width="20%" style="font-weight: bold" class="bodyText">
+                Password
+              </td>
+              <td>
+                <p-password
+                  id="password"
+                  name="password"
+                  #password="ngModel"
+                  type="text"
+                  [(ngModel)]="createCompanyEntityReq.companyEntity.password"
+                  required="true"
+                  [toggleMask]="true"
+                  class="bodyText, inputWidth"
+                ></p-password>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <br />
+
+        <hr />
+        <br />
+        <h2 class="secondaryHeader">Point Of Contact</h2>
+        <div style="text-align: center">
+          <button
+            pButton
+            label="Add Point of Contact"
+            type="button"
+            (click)="handleClickAdd()"
+            icon="pi pi-plus"
+            class="p-button-raised"
+          ></button>
+        </div>
+        <br />
+
+        <div style="margin-left: 9%">
+          <p-table
+            id="tablePointOfContact"
+            [value]="createCompanyEntityReq.listOfPointOfContacts"
+            class=".ui-datatable"
+            [style]="{ width: '80%' }"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th
+                  class="p-datatable-thead"
+                  style="width: 7%; text-align: center"
+                >
+                  S/N
+                </th>
+                <th style="text-align: center">Point Of Contact Name</th>
+                <th style="text-align: center">
+                  Point Of Contact Mobile Number
+                </th>
+                <th style="text-align: center">
+                  Point Of Contact Office Number
+                </th>
+                <th style="text-align: center">Point Of Contact Email</th>
+                <th style="width: 7%; text-align: center">Action</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-poc let-rowIndex="rowIndex">
+              <tr>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+
+                <td>
+                  <input
+                    pInputText
+                    id="pocName"
+                    name="pocName_{{ rowIndex }}"
+                    #pocName="ngModel"
+                    type="text"
+                    [(ngModel)]="poc.pocName"
+                    required="true"
+                  />
+                </td>
+
+                <td>
+                  <input
+                    pInputText
+                    id="pocMobileNumber"
+                    name="pocMobileNumber_{{ rowIndex }}"
+                    #pocMobileNumber="ngModel"
+                    type="text"
+                    [(ngModel)]="poc.pocMobileNumber"
+                    required="true"
+                  />
+                </td>
+
+                <td>
+                  <input
+                    pInputText
+                    id="pocOfficeNumber"
+                    name="pocOfficeNumber_{{ rowIndex }}"
+                    #pocOfficeNumber="ngModel"
+                    type="text"
+                    [(ngModel)]="poc.pocOfficeNumber"
+                    required="true"
+                  />
+                </td>
+
+                <td>
+                  <input
+                    pInputText
+                    id="pocEmail"
+                    name="pocEmail_{{ rowIndex }}"
+                    #pocEmail="ngModel"
+                    type="text"
+                    [(ngModel)]="poc.pocEmail"
+                    required="true"
+                  />
+                </td>
+
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    (click)="handleClickRemove(rowIndex)"
+                    icon="pi pi-trash"
+                    class="p-button-rounded p-button-danger p-button-text"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <br />
+        <div style="text-align: center">
+          <button
+            pButton
+            (click)="clear()"
+            class="p-button-raised p-button-secondary"
+          >
+            Clear
+          </button>
+          &nbsp;
+          <input type="submit" value="Create" pButton class="p-button-raised" />
+        </div>
+      </form>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
   </div>
-  <br />
-
-  <hr />
-  <br />
-  <h2 class="secondaryHeader">Point Of Contact</h2>
-  <div style="text-align: center">
-    <button
-    pButton
-      label="Add Point of Contact"
-      type="button"
-      (click)="handleClickAdd()"
-      icon="pi pi-plus"
-      class="p-button-raised"
-    ></button>
-  </div>
-  <br/>
-
-  <div style="margin-left: 17%">
-    <p-table
-      id="tablePointOfContact"
-      [value]="createCompanyEntityReq.listOfPointOfContacts"
-      class=".ui-datatable"
-      [style]="{ width: '80%' }"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th class="p-datatable-thead" style="width: 7%; text-align: center">
-            S/N
-          </th>
-          <th style="text-align: center">Point Of Contact Name</th>
-          <th style="text-align: center">Point Of Contact Mobile Number</th>
-          <th style="text-align: center">Point Of Contact Office Number</th>
-          <th style="text-align: center">Point Of Contact Email</th>
-          <th style="width: 7%; text-align: center">Action</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-poc let-rowIndex="rowIndex">
-        <tr>
-          <td style="text-align: center">{{ rowIndex + 1 }}</td>
-
-          <td>
-            <input
-              pInputText
-              id="pocName"
-              name="pocName_{{ rowIndex }}"
-              #pocName="ngModel"
-              type="text"
-              [(ngModel)]="poc.pocName"
-              required="true"
-            />
-          </td>
-
-          <td>
-            <input
-              pInputText
-              id="pocMobileNumber"
-              name="pocMobileNumber_{{ rowIndex }}"
-              #pocMobileNumber="ngModel"
-              type="text"
-              [(ngModel)]="poc.pocMobileNumber"
-              required="true"
-            />
-          </td>
-
-          <td>
-            <input
-              pInputText
-              id="pocOfficeNumber"
-              name="pocOfficeNumber_{{ rowIndex }}"
-              #pocOfficeNumber="ngModel"
-              type="text"
-              [(ngModel)]="poc.pocOfficeNumber"
-              required="true"
-            />
-          </td>
-
-          <td>
-            <input
-              pInputText
-              id="pocEmail"
-              name="pocEmail_{{ rowIndex }}"
-              #pocEmail="ngModel"
-              type="text"
-              [(ngModel)]="poc.pocEmail"
-              required="true"
-            />
-          </td>
-
-          <td>
-            <button
-              pButton
-              pRipple
-              (click)="handleClickRemove(rowIndex)"
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger p-button-text"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-  <br />
-  <div style="text-align: center">
-    <button pButton (click)="clear()" class="p-button-raised p-button-secondary">Clear</button>
-    &nbsp;
-    <input type="submit" value="Create" pButton class="p-button-raised"/>
-  </div>
-</form>
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 <p-toast></p-toast>
 <app-footer></app-footer>

@@ -120,18 +120,13 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   }
 
   handleClickAddPoc() {
-    console.log("before push")
-    this.company.listOfPointOfContacts.forEach(poc => {
-      console.log(poc.pocEmail + "\n");
-    });
+    if (this.company.listOfPointOfContacts.length >= 4) {
+      this.messageService.add({ severity: 'error', summary: "You can only add up to 4 point of contacts", detail: 'Via MessageService' });
+    } else {
+      this.company.listOfPointOfContacts.push(new PointOfContactEntity());
+      this.company.listOfPointOfContacts = [...this.company.listOfPointOfContacts];
+    }
 
-    this.company.listOfPointOfContacts.push(new PointOfContactEntity());
-    this.company.listOfPointOfContacts = [...this.company.listOfPointOfContacts];
-
-    console.log("after push")
-    this.company.listOfPointOfContacts.forEach(poc => {
-      console.log(poc.pocEmail + "\n");
-    });
   }
 
   handleClickRemovePoc(rowIndex: number) {
