@@ -97,6 +97,13 @@ export class ProductService {
     );
   }
 
+  retrieveFilteredProducts(startDate: string, endDate: string, selectedProductName : string, selectedEnumCategory : string ) : Observable<ProductEntity []>{
+    return this.httpClient.get<ProductEntity[]>(this.baseUrl + "/filterProductByDateCreated?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword() + "&startDate=" +
+    startDate + "&endDate=" + endDate + "&productName=" + selectedProductName + "&productCategory=" + selectedEnumCategory).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";

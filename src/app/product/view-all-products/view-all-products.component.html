@@ -20,12 +20,12 @@
 	<ng-template pTemplate="header">
 		<tr>
 			<th style=" width: 7%; text-align: center;">S/N</th>
-			<th style="width: 25%; text-align: center;">Product Name</th>
-			<th style="text-align: center;">Product Category</th>
-			<th style="text-align: center;">Date Listed</th>
+			<th style="width: 20%; text-align: center;">Product Name</th>
+			<th style="width: 13%; text-align: center;">Product Category</th>
+			<th style="width: 31%; text-align: center;">Date Listed</th>
 			<th style="text-align: center;">Current Month Clickthrough Rate</th>
 			<th style="text-align: center;">Total Clickthrough For Product</th>
-			<th style="width: 7%; text-align: center;">Action</th>
+			<th style="width: 5%; text-align: center;">Action</th>
 
 		</tr>
 
@@ -48,6 +48,16 @@
 				</p-columnFilter>
 			</th>
 			<th>
+
+			 <div id="filterDate">
+                From : <input pInputText name="startDate" type="date" [(ngModel)]="startFilterDate"
+                    [disabled]="false"  min="2013-01-01" max="2022-01-01" (change)="searchForFilteredProducts($event)">
+				&nbsp;
+				To :
+                <input pInputText name="endDate" type="date" [(ngModel)]="endFilterDate" [disabled]="false" min={{startFilterDate}} max="2022-01-01" (change)="searchForFilteredProducts($event)">
+                &nbsp;
+
+            </div>
 		
 
 			</th>
@@ -70,7 +80,7 @@
 			<td style="text-align: center;"> <span
 					class="category-badge type-{{product.productCategoryPricing.categoryType}}">{{product.productCategoryPricing.categoryType}}</span>
 			</td>
-			<td style="text-align: center;">{{getDate(product.productDateCreated)| date: 'dd/MM/yyyy'}}</td>
+			<td style="text-align: center;">{{getDate(product.productDateCreated)| date: 'dd-MM-yyyy'}}</td>
 			<td style="text-align: center;">{{product.clickThroughInfo.monthCounter}}</td>
 			<td style="text-align: center;">{{product.clickThroughInfo.overallCounter}}</td>
 			<td>
