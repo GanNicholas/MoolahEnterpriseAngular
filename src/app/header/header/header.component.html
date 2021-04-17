@@ -1,17 +1,18 @@
+
 <header class="header">
   <a href="/index"><img
     src="http://localhost:8080/MoolahEnterprise-war/resources/images/Moolah%20Enterprise%20(2).png"
-    style="margin-top:10% object-fit: cover"
-    width="24%"
+  
+    width="23%"
   /></a>
   <p-menubar
     [model]="items"
-    [style]="{ border: 'none', 'margin-top': '-7%', 'margin-left': '27%' }"
+    [style]="{ border: 'none', 'margin-top': '-7%', 'margin-left': '23%' }"
   >
-    <aside id="loginbox" class="loginbox" style="margin-top: -2%">
+    <aside id="loginbox" class="loginbox" style="margin-top: -1%">
       <div *ngIf="sessionService.getIsLogin() == false">
         <label for="username">Username </label>
-        <input
+        <input pInputText 
           type="text"
           [(ngModel)]="email"
           size="16"
@@ -20,7 +21,7 @@
         />
         &nbsp;
         <label for="password">Password </label>
-        <input
+        <input pInputText 
           type="password"
           [(ngModel)]="password"
           size="16"
@@ -44,7 +45,7 @@
         ></button>
       </div>
 
-      <div *ngIf="sessionService.getIsLogin() == true" style="">
+      <div *ngIf="sessionService.getIsLogin() == true" >
         <div>
           <div #actualTarget name="actualTarget" id="actualTarget">
             <button
@@ -148,4 +149,5 @@
     </ng-template>
   </p-overlayPanel>
   <br/>
+  <p-toast></p-toast>
 </header>
