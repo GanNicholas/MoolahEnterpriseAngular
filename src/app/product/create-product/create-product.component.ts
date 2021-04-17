@@ -81,6 +81,14 @@ export class CreateProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkCreditOwned(): boolean {
+    return this.sessionService.checkCreditOwned();
+  }
+
+  redirectToTopUpCredit() {
+    this.router.navigate(['makePayment']);
+  }
+
   createProduct(createProductForm: NgForm): void {
     console.log((this.product.assuredSum));
     this.canContinue = true;
@@ -408,11 +416,11 @@ export class CreateProductComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: "Rider Name is required!" });
       this.canContinue = false;
       return;
-    } else if (rider.riderPremiumValue === undefined || rider.riderPremiumValue == null ) {
+    } else if (rider.riderPremiumValue === undefined || rider.riderPremiumValue == null) {
       this.messageService.add({ severity: 'error', summary: "Rider Premium Value is required!" });
       this.canContinue = false;
       return;
-    } else if (rider.riderPremiumValue < 0 ) {
+    } else if (rider.riderPremiumValue < 0) {
       this.messageService.add({ severity: 'error', summary: "Rider Premium Value is invalid!" });
       this.canContinue = false;
       return;
@@ -430,7 +438,7 @@ export class CreateProductComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: "Minimum age is required!" });
       this.canContinue = false;
       return;
-    } else if(premium.minAgeGroup <0){
+    } else if (premium.minAgeGroup < 0) {
       this.messageService.add({ severity: 'error', summary: "Invalid minimum age!" });
       this.canContinue = false;
       return;
@@ -438,7 +446,7 @@ export class CreateProductComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: "Maximum Age is required!" });
       this.canContinue = false;
       return;
-    } else if(premium.maxAgeGroup <0){
+    } else if (premium.maxAgeGroup < 0) {
       this.messageService.add({ severity: 'error', summary: "Invalid maximum age!" });
       this.canContinue = false;
       return;
@@ -446,11 +454,11 @@ export class CreateProductComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: "Premium Value is needed!" });
       this.canContinue = false;
       return;
-    }else if(premium.premiumValue <0){
+    } else if (premium.premiumValue < 0) {
       this.messageService.add({ severity: 'error', summary: "Invalid premium value!" });
       this.canContinue = false;
       return;
-  }
+    }
 
   }
 

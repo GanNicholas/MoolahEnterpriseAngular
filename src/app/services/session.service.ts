@@ -65,6 +65,7 @@ export class SessionService {
   }
 
   checkCreditOwned(): boolean{
+    console.log(this.getCompany().creditOwned);
     return this.getCompany().creditOwned < 1000;
   }
 }

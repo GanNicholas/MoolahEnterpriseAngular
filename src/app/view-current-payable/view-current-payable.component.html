@@ -63,8 +63,8 @@
         <th style="text-align: center" width="20%">Product Name</th>
         <th style="text-align: center" width="5%">Product ID</th>
         <th style="text-align: center" width="10%">Monthly Clicks</th>
-        <th style="text-align: center" width="10%">Subtotal (Credits)</th>
         <th style="text-align: center" width="10%">Subscription (Credits)</th>
+        <th style="text-align: center" width="10%">Subtotal (Credits)</th>
       </tr>
     </ng-template>
 
@@ -74,10 +74,10 @@
         <td style="text-align: center">{{ lineItem.product.productName }}</td>
         <td style="text-align: center">{{ lineItem.product.productId }}</td>
         <td style="text-align: center">{{ lineItem.monthlyClicks }}</td>
-        <td style="text-align: center">{{ lineItem.monthlySubtotalCredit }}</td>
         <td style="text-align: center">
           {{ lineItem.fixedSubscriptionCredit }}
         </td>
+        <td style="text-align: center">{{ lineItem.monthlySubtotalCredit }}</td>
       </tr>
     </ng-template>
   </p-table>
