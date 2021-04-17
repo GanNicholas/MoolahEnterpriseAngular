@@ -39,6 +39,10 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import { ViewTransactionComponent } from './transaction/view-transaction/view-transaction.component';
+import {TabViewModule} from 'primeng/tabview';
+
+
 import {DropdownModule} from 'primeng/dropdown';
 import { DatePipe } from '@angular/common';
 import {AvatarModule} from 'primeng/avatar';
@@ -46,6 +50,7 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {MenuModule} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
+import { DeactivateAccountComponent } from './deactivate/deactivate-account/deactivate-account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +68,8 @@ import {MenuItem} from 'primeng/api';
     KeyNewPasswordComponent,
     MakePaymentComponent,
     AboutUsComponent,
+    ViewTransactionComponent,
+    DeactivateAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +95,7 @@ import {MenuItem} from 'primeng/api';
     KeyFilterModule,
     MessageModule,
     MessagesModule,
+    TabViewModule,
     DropdownModule,
     AvatarGroupModule,
     AvatarModule,

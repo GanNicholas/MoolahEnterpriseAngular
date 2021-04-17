@@ -10,7 +10,7 @@
 
 <h2 class="secondaryHeader">Product Information</h2>
 </div>
-<form #createProductForm="ngForm" (ngSubmit)="createProduct(createProductForm)" style="height: 10%">
+<form #createProductForm="ngForm" style="height: 10%">
 
     <table style="border-spacing: 0 23px; margin-left: 30%; width: 70% ">
         <tr>
@@ -159,143 +159,156 @@
 
     </table>
 
-    <br /><br />
+    <br />
+    
+        <div style="text-align: center;">
+            <h2 class="secondaryHeader">Additional Features</h2>
+           
+            <button pButton type="button" icon="pi pi-plus-circle" (click)="handleClickAddFeature()" class="p-button-raised" label="Add Feature"></button>
+            
+        </div>
+        <br/>
 
-    <div style="text-align:center;">
-        <h2 class="secondaryHeader">Additional Features</h2>
-        <br />
-        <p-button label="Add Feature" type="button" (click)="handleClickAddFeature()">
-        </p-button>
-        <br />
-
-    </div>
 
 <div style="margin-left: 10%; width: 80%"  >
     <p-table id="tableFeature" [value]="product.listOfAdditionalFeatures">
         <ng-template pTemplate="header">
             <tr>
-                <th>S/N</th>
-                <th >Feature name</th>
-                <th>Feature Description</th>
-                <th>Action</th>
+                <th style="width: 7%; text-align: center">S/N</th>
+                <th style="width: 30%; text-align: center">Feature name</th>
+                <th style="text-align: center">Feature Description</th>
+                <th style="width: 7%; text-align: center">Action</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-prod let-rowIndex="rowIndex" >
             <tr>
-                <td>{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
 
                 <td>
                     <input pInputText id="featureName" name="featureName_{{rowIndex}}" #featureName="ngModel"
-                        type="text" [(ngModel)]="prod.featureName" required="true" class="bodyText, inputWidth" />
+                        type="text" [(ngModel)]="prod.featureName" required="true" class="bodyText"  style="width: 100%; text-align: center"/>
                 </td>
 
                 <td>
                     <input pInputText id="featureDescription" name="featureDescription_{{rowIndex}}"
                         #featureDescription="ngModel" type="text" [(ngModel)]="prod.featureDescription" required="true"
-                        class="bodyText, inputWidth" />
+                        class="bodyText" style="width: 100%; text-align: center" />
                 </td>
 
                 <td>
-                    <p-button label="Delete" type="button" (click)="handleClickRemoveFeature(rowIndex)"></p-button>
+                    <div style="text-align: center">
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="handleClickRemoveFeature(rowIndex)"></button>
+                    </div>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-    <div style="text-align: center;">
-        <br />
-        <h2 class="secondaryHeader">Riders For Product</h2>
-        <br />
-        <p-button label="Add Rider" type="button" (click)="handleClickAddRider()"></p-button>
-    </div>
+
+<br/>
+
+     <div style="text-align: center;">
+            <h2 class="secondaryHeader">Riders For Products</h2>
+            <button pButton  type="button" icon="pi pi-plus-circle" (click)="handleClickAddRider()" class="p-button-raised" label="Add Rider"></button>
+            
+        </div>
+        <br/>
 
 <div style="margin-left: 10%; width: 80%"  >
     <p-table id="tableRider" [value]="product.listOfRiders">
         <ng-template pTemplate="header">
             <tr>
-                <th>S/N</th>
-                <th>Rider name</th>
-                <th>Rider Premium Value</th>
-                <th>Rider Description</th>
-                <th>Action</th>
+                <th style="width: 7%; text-align: center">S/N</th>
+                <th style="width: 30%; text-align: center">Rider name</th>
+                <th style="width: 15%; text-align: center">Rider Premium Value</th>
+                <th style="text-align: center">Rider Description</th>
+                <th style="width: 7%; text-align: center">Action</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-rider let-rowIndex="rowIndex">
             <tr>
-                <td>{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
 
                 <td>
                     <input pInputText id="riderName" name="riderName_{{rowIndex}}" #riderName="ngModel" type="text"
-                        [(ngModel)]="rider.riderName" required="true" class="bodyText, inputWidth" />
+                        [(ngModel)]="rider.riderName" required="true" class="bodyText" style="width: 100%; text-align: center" />
                 </td>
                 
 
                 <td>
                     <input pInputText id="riderPremiumValue" name="riderPremiumValue_{{rowIndex}}"
                         #riderPremiumValue="ngModel" type="number" [(ngModel)]="rider.riderPremiumValue" required="true"
-                        class="bodyText, inputWidth" />
+                        class="bodyText" style="width: 100%; text-align: center" />
                 </td>
             
 
                 <td>
                     <input pInputText id="riderDescription" name="riderDescription_{{rowIndex}}"
                         #riderDescription="ngModel" type="text" [(ngModel)]="rider.riderDescription" required="true"
-                        class="bodyText, inputWidth" />
+                        class="bodyText" style="width: 100%; text-align: center"/>
                 </td>
                
 
                 <td>
-                    <p-button label="Delete" type="button" (click)="handleClickRemoveRider(rowIndex)"></p-button>
+                    <div style="text-align: center">
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="handleClickRemoveRider(rowIndex)"></button>
+                    </div>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-    <div style="text-align: center;">
-        <br />
-        <h2 class="secondaryHeader">Premium For Product</h2>
-        <br />
-        <p-button label="Add Premium" type="button" (click)="handleClickAddPremium()"></p-button>
-    </div>
+
+<br/>
+
+     <div style="text-align: center;">
+            <h2 class="secondaryHeader">Premium For Product</h2>
+            
+            <button pButton type="button" icon="pi pi-plus-circle" (click)="handleClickAddPremium()" class="p-button-raised" label="Add Premium"></button>
+            
+        </div>
+        <br/>
 
     <div style="margin-left: 10%; width: 80%"  >
     <p-table id="tablePremium" [value]="product.listOfPremium">
         <ng-template pTemplate="header">
             <tr>
-                <th>S/N</th>
-                <th>Min Age Group</th>
-                <th>Max Age Group</th>
-                <th>Premium Value</th>
-                <th>Action</th>
+                <th style="text-align: center">S/N</th>
+                <th style="text-align: center">Min Age Group</th>
+                <th style="text-align: center">Max Age Group</th>
+                <th style="text-align: center">Premium Value</th>
+                <th style="text-align: center">Action</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-premium let-rowIndex="rowIndex">
             <tr>
-                <td>{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
 
                 <td>
                     <input pInputText id="minAge" name="minAge_{{rowIndex}}" #minAge="ngModel" type="number"
-                        [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                        [(ngModel)]="premium.minAgeGroup" required="true" class="bodyText" style="width: 100%; text-align: center" />
                 </td>
                
 
                 <td>
                     <input pInputText id="maxAge" name="maxAge_{{rowIndex}}" #maxAge="ngModel" type="number"
-                        [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                        [(ngModel)]="premium.maxAgeGroup" required="true" class="bodyText" style="width: 100%; text-align: center" />
                 </td>
          
 
                 <td>
                     <input pInputText id="premiumValue" name="premiumValue_{{rowIndex}}" #premiumValue="ngModel"
-                        type="number" [(ngModel)]="premium.premiumValue" required="true" class="bodyText, inputWidth" />
+                        type="number" [(ngModel)]="premium.premiumValue" required="true" class="bodyText" style="width: 100%; text-align: center" />
                 </td>
                
 
                 <td>
-                    <p-button label="Delete" type="button" (click)="handleClickRemovePremium(rowIndex)"></p-button>
+                    <div style="text-align: center">
+                    <button pButton pRipple  icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="handleClickRemovePremium(rowIndex)"></button>
+                    </div>
                 </td>
             </tr>
         </ng-template>
@@ -305,49 +318,54 @@
     <br />
     <div *ngIf="product.isAvailableToSmoker == true">
 
-        <div style="text-align: center;">
+          <div style="text-align: center;">
             <h2 class="secondaryHeader">Smoker Premium For Product</h2>
-            <br />
-            <p-button label="Add Premium" type="button" (click)="handleClickAddSmokerPremium()"></p-button>
-            <br />
-        </div>
+            
+            <button pButton type="button" icon="pi pi-plus-circle" (click)="handleClickAddSmokerPremium()" class="p-button-raised" label="Add Premium"></button>
+            
+            </div>
+             <br/>
+
+        
 <div style="margin-left: 10%; width: 80%"  >
         <p-table  id="tableSmokerPremium" [value]="product.listOfSmokerPremium">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>S/N</th>
-                    <th>Min Age Group</th>
-                    <th>Max Age Group</th>
-                    <th>Premium Value</th>
+                    <th style="text-align: center">S/N</th>
+                    <th style="text-align: center">Min Age Group</th>
+                    <th style="text-align: center">Max Age Group</th>
+                    <th style="text-align: center">Premium Value</th>
                     <th>Action</th>
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-smokepremium let-rowIndex="rowIndex">
                 <tr>
-                    <td>{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center">{{ rowIndex + 1 }}</td>
 
                     <td>
                         <input pInputText id="sminAge" name="sminAge_{{rowIndex}}" #sminAge="ngModel" type="number"
-                            [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText, inputWidth" />
+                            [(ngModel)]="smokepremium.minAgeGroup" required="true" class="bodyText" style="width: 100%; text-align: center" />
                     </td>
+                  
 
                     <td>
                         <input pInputText id="smaxAge" name="smaxAge_{{rowIndex}}" #smaxAge="ngModel" type="number"
-                            [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText, inputWidth" />
+                            [(ngModel)]="smokepremium.maxAgeGroup" required="true" class="bodyText" style="width: 100%; text-align: center" />
                     </td>
                 
 
                     <td>
                         <input pInputText id="spremiumValue" name="spremiumValue_{{rowIndex}}" #spremiumValue="ngModel"
                             type="number" [(ngModel)]="smokepremium.premiumValue" required="true"
-                            class="bodyText, inputWidth" />
+                            class="bodyText" style="width: 100%; text-align: center" />
                     </td>
                    
 
                     <td>
-                        <p-button label="Delete" type="button" (click)="handleClickRemoveSmokerPremium(rowIndex)">
-                        </p-button>
+                        <div style="text-align: center">
+                        <button pButton pRipple  icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="handleClickRemoveSmokerPremium(rowIndex)"></button>
+                        </div>
                     </td>
                 </tr>
             </ng-template>
@@ -355,11 +373,11 @@
         </div>
     </div>
 
-    <br />
+    <br /><br/>
     <div style="text-align: center">
-        <p-button (click)="clear()">Clear</p-button>
+        <button pButton  type="button" label="Clear" badgeClass="p-badge-info" icon="pi pi-refresh" class="p-button-raised p-button-secondary"  (click)="clear()"></button>
         &nbsp;
-        <input pInputText type="submit" value="Create" />
+         <button pButton  type="button" label="Create" badgeClass="p-badge-info" icon="pi pi-plus" class="p-button-info"  (click)="createProduct(createProductForm)"></button>
     </div>
 
 

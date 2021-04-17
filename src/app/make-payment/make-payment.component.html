@@ -4,7 +4,7 @@
   Purchase Moolah Credits
 </h2>
 
-<form #purchaseCreditForm="ngForm" (ngSubmit)="purchaseMoolahCredit()">
+<form #purchaseCreditForm="ngForm" (ngSubmit)="purchaseMoolahCredit()" class="classBody">
   <div *ngIf="back && !success">
     <table style="margin: 0 auto" cellspacing="20px">
       <tr>
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div *ngIf="next && !success">
+  <div *ngIf="next && !success" ng-class="classBody">
     <table style="margin: 0 auto" cellspacing="20px">
       <tr>
         <td>Name of Card Holder&nbsp;</td>
@@ -116,14 +116,14 @@
       </tr>
     </table>
 
-    <div style="text-align: center">
+    <div style="text-align: center"  class="classBody">
       <p-button (click)="goBack()" label="Back"> &nbsp;</p-button> &nbsp;
       <input pInputText type="submit" value="Make Payment" />
     </div>
   </div>
 </form>
 
-<div *ngIf="success" style="text-align: center">
+<div *ngIf="success" style="text-align: center" ng-class="classBody">
   <p>
     You have successfully purchased {{ creditToBuy }} credits for ${{ getAmountPayable() }}
   </p>

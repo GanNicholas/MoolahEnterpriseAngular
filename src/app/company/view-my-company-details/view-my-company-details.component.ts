@@ -1,8 +1,8 @@
+import { SessionService } from 'src/app/services/session.service';
 import { FileUploadService } from '../../services/fileuploadservice.service';
 import { UploadPath } from './../../models/upload-path';
 import { FileUploadModule } from 'primeng/fileupload';
 import { Router } from '@angular/router';
-import { SessionService } from './../../services/session.service';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
 import { NgForm } from '@angular/forms';
@@ -51,12 +51,13 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   uploadPath: UploadPath = new UploadPath();
   file: File = new File(new Array(), "");
 
-  constructor(private sessionService: SessionService,
+  constructor(public sessionService: SessionService,
     private companyService: CompanyService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private fileUploadService: FileUploadService) {
+    private fileUploadService: FileUploadService,
+  ) {
     if (sessionService.getIsLogin() == false) {
       this.router.navigate(["/index"]);
     }
@@ -230,10 +231,17 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
   deactiveAccount() {
     this.companyService.deactivateCompany().subscribe(
       response => {
+        let refundAmt : any  = response; 
         this.resultSuccess = true;
         this.resultError = false;
-        this.messageService.add({ severity: 'success', summary: "You have successfully deactivated your account", detail: 'Via MessageService' });
         this.dialogDeactivateAccount = false;
+
+        this.sessionService.setIsLogin(false);
+        this.sessionService.setCompany(null);
+        this.sessionService.setEmail("");
+        this.sessionService.setPassword("");
+        sessionStorage.clear();
+        this.router.navigate(["../deactivate/deactivateAccount"]);
       },
       error => {
         this.resultError = true;
@@ -244,6 +252,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
         console.log('********** UpdateCompanyComponent.ts: ' + error);
       }
     );
+
   }
 
   onUpload(event: any) {
@@ -252,12 +261,17 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
 
     this.fileUploadService.uploadFile(this.file).subscribe(
       response => {
-        console.log('********** FileUploadComponent.ts: File uploaded successfully: ' + response.status);
+        this.company = response;
+        this.sessionService.setCompany(this.company);
+        this.messageService.add({ severity: 'success', summary: "Your profile has been successfully updated", detail: 'Via MessageService' });
+        this.file = new File(new Array(), "");
+        console.log('********** FileUploadComponent.ts: File uploaded successfully');
       },
       error => {
         console.log('********** FileUploadComponent.ts: ' + error);
       }
     );
   }
+
 
 }

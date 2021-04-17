@@ -14,6 +14,13 @@ export class SessionService {
     return JSON.parse(sessionStorage.company);
   }
 
+  getImageURLFromServer(company: CompanyEntity | null): string {
+    if (company == null) {
+      return "";
+    } else {
+      return "http://localhost:8080/MoolahEnterprise-war/resources/images/" + company.companyImage;
+    }
+  }
 
   setCompany(company: CompanyEntity | null): void {
     sessionStorage.company = JSON.stringify(company);

@@ -19,13 +19,13 @@
 
 	<ng-template pTemplate="header">
 		<tr>
-			<th style="text-align: center;">S/N</th>
-			<th style="text-align: center;">Product Name</th>
-			<th style="text-align: center;">Product Category</th>
-			<th style="text-align: center;">Date Listed</th>
-			<th style="text-align: center;">Monthly Clickthrough Rate</th>
+			<th style=" width: 7%; text-align: center;">S/N</th>
+			<th style="width: 20%; text-align: center;">Product Name</th>
+			<th style="width: 13%; text-align: center;">Product Category</th>
+			<th style="width: 31%; text-align: center;">Date Listed</th>
+			<th style="text-align: center;">Current Month Clickthrough Rate</th>
 			<th style="text-align: center;">Total Clickthrough For Product</th>
-			<th style="text-align: center;">Action</th>
+			<th style="width: 5%; text-align: center;">Action</th>
 
 		</tr>
 
@@ -36,7 +36,7 @@
 				<p-columnFilter type="text" field="productName"></p-columnFilter>
 			</th>
 			<th>
-				<p-columnFilter field="productCategoryPricing.categoryType" matchMode="equals" [showMenu]="false">
+				<p-columnFilter field="productCategoryPricing.categoryType" matchMode="equals" [showMenu]="false" >
 					<ng-template pTemplate="filter" let-value let-filter="filterCallback">
 						<p-dropdown [ngModel]="value" [options]="categoryTypes" (onChange)="filter($event.value)"
 							placeholder="Any" [showClear]="true">
@@ -48,7 +48,17 @@
 				</p-columnFilter>
 			</th>
 			<th>
-				<p-columnFilter type="date" field="productDateCreated" display="menu"></p-columnFilter>
+
+			 <div id="filterDate">
+                From : <input pInputText name="startDate" type="date" [(ngModel)]="startFilterDate"
+                    [disabled]="false"  min="2013-01-01" max="2022-01-01" (change)="searchForFilteredProducts($event)">
+				&nbsp;
+				To :
+                <input pInputText name="endDate" type="date" [(ngModel)]="endFilterDate" [disabled]="false" min={{startFilterDate}} max="2022-01-01" (change)="searchForFilteredProducts($event)">
+                &nbsp;
+
+            </div>
+		
 
 			</th>
 			<th>
@@ -61,18 +71,31 @@
 
 			</th>
 	</ng-template>
+	
 
 	<ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
 		<tr>
-			<td>{{rowIndex + 1}}</td>
-			<td>{{product.productName}}</td>
-			<td> <span
+			<td style="text-align: center;">{{rowIndex + 1}}</td>
+			<td style="text-align: center;">{{product.productName}}</td>
+			<td style="text-align: center;"> <span
 					class="category-badge type-{{product.productCategoryPricing.categoryType}}">{{product.productCategoryPricing.categoryType}}</span>
 			</td>
-			<td>{{getDate(product.productDateCreated)| date: 'MM/dd/yyyy'}}</td>
-			<td>{{product.clickThroughInfo.monthCounter}}</td>
-			<td>{{product.clickThroughInfo.overallCounter}}</td>
-			<td><a routerLink="../../product/viewProductDetails/{{product.productId}}">View Product</a></td>
+			<td style="text-align: center;">{{getDate(product.productDateCreated)| date: 'dd-MM-yyyy'}}</td>
+			<td style="text-align: center;">{{product.clickThroughInfo.monthCounter}}</td>
+			<td style="text-align: center;">{{product.clickThroughInfo.overallCounter}}</td>
+			<td>
+			<div style="text-align: center">
+			<button
+              routerLink ="../../product/viewProductDetails/{{product.productId}}"
+              pButton
+              pRipple
+              icon="pi pi-link"
+              class="p-button-rounded p-button-info p-button-text"
+            ></button>
+			</div>
+			</td>
+
+			
 		</tr>
 	</ng-template>
 </p-table>
