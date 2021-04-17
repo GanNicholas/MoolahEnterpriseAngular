@@ -29,11 +29,7 @@ const routes: Routes = [
   { path: 'password/forgetPassword', component: ForgetPasswordComponent},
   { path: 'password/keyNewPassword', component: KeyNewPasswordComponent},
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
-  { path: 'makePayment', component: MakePaymentComponent },
-  { path: 'aboutus/aboutUs', component: AboutUsComponent },
   { path: 'viewCurrentPayable', component: ViewCurrentPayableComponent },
-  { path: 'product/viewProductDetails', component: ViewProductDetailsComponent },
-  { path: 'product/viewProductDetails/:productId', component: ViewProductDetailsComponent },
   { path: 'transaction/view', component: ViewTransactionComponent },
   { path: 'deactivate/deactivateAccount', component: DeactivateAccountComponent }
 ];
