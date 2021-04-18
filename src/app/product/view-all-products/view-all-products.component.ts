@@ -48,8 +48,8 @@ export class ViewAllProductsComponent implements OnInit {
         this.productsFixed =response;
         this.products = response;
         this.loading = false;
-        //   console.log("Retrieved successfully" + JSON.stringify(this.products));
-
+         //   console.log("Retrieved successfully" + JSON.stringify(this.products));
+                                                                                                        
       },
       error => {
         console.log("Error retrieving products : " + error);
