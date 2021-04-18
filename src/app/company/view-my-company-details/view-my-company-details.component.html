@@ -242,7 +242,7 @@
           <p-table
             id="tablePointOfContact"
             [value]="company.listOfPointOfContacts"
-            dataKey="pocEmail"
+            dataKey="{{rowIndex}}"
             [style]="{ width: '80%', 'z-index': '0' }"
           >
             <ng-template pTemplate="header">
@@ -322,7 +322,7 @@
 
                 <td>
                   <button
-                    (click)="confirm(rowIndex)"
+                    (click)="handleClickRemovePoc(rowIndex)"
                     pButton
                     pRipple
                     icon="pi pi-trash"
