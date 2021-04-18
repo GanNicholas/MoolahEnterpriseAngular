@@ -262,7 +262,7 @@ export class ViewMyCompanyDetailsComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: "Your profile has been successfully updated", detail: 'Via MessageService' });
           this.file = new File(new Array(), "");
           console.log('********** FileUploadComponent.ts: File uploaded successfully');
-        }, 2000);
+        }, 4000);
 
       },
       error => {
