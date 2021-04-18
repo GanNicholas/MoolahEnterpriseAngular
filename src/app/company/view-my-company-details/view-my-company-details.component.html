@@ -242,7 +242,7 @@
           <p-table
             id="tablePointOfContact"
             [value]="company.listOfPointOfContacts"
-            dataKey="{{rowIndex}}"
+            dataKey="rowIndex"
             [style]="{ width: '80%', 'z-index': '0' }"
           >
             <ng-template pTemplate="header">
@@ -271,6 +271,7 @@
                 <td>
                   <input
                     pInputText
+                    id="pocName_{{ rowIndex }}"
                     name="pocName_{{ rowIndex }}"
                     #pocName="ngModel"
                     type="text"
@@ -284,6 +285,7 @@
                 <td>
                   <input
                     pInputText
+                    id="pocMobileNumber_{{ rowIndex }}"
                     name="pocMobileNumber_{{ rowIndex }}"
                     #pocMobileNumber="ngModel"
                     type="text"
@@ -297,6 +299,7 @@
                 <td>
                   <input
                     pInputText
+                    id="pocOfficeNumber_{{ rowIndex }}"
                     name="pocOfficeNumber_{{ rowIndex }}"
                     #pocOfficeNumber="ngModel"
                     type="text"
@@ -310,6 +313,7 @@
                 <td>
                   <input
                     pInputText
+                    id="pocEmail{{ rowIndex }}"
                     name="pocEmail_{{ rowIndex }}"
                     #pocEmail="ngModel"
                     type="text"
