@@ -321,7 +321,7 @@ export class CreateProductComponent implements OnInit {
     let stringText: string = event.target.value;
     let endowment: EndowmentProductEnum = (<any>EndowmentProductEnum)[stringText];
     this.endowmentEnum = endowment;
-    console.log("WholeLife: " + this.endowmentEnum + " type: " + typeof (this.endowmentEnum));
+    console.log("Endowment: " + this.endowmentEnum + " type: " + typeof (this.endowmentEnum));
   }
 
   handleClickAddFeature(): void {
@@ -370,6 +370,17 @@ export class CreateProductComponent implements OnInit {
     this.product.clickThroughInfo = new ClickThroughEntity();
     this.product.productCategoryPricing = null;
     this.productType = "";
+    this.isTermLife = false;
+    this.isWholeLife = false;
+    this.isEndowment = false;
+    this.isSmoker = false;
+    this.assuredSumTouched = false;
+    this.averageInterestTouched = false;
+    this.canContinue = true;
+    this.submitted = false;
+    this.wholeLifeEnum = undefined;
+    this.termLifeEnum = undefined;
+    this.endowmentEnum = undefined;
   }
 
   chooseEnum(event: any): void {
@@ -377,14 +388,23 @@ export class CreateProductComponent implements OnInit {
       this.isTermLife = true;
       this.isWholeLife = false;
       this.isEndowment = false;
+      this.wholeLifeEnum = undefined;
+      this.termLifeEnum = undefined;
+      this.endowmentEnum = undefined;
     } else if (event.target.value == "wholelife") {
       this.isWholeLife = true;
       this.isTermLife = false;
       this.isEndowment = false;
+      this.wholeLifeEnum = undefined;
+      this.termLifeEnum = undefined;
+      this.endowmentEnum = undefined;
     } else if (event.target.value == "endowment") {
       this.isEndowment = true;
       this.isTermLife = false;
       this.isWholeLife = false;
+      this.wholeLifeEnum = undefined;
+      this.termLifeEnum = undefined;
+      this.endowmentEnum = undefined;
 
     }
   }
