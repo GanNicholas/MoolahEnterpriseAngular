@@ -68,7 +68,7 @@
                     </ng-template>
                 </p-table>
             </div>
-            <p-dialog (visibleChange)="clearDialog($event)" [(visible)]="displayPopUp" [modal]="true">
+            <p-dialog (visibleChange)="clearDialog($event)" [(visible)]="displayPopUp" [modal]="true" [style]="{'width':'60%'}">
                 <div class="card" *ngIf="listOfProductLineItem.length > 0">
                     <h3>View Product Line Item(s) for Payment S/N(Payment Id) : {{selectedLineItem+1}}
                         ({{listOfAllSpecificHistoricalTransaction[selectedLineItem].paymentEntity.paymentId}})</h3>
@@ -79,8 +79,8 @@
                                 <th>Product Line Item ID</th>
                                 <th>Product ID</th>
                                 <th>Monthly Clicks</th>
-                                <th>Monthly subtotal credit</th>
-                                <th>Fixed Subscription credit</th>
+                                <th>Monthly subtotal Credit</th>
+                                <th>Fixed Subscription Credit</th>
 
                             </tr>
                         </ng-template>
