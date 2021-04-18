@@ -156,7 +156,7 @@
             [value]="createCompanyEntityReq.listOfPointOfContacts"
             class=".ui-datatable"
             [style]="{ width: '80%', 'z-index': '0' }"
-            dataKey="{{rowIndex}}"
+            dataKey="rowIndex"
           >
             <ng-template pTemplate="header">
               <tr>
@@ -185,7 +185,7 @@
                 <td>
                   <input
                     pInputText
-                    id="pocName"
+                    id="pocName_{{rowIndex}}"
                     name="pocName_{{ rowIndex }}"
                     #pocName="ngModel"
                     type="text"
@@ -197,7 +197,7 @@
                 <td>
                   <input
                     pInputText
-                    id="pocMobileNumber"
+                    id="pocMobileNumber_{{rowIndex}}"
                     name="pocMobileNumber_{{ rowIndex }}"
                     #pocMobileNumber="ngModel"
                     type="text"
@@ -209,7 +209,7 @@
                 <td>
                   <input
                     pInputText
-                    id="pocOfficeNumber"
+                    id="pocOfficeNumber_{{rowIndex}}"
                     name="pocOfficeNumber_{{ rowIndex }}"
                     #pocOfficeNumber="ngModel"
                     type="text"
@@ -221,7 +221,7 @@
                 <td>
                   <input
                     pInputText
-                    id="pocEmail"
+                    id="pocEmail_{{rowIndex}}"
                     name="pocEmail_{{ rowIndex }}"
                     #pocEmail="ngModel"
                     type="text"
