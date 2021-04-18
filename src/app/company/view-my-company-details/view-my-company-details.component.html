@@ -4,7 +4,8 @@
 <div style="z-index: -1" id="tag">
   <div style="width: 100%; height: 1700px"></div>
 </div>
-<div style="z-index: 1; margin-top: -99%">
+<div style="z-index: 1; margin-top: -100%">
+
   <h1 style="text-align: center" class="pageHeader">View my Profile</h1>
   <br />
 
@@ -241,7 +242,7 @@
           <p-table
             id="tablePointOfContact"
             [value]="company.listOfPointOfContacts"
-            dataKey="pocEmail"
+            dataKey="{{rowIndex}}"
             [style]="{ width: '80%', 'z-index': '0' }"
           >
             <ng-template pTemplate="header">
@@ -321,7 +322,7 @@
 
                 <td>
                   <button
-                    (click)="confirm(rowIndex)"
+                    (click)="handleClickRemovePoc(rowIndex)"
                     pButton
                     pRipple
                     icon="pi pi-trash"
@@ -353,11 +354,6 @@
             style="width: 15%"
           ></button>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <br />
       </div>
     </div>

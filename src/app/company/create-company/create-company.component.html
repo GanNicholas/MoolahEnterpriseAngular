@@ -13,8 +13,8 @@
       </h2>
       <form
         #createCompanyForm="ngForm"
-        (ngSubmit)="create(createCompanyForm)"
         style="height: 10%"
+        (ngSubmit)="create(createCompanyForm)"
       >
         <div style="text-align: center">
           <table width="30%" style="margin-left: 35%; border-spacing: 0 23px">
@@ -150,12 +150,13 @@
         </div>
         <br />
 
-        <div style="margin-left: 9%">
+        <div style="margin-left: 14%; width: 86%">
           <p-table
             id="tablePointOfContact"
             [value]="createCompanyEntityReq.listOfPointOfContacts"
             class=".ui-datatable"
             [style]="{ width: '80%', 'z-index': '0' }"
+            dataKey="{{rowIndex}}"
           >
             <ng-template pTemplate="header">
               <tr>
@@ -252,7 +253,7 @@
             Clear
           </button>
           &nbsp;
-          <input type="submit" value="Create" pButton class="p-button-raised" />
+          <input pButton type="submit" value="Create" class="p-button-raised"/>
         </div>
       </form>
       <br />
